@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="20sp" 
+            android:background="@color/RedTheme"/>
+        
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/YellowDackThem"
+            android:text="@string/quick_registration_tips"
+            android:textColor="@color/redLight1"
+            android:padding="10dp"
+            android:textSize="17sp"/>
+        
+        <EditText
+		    android:id="@+id/et_invite_code"
+		    android:layout_width="150dp"
+			android:layout_height="wrap_content"
+			android:hint="@string/inviteCode"
+			android:singleLine="true"
+			android:layout_marginTop="20dp"
+			android:layout_marginLeft="20dp"
+			android:textColor="@color/grey"
+			    android:background="@drawable/trench_edittext_bg_selector"
+        		android:padding="10dp"/>
+        
+		<TextView 
+		    android:id="@+id/tv_quick_registration"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/down_load_install_selector"
+        	android:text="@string/quick_registration"
+        	android:gravity="center_horizontal"
+        	android:textSize="18sp"
+        	android:padding="10dp"
+        	android:layout_margin="20dp"
+        	android:textColor="@color/white"
+        	android:textStyle="bold"/>
+
+		<TextView
+		    android:id="@+id/tv_login"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/hasUser"
+		    android:gravity="right"
+		    android:textColor="@color/grey" 
+		    android:paddingRight="20dp"/>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

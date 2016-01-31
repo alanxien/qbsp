@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_task_info"     
+	            android:text="任务内容的发生的防晒霜的份上" 
+	            android:textColor="@color/grey"  
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/>
+	        <TextView   
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_task_integral" 
+	            android:text="任务奖励" 
+	            android:textColor="@color/grey" 
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/> 
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_finish_time"    
+	            android:text="完成时间" 
+	            android:textColor="@color/grey"
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/> 
+    
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

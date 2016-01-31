@@ -1,0 +1,165 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_fragment_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical"
+    android:paddingBottom="50dp"
+    android:background="@color/graythem">
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/RedTheme"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="20dp">
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="收益余额（元）"
+            android:textColor="@color/white1"/>
+        <TextView 
+            android:id="@+id/tv_balance_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="5.97"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:textColor="@color/white1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white1"/>
+
+        <TextView
+            android:id="@+id/tv_all_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="累计收益（元）5.57"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white1" />
+        
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:id="@+id/ll_img_switch" 
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp">
+        
+		<com.chuannuo.qianbaosuoping.view.MyImgScroll
+	        android:id="@+id/myvp"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" />
+
+	    <LinearLayout
+	        android:id="@+id/vb"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/myvp"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginBottom="10dp"
+	        android:orientation="horizontal" >
+	    </LinearLayout>
+
+    </RelativeLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="10dp">
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white1"
+            android:orientation="vertical">
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:layout_marginTop="10dp"
+                android:text="每日签到（次）"
+                android:textColor="@color/tab_normal_font_color"/>
+            <TextView
+                android:id="@+id/tv_sign_times" 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:textSize="30sp"
+                android:textColor="@color/blueNew"
+                android:text="0"/>
+            <TextView 
+                android:id="@+id/tv_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:padding="5dp"
+                android:textColor="@color/white1"
+                android:text="签到"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_blue"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"/>
+            
+        </LinearLayout>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:background="@color/white1">
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="邀请码"
+                android:textColor="@color/tab_normal_font_color"/>
+            <TextView
+                android:id="@+id/tv_invitation_code" 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:textSize="30sp"
+                android:textColor="@color/RedTheme"
+                android:text="56223sd"/>
+            <TextView 
+                android:id="@+id/tv_promote_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:padding="5dp"
+                android:textColor="@color/white1"
+                android:text="邀请好友"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_red" 
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    
+</LinearLayout>

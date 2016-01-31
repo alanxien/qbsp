@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blueSky">#fff68421</color>
+    <color name="yellow_setting">#fff1a918</color>
+    <color name="yellowHead">#fffda620</color>
+    <color name="yellowDetail">#ffff6420</color>
+    <color name="yellow1">#fff68421</color>
+    <color name="BLUE">#ff0000ff</color>
+    <color name="blueSky1">#ff007fff</color>
+    <color name="blue">#ffccddff</color>
+    <color name="red">#ffff0000</color>
+    <color name="redLight1">#ffff5252</color>
+    <color name="redLight2">#fff8f0e5</color>
+    <color name="grey">#ff58616d</color>
+    <color name="darkgrey">#ff404040</color>
+    <color name="toasterro">#ff9fd524</color>
+    <color name="lightgrey">#ff888888</color>
+    <color name="YellowLightThem">#ffec7905</color>
+    <color name="YellowDackThem">#ffFEF5CC</color>
+    <color name="semitransparent">#20000000</color>
+    <color name="lightransparent">#a0000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="navpage">#ffe1e8eb</color>
+    <color name="black">#ff000000</color>
+    <color name="black1">#ff3b3b3b</color>
+    <color name="blackLight1">#ff606060</color>
+    <color name="blackLight2">#ffb0b0b0</color>
+    <color name="blackLight3">#ff7b7b7b</color>
+    <color name="blackLight4">#ff333333</color>
+    <color name="white">#fff6f6f6</color>
+    <color name="graythem">#ffececec</color>
+    <color name="greythem">#ffe0e0e0</color>
+    <color name="graythem1">#ff888888</color>
+    <color name="white1">#ffffffff</color>
+    <color name="white2">#fffcfcfc</color>
+    <color name="background_1">#ff848484</color>
+    <color name="whats_on_separator">#4d000000</color>
+    <color name="all_track_color">#ff222222</color>
+    <color name="block_column_1">#ff0fabff</color>
+    <color name="block_column_2">#ffdf1831</color>
+    <color name="block_column_3">#ff009939</color>
+    <color name="GreenThem">#ff2dcc70</color>
+    <color name="sliding_menu_item_down">#ff39393b</color>
+    <color name="sliding_menu_item_release">#00000000</color>
+    <color name="sliding_menu_background">#ff2c2c2e</color>
+    <color name="sliding_menu_body_background">#fff5f5f5</color>
+    <color name="bg">#ff000000</color>
+    <color name="umeng_fb_color_btn_pressed">#ff1495f7</color>
+    <color name="umeng_fb_color_btn_normal">#ff333333</color>
+    
+    <color name="wave_bg">#ff111111</color>
+    <color name="blueNew">#ff12ABCB</color>
+    <color name="pink">#FA9999</color>
+    
+    <color name="RedTheme">#ffef4136</color><!-- #ffef4136 -->
+    <color name="tab_pressed_font_color">#ffffffff</color>
+    <color name="tab_normal_font_color">#ff8d9094</color>
+</resources>

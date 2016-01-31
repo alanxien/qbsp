@@ -1,0 +1,425 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white1">
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+	        android:id="@+id/tv_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:background="@color/RedTheme"
+	        android:gravity="center"
+	        android:padding="10dp"
+	        android:text="@string/m_news_help"
+	        android:textColor="@color/white"
+	        android:textSize="20sp"
+	        android:textStyle="bold" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_share"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:clickable="true"
+	        android:onClick="share"
+	        android:padding="5dp"
+	        android:paddingRight="15dp"
+	        android:src="@drawable/share" 
+	        android:background="@drawable/btn_back_yellow"/>
+
+	    <ImageView
+	        android:id="@+id/iv_back"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:background="@drawable/btn_back_yellow"
+	        android:clickable="true"
+	        android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+	        android:onClick="back"
+	        android:src="@drawable/back_selected" />
+
+    </RelativeLayout>
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_1" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title1" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_1"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp1" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title1"
+                android:text="@string/help_1_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title1"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp1"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_2" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title2" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_2"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp2" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title2"
+                android:text="@string/help_2_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title2"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp2"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_3" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title3" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_3"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp3" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title3"
+                android:text="@string/help_3_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title3"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp3"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_4" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title4" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_4"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp4" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title4"
+                android:text="@string/help_4_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title4"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp4"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_5" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title5" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_5"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp5" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title5"
+                android:text="@string/help_5_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title5"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp5"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_6" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title6" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_6"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp6" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title6"
+                android:text="@string/help_6_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title6"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp6"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_7" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title7" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_7"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp7" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title7"
+                android:text="@string/help_7_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title7"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp7"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_8" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title8" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_8"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp8" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title8"
+                android:text="@string/help_8_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title8"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp8"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rl_help_9" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            
+            <TextView
+                android:id="@+id/tv_title9" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_9"
+                android:textColor="@color/grey"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"/>
+            
+            <TextView
+                android:id="@+id/tv_exp9" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title9"
+                android:text="@string/help_9_exp"
+                android:textColor="@color/graythem1"
+                android:padding="5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_image_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/tv_title9"
+                android:src="@drawable/newuser1"/>
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey"
+                android:layout_below="@+id/tv_exp9"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
+
+
+
+
+

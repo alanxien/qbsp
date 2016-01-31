@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+    <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_ex_account"     
+	            android:text="兑换账号" 
+	            android:textColor="@color/grey"  
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/>
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_ex_info"     
+	            android:text="兑换信息" 
+	            android:textColor="@color/grey"  
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/>
+	        <TextView   
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_ex_integral" 
+	            android:text="兑换积分" 
+	            android:textColor="@color/grey" 
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/> 
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_ex_remark"    
+	            android:text="未通过，刷积分" 
+	            android:textColor="@color/grey"
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/>
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_ex_time"    
+	            android:text="2014-12-14 03:25:05" 
+	            android:textColor="@color/grey"
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/> 
+	        
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

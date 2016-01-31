@@ -1,0 +1,458 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/graythem">
+    
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/RedTheme"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/more"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+    <ScrollView 
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tv_title">
+    
+   <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10.0dip"
+            android:background="@drawable/background_shap"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/rl_account_setting"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save_top"
+                android:clickable="true" >
+
+                <ImageView
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:background="@drawable/icon_darenbangdan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_account_setting"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" 
+                    android:paddingRight="10dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_share_application"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save"
+                android:clickable="true" 
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:background="@drawable/fenxiangyingyong" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_share_application"
+                    android:textColor="@color/grey"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" 
+                    android:paddingRight="10dp"/>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/graythem"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_promotion_strategy"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save"
+                android:clickable="true" >
+
+                <ImageView
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:background="@drawable/icon_tuiguanggonglue" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_strategy"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" 
+                    android:paddingRight="10dp"/>
+            </RelativeLayout>
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/graythem"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_wave"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save"
+                android:clickable="true" >
+
+                <ImageView
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:background="@drawable/icon_xinshoubangzhu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="摇一摇抽奖"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" 
+                    android:paddingRight="10dp"/>
+            </RelativeLayout>
+            
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/graythem"/>
+            
+            <RelativeLayout
+                android:id="@+id/rl_qr_code"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save"
+                android:clickable="true" >
+
+                <ImageView
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/icon_qr_code" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_qr_code"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" 
+                    android:paddingRight="10dp"/>
+                
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/graythem"/>
+            
+            <RelativeLayout
+                android:id="@+id/rl_lock_screen"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save" >
+
+                <ImageView
+                    android:layout_width="30.0dip"
+                    android:layout_height="30.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/icon_action_unlock_s" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_lock_screen"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"/>
+                
+                <TextView
+                    android:id="@+id/tv_lock_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_lock_screen_on"
+                    android:layout_toLeftOf="@+id/iv_lock_screen"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/grey"/>
+
+                <ImageView
+                    android:id="@+id/iv_lock_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/radiobtn_on" 
+                    android:paddingRight="10dp"/>
+                
+            </RelativeLayout>
+
+            
+        </LinearLayout>
+
+       <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10.0dip"
+            android:background="@drawable/background_shap"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+            
+           <RelativeLayout
+                android:id="@+id/rl_feedback"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save_top"
+                android:clickable="true" >
+				<ImageView
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:background="@drawable/icon_yonghufankui" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_um_feedback"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" 
+                    android:paddingRight="10dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/graythem"/>
+
+           <RelativeLayout
+                android:id="@+id/rl_system_notice"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save"
+                android:clickable="true" >
+				<ImageView
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:background="@drawable/icon_xitongxiaoxi" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_sys_notice"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" 
+                    android:paddingRight="10dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/graythem"/>
+            
+            <RelativeLayout
+                android:id="@+id/rl_about_us"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_save"
+                android:clickable="true" >
+
+                <ImageView
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15.0dip"
+                    android:background="@drawable/icon_guanyuwomen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="45.0dip"
+                    android:text="@string/m_about_us"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" 
+                    android:paddingRight="10dp"/>
+                
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/graythem"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/save1"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/m_enterprise_qq"
+                    android:textColor="@color/grey"
+                    android:paddingLeft="15dp"
+                    android:textIsSelectable="true"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/graythem"/>
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/save1"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/m_wx_gzhh"
+                    android:textColor="@color/grey"
+                    android:paddingLeft="15dp" 
+                    android:textIsSelectable="true"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="5.0dip"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btn_exit"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:background="@drawable/btn_style_red"
+                android:gravity="center"
+                android:onClick="exit_settings"
+                android:text="退出登录"
+                android:textColor="@color/white"
+                android:textSize="18.0sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</RelativeLayout>

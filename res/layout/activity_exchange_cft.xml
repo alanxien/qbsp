@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical"
+    android:background="@color/white1">
+
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+	        android:id="@+id/tv_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:background="@color/RedTheme"
+	        android:gravity="center"
+	        android:padding="10dp"
+	        android:text="@string/exchange_cft"
+	        android:textColor="@color/white"
+	        android:textSize="20sp"
+	        android:textStyle="bold" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_share"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:clickable="true"
+	        android:onClick="share"
+	        android:padding="5dp"
+	        android:paddingRight="15dp"
+	        android:src="@drawable/share" 
+	        android:background="@drawable/btn_back_yellow"/>
+
+	    <ImageView
+	        android:id="@+id/iv_back"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+	        android:background="@drawable/btn_back_yellow"
+	        android:clickable="true"
+	        android:onClick="back"
+	        android:src="@drawable/back_selected" />
+
+    </RelativeLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+    
+    <RelativeLayout
+        android:id="@+id/rl_tenpay_30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task2_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/caifutong" 
+            android:padding="5dp" />
+		<TextView
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task2_img"
+            android:text="@string/cft_30"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_task2_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/cft_30_integral"
+            android:textColor="@color/RedTheme"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task2_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+   
+    <RelativeLayout
+        android:id="@+id/rl_tenpay_50"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task4_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/caifutong" 
+            android:padding="5dp" />
+		<TextView
+            android:id="@+id/tv_title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task4_img"
+            android:text="@string/cft_50"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_task4_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/cft_50_integral"
+            android:textColor="@color/RedTheme"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task4_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_tenpay_100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task5_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/caifutong" 
+            android:padding="5dp" />
+		<TextView
+            android:id="@+id/tv_title4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task5_img"
+            android:text="@string/cft_100"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_task5_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/cft_100_integral"
+            android:textColor="@color/RedTheme"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task5_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_tenpay_500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task6_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/caifutong" 
+            android:padding="5dp" />
+		<TextView
+            android:id="@+id/tv_title5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task6_img"
+            android:text="@string/cft_500"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_task6_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/cft_500_integral"
+            android:textColor="@color/RedTheme"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task6_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+</LinearLayout>
+</LinearLayout>

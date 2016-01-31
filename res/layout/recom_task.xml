@@ -1,0 +1,143 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white1">
+    
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/GreenThem"/>
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/blueNew"
+        android:paddingBottom="4dp"
+        android:paddingTop="8dp">
+        <TextView
+            android:id="@+id/tv_app_list" 
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="任务列表"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:paddingLeft="10dp"
+		    android:paddingRight="10dp"
+            android:textColor="@color/white1"/>
+
+        <TextView
+            android:id="@+id/tv_depth_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="未完成任务"
+            android:textColor="@color/white1"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/blueNew">
+        <TextView
+            android:id="@+id/tv_blew_app_list" 
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="4dip"
+            android:background="@color/RedTheme"/>
+        <TextView 
+            android:id="@+id/tv_blew_depth_task"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="4dip"
+            android:background="@color/blueNew"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_sign_tips" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="打开软件玩2分钟即完成一次签到，每次签到即可获得5000积分"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:textColor="#E18165"
+        android:background="@color/YellowDackThem"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/lv_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="55.0dip" 
+        android:divider="@color/graythem"
+        android:dividerHeight="0.5dp"
+        android:visibility="gone">
+    </ListView>
+    <ListView
+        android:id="@+id/lv_depth_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="55.0dip" 
+        android:divider="@color/graythem"
+        android:dividerHeight="0.5dp"
+        android:visibility="gone">
+    </ListView>
+<LinearLayout
+    android:id="@+id/ll_progressBar" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:visibility="visible">
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/frame_loading"
+        android:layout_gravity="center" />
+
+    </LinearLayout>
+    
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

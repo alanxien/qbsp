@@ -1,0 +1,22 @@
+CREATE TABLE appInfo(
+    id INTEGER PRIMARY KEY,
+    resource_id INTEGER,
+    ad_id INTEGER, 
+	title VARCHAR(30),
+	price VARCHAR(10),
+	h5_big_url VARCHAR(50),
+	click_type INTEGER DEFAULT 8,
+	b_type INTEGER DEFAULT 0,
+	name VARCHAR(30),
+	icon VARCHAR(50),
+	description INTEGER,
+	package_name VARCHAR(50),
+	brief text,	
+	score INTEGER DEFAULT 0,
+	total_score INTEGER DEFAULT 0,
+	sign_time INTEGER DEFAULT 0,
+	sign_number INTEGER DEFAULT 0,
+	resource_size VARCHAR(20),
+	html_desc text,
+	file text
+);

@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    
+    <TableLayout
+        android:id="@+id/tl_title" 
+        android:layout_width="match_parent"  
+    	android:layout_height="wrap_content"  
+    	android:stretchColumns="*" 
+    	android:background="@color/RedTheme"
+    	>
+        <TableRow>  
+	        <TextView
+	            android:id="@+id/tv_xb_exchanged"     
+	            android:text="任务内容" 
+	            android:textColor="@color/white1"  
+	            android:layout_width="0.0dip"
+	            android:layout_marginTop="1dp"
+	            android:layout_marginRight="1dp"
+	            android:layout_marginLeft="1dp"
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"/>
+	        <TextView    
+	            android:text="任务奖励" 
+	            android:textColor="@color/white1" 
+	            android:layout_width="0.0dip"
+	            android:layout_marginTop="1dp"
+	            android:layout_marginRight="1dp"
+	            android:layout_marginLeft="1dp"
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"/> 
+	        <TextView    
+	            android:text="完成时间" 
+	            android:textColor="@color/white1" 
+	            android:layout_width="0.0dip"
+	            android:layout_marginTop="1dp"
+	            android:layout_marginRight="1dp"
+	            android:layout_marginLeft="1dp"
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"/> 
+	    </TableRow> 
+    </TableLayout>
+    <ListView 
+        android:id="@+id/lv_task_record"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tl_title"
+        android:divider="@color/graythem">
+        
+    </ListView>
+    
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

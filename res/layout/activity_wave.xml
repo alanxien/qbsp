@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white1">
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+	        android:id="@+id/tv_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:background="@color/RedTheme"
+	        android:gravity="center"
+	        android:padding="10dp"
+	        android:text="@string/t_wave"
+	        android:textColor="@color/white"
+	        android:textSize="20sp"
+	        android:textStyle="bold" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_share"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:clickable="true"
+	        android:onClick="share"
+	        android:padding="5dp"
+	        android:paddingRight="15dp"
+	        android:src="@drawable/share" 
+	        android:background="@drawable/btn_back_yellow"/>
+
+	    <ImageView
+	        android:id="@+id/iv_back"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+	        android:background="@drawable/btn_back_yellow"
+	        android:clickable="true"
+	        android:onClick="back"
+	        android:src="@drawable/back_selected" />
+	    
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true" >
+
+        <ImageView
+            android:id="@+id/shakeBg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/shake_hide" 
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/shakeImgUp"
+                android:layout_width="fill_parent"
+                android:layout_height="190dp"
+                android:background="@color/white1" >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/intro_yaojiang_upbig" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/shakeImgDown"
+                android:layout_width="fill_parent"
+                android:layout_height="190dp"
+                android:background="@color/white1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/intro_yaojiang_downbig" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="16dp" 
+            android:text="@string/winning_rules"
+            android:textColor="@color/redLight1" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" 
+    android:padding="5dp">
+    
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_voice"
+        android:paddingRight="5dp"
+        android:layout_gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/tv_account" 
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="赚号2222222222"
+        android:ellipsize="end"
+        android:singleLine="true" 
+        android:textColor="@color/GreenThem"
+        android:gravity="left"/>
+    <TextView 
+        android:id="@+id/tv_desc"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="支付宝10元"
+        android:ellipsize="end"
+        android:singleLine="true" 
+        android:textColor="@color/GreenThem"
+        android:layout_marginLeft="5dp"
+        android:gravity="left"/>
+    <TextView 
+        android:id="@+id/tv_exchange_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10-14 16:21"
+        android:maxLines="1"
+        android:textColor="@color/GreenThem"
+        android:layout_marginLeft="5dp"
+        android:gravity="left"/>
+
+</LinearLayout>

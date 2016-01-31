@@ -1,0 +1,389 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/graythem"/>
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+    <!-- 点乐积分墙 -->
+    <RelativeLayout
+        android:id="@+id/rl_dianjoy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task2_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu5" 
+            android:padding="5dp" />
+        <LinearLayout 
+            android:id="@+id/tv_task2_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_task2_img"
+            android:layout_centerVertical="true">
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:text="@string/more_task_dianjoy"
+	            android:textColor="@color/grey"
+	            android:textSize="15sp" />
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:layout_marginTop="5dp"
+	            android:text="@string/more_task_dianjoy_tips"
+	            android:textColor="@color/graythem1" />
+		</LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/pointer" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task2_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+    <!-- 多盟积分墙 -->
+    <RelativeLayout
+        android:id="@+id/rl_domob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task3_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu1" 
+            android:padding="5dp" />
+		<LinearLayout 
+            android:id="@+id/tv_task3_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_task3_img"
+            android:layout_centerVertical="true">
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:text="@string/more_task_domob"
+	            android:textColor="@color/grey"
+	            android:textSize="15sp" />
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:layout_marginTop="5dp"
+	            android:text="@string/more_task_domob_tips"
+	            android:textColor="@color/graythem1" />
+		</LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/pointer" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task3_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+    <!-- 有米积分墙 -->
+    <RelativeLayout
+        android:id="@+id/rl_youmi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task4_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu13" 
+            android:padding="5dp" />
+		<LinearLayout 
+            android:id="@+id/tv_task4_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_task4_img"
+            android:layout_centerVertical="true">
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:text="@string/more_task_youmi"
+	            android:textColor="@color/grey"
+	            android:textSize="15sp" />
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:layout_marginTop="5dp"
+	            android:text="@string/more_task_youmi_tips"
+	            android:textColor="@color/graythem1" />
+		</LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/pointer" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task4_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+    <!-- 椰果积分墙 -->
+    <RelativeLayout
+        android:id="@+id/rl_yeeguo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task7_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu11" 
+            android:padding="5dp" />
+		<LinearLayout 
+            android:id="@+id/tv_task7_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_task7_img"
+            android:layout_centerVertical="true">
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:text="@string/more_task_yeeguo"
+	            android:textColor="@color/grey"
+	            android:textSize="15sp" />
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:layout_marginTop="5dp"
+	            android:text="@string/more_task_yeeguo_tips"
+	            android:textColor="@color/graythem1" />
+		</LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/pointer" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task7_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+    <!-- 大头鸟积分墙 -->
+    <RelativeLayout
+        android:id="@+id/rl_datouniao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:onClick="datouniao"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task6_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu12" 
+            android:padding="5dp" />
+		<LinearLayout 
+            android:id="@+id/tv_task6_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_task6_img"
+            android:layout_centerVertical="true">
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:text="@string/more_task_dtn"
+	            android:textColor="@color/grey"
+	            android:textSize="15sp" />
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:layout_marginTop="5dp"
+	            android:text="@string/more_task_dtn_tips" 
+	            android:textColor="@color/graythem1" /> 
+		</LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/pointer" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task6_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+    <!-- 鹰眼积分墙 -->
+    <RelativeLayout
+        android:id="@+id/rl_yingyan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true"
+        >
+
+        <ImageView
+            android:id="@+id/iv_task8_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu10" 
+            android:padding="5dp" />
+		<LinearLayout 
+            android:id="@+id/tv_task8_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_task8_img"
+            android:layout_centerVertical="true">
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:text="@string/more_task_yingyan"
+	            android:textColor="@color/grey"
+	            android:textSize="15sp" />
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:layout_marginTop="5dp"
+	            android:text="@string/more_task_yingyan_tips"
+	            android:textColor="@color/graythem1" />
+		</LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/pointer" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task8_img"
+            android:layout_marginTop="5dp" 
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+    <!-- 米迪积分墙 -->
+    <RelativeLayout
+        android:id="@+id/rl_midi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task9_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu5" 
+            android:padding="5dp" />
+        <LinearLayout 
+            android:id="@+id/tv_task9_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/iv_task9_img"
+            android:layout_centerVertical="true">
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:text="@string/more_task_midi"
+	            android:textColor="@color/grey"
+	            android:textSize="15sp" />
+			<TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="15dp"
+	            android:layout_marginTop="5dp"
+	            android:text="@string/more_task_midi_tips"
+	            android:textColor="@color/graythem1" />
+		</LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/pointer" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task9_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+                
+        </LinearLayout>
+        
+    </ScrollView>
+    
+</LinearLayout>

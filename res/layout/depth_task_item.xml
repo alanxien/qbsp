@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white1"
+    android:padding="5dp" >
+    <ImageView
+        android:id="@+id/iv_app_icon"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/linelayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_app_icon"
+        android:orientation="vertical" >
+
+	        <TextView
+	            android:id="@+id/tv_app_name"
+	            android:layout_width="100dp"
+	            android:layout_height="wrap_content"
+	            android:textSize="17sp"
+	            android:ellipsize="end"
+        		android:singleLine="true" 
+	            android:text="whats app"
+	            android:textColor="@color/grey" />
+	         
+         <LinearLayout
+             android:id="@+id/ll_sign_times" 
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+             <TextView
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:maxLines="1"
+		         android:text="已签到："
+		         android:textColor="@color/graythem1" />
+             <TextView
+		         android:id="@+id/tv_sign_times"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:maxLines="1"
+		         android:textSize="17sp"
+		         android:text="3"
+		         android:textColor="@color/GreenThem" />
+         </LinearLayout>
+         
+        <TextView
+                android:id="@+id/tv_sign_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="@string/sign_rules" 
+                android:textColor="@color/graythem1"/>
+        <TextView
+                android:id="@+id/tv_is_add_ntegral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="任务未完成，签到完成任务" 
+                android:textColor="#E18165"
+        		android:background="@color/YellowDackThem"
+        		android:visibility="gone"/>
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:text="签到"
+        android:textSize="17sp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white1" 
+        android:background="@drawable/down_load_install_selector"/>
+
+</RelativeLayout>
+
+

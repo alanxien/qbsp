@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+    <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_inv_id"     
+	            android:text="被邀请人ID" 
+	            android:textColor="@color/grey"  
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/>
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_inv_time"     
+	            android:text="邀请时间" 
+	            android:textColor="@color/grey"  
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/>
+	        <TextView   
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:id="@+id/tv_inv_integral" 
+	            android:text="获得积分" 
+	            android:textColor="@color/grey" 
+	            android:padding="5dip"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:background="@drawable/text_view_bord"/> 
+    
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

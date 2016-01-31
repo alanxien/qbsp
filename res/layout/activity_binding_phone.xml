@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_kill_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/binding_phone"
+            android:textColor="@color/white"
+            android:textSize="20sp" 
+            android:background="@color/RedTheme"/>
+        
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/YellowDackThem"
+            android:text="@string/binding_phone_tips"
+            android:textColor="@color/redLight1"
+            android:padding="10dp"
+            android:textSize="17sp"/>
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+            <EditText
+			    android:id="@+id/et_mobile" 
+			    android:layout_width="150dp"
+			    android:layout_height="wrap_content"
+			    android:inputType="number"
+			    android:background="@drawable/trench_edittext_bg_selector"
+			    android:padding="10dp"
+			    android:hint="@string/phoneNumber"/>
+            <TextView 
+                android:id="@+id/tv_get_code"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white1"
+                android:text="@string/testGetCode"
+                android:textSize="15sp"
+                android:padding="10dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_horizontal"
+                android:background="@drawable/down_load_install_selector"
+                />
+        </LinearLayout>
+		
+		<LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+        	<EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请设置您的密码"
+                android:inputType="textPassword"
+                android:textColor="@color/grey"
+                android:padding="10dp"
+                android:background="@drawable/trench_edittext_bg_selector"
+                android:textSize="18.0sp"
+                android:layout_marginBottom="5dp"/>
+			<EditText
+		   	 	android:id="@+id/et_veri_code"
+		   	 	android:layout_width="150dp"
+				android:layout_height="wrap_content"
+				android:inputType="number"
+				android:hint="@string/msgCode"
+				android:background="@drawable/trench_edittext_bg_selector"
+				android:padding="10dp"/>
+		</LinearLayout>
+		
+		<TextView 
+		    android:id="@+id/tv_binding"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/down_load_install_selector"
+        	android:text="@string/commit"
+        	android:gravity="center_horizontal"
+        	android:textSize="18sp"
+        	android:padding="10dp"
+        	android:layout_margin="20dp"
+        	android:textColor="@color/white"
+        	android:textStyle="bold"/>
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

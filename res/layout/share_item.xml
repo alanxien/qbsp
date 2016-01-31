@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/item_select_light_red"
+    android:padding="5dp" >
+    <ImageView  
+        android:id="@+id/iv_app_icon"
+        android:layout_width="55dip"
+        android:layout_height="55dip"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/linelayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_app_icon"
+        android:orientation="vertical" >
+	        <TextView
+	            android:id="@+id/tv_app_name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textSize="17sp"
+	            android:maxLines="1"
+	            android:text="whats appgasdgasgdagd"
+	            android:textColor="@color/grey" />
+         
+        <TextView
+                android:id="@+id/tv_app_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+        		android:singleLine="true" 
+                android:text="描述:钱包锁屏是2015最赚钱的应用，2015赚不停" 
+                android:textColor="@color/graythem1"
+                android:layout_marginTop="2dp"/>
+        
+        <RelativeLayout
+             android:id="@+id/ll_sign_times" 
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="2dp">
+             <TextView
+                 android:id="@+id/tv_s"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:maxLines="1"
+		         android:text="已分享："
+		         android:textColor="@color/graythem1" 
+		         android:paddingTop="2dp"/>
+             <TextView
+		         android:id="@+id/tv_share_count"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:maxLines="1"
+		         android:textSize="17sp"
+		         android:text="3"
+		         android:layout_toRightOf="@+id/tv_s"
+		         android:textColor="@color/GreenThem" />
+
+             <TextView
+                 android:id="@+id/tv_score"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="+0.8元"
+                 android:textSize="17sp" 
+                 android:textColor="@color/RedTheme"
+                 android:layout_alignParentRight="true"
+                 android:layout_marginRight="10dp"/>
+
+         </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+
+

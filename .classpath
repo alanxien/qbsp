@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="libs/umeng-update-v2.4.2.jar"/>
+	<classpathentry kind="lib" path="libs/dlnetwork_v3.5.0.jar"/>
+	<classpathentry kind="lib" path="libs/YoumiSdk_v4.10_2014-09-25_offers.jar"/>
+	<classpathentry kind="lib" path="libs/zxingcore.jar"/>
+	<classpathentry kind="lib" path="libs/libammsdk.jar"/>
+	<classpathentry kind="lib" path="libs/mta-sdk-1.6.2.jar"/>
+	<classpathentry kind="lib" path="libs/open_sdk_r4346.jar"/>
+	<classpathentry kind="lib" path="libs/android-async-http-1.4.5.jar"/>
+	<classpathentry kind="lib" path="libs/com.umeng.fb.v5.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/dm_offerwall_2.2.1.jar"/>
+	<classpathentry kind="lib" path="libs/httpmime-4.1.3.jar"/>
+	<classpathentry kind="lib" path="libs/umeng-analytics-v5.2.4.jar"/>
+	<classpathentry kind="lib" path="libs/yeeguo_2014-12-22_v3.0.jar"/>
+	<classpathentry kind="lib" path="libs/com.datouniao.AdPublisher.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

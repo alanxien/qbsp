@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical"
+    android:background="@color/white1">
+
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+	        android:id="@+id/tv_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:background="@color/RedTheme"
+	        android:gravity="center"
+	        android:padding="10dp"
+	        android:text="@string/new_task"
+	        android:textColor="@color/white"
+	        android:textSize="20sp"
+	        android:textStyle="bold" />
+
+	    <ImageView
+	        android:id="@+id/iv_back"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+	        android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+	        android:background="@drawable/btn_back_yellow"
+	        android:clickable="true"
+	        android:onClick="back"
+	        android:src="@drawable/back_selected" />
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rl_know_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task1_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_xinshourenwu" 
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/tv_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task1_img"
+            android:text="@string/task1"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        
+        <TextView
+            android:id="@+id/tv_know_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/task1_reward"
+            android:textColor="@color/GreenThem"
+            android:textSize="15sp" />
+
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task1_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rl_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task2_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_qiandao" 
+            android:padding="5dp" />
+		<TextView
+            android:id="@+id/tv_task2_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task2_img"
+            android:text="@string/task2"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_sign_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/task2_reward"
+            android:textColor="@color/GreenThem"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task2_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rl_wave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task3_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_yaoyiyao"
+            android:padding="5dp"  />
+		<TextView
+            android:id="@+id/tv_task3_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task3_img"
+            android:text="@string/task3"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_wave_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/task3_reward"
+            android:textColor="@color/GreenThem"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task3_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task4_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu13" 
+            android:padding="5dp" />
+		<TextView
+            android:id="@+id/tv_task4_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task4_img"
+            android:text="@string/task4"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_share_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/task4_reward"
+            android:textColor="@color/GreenThem"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task4_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_application_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task5_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_renwu11" 
+            android:padding="5dp" />
+		<TextView
+            android:id="@+id/tv_task5_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task5_img"
+            android:text="@string/task5"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_experience_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/task5_reward"
+            android:textColor="@color/GreenThem"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task5_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+   
+    <RelativeLayout
+        android:id="@+id/rl_exchange_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/new_task_selector"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/iv_task7_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_xinshourenwu" 
+            android:padding="5dp" />
+		<TextView
+            android:id="@+id/tv_task7_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_task7_img"
+            android:text="@string/task7"
+            android:textColor="@color/grey"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_user_info_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/task7_reward"
+            android:textColor="@color/GreenThem"
+            android:textSize="15sp" />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/iv_task7_img"
+            android:layout_marginTop="5dp"
+            android:background="@color/graythem"/>
+
+    </RelativeLayout>
+    
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+

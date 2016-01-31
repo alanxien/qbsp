@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/white1">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/RedTheme"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/convertible"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    
+    <GridView 
+        android:id="@+id/gv_exchange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:verticalSpacing="0.5dp"
+        android:horizontalSpacing="0.5dp"
+        android:background="@color/greythem"
+        android:numColumns="2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/greythem"
+        android:layout_below="@+id/gv_exchange"/>
+
+    <TextView
+        android:id="@+id/tv_for_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gv_exchange"
+        android:text="@string/for_record" 
+        android:textColor="@color/RedTheme"
+        android:padding="10dp"/>
+    <TextView
+        android:id="@+id/tv_underline" 
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/graythem"
+        android:layout_below="@+id/tv_for_record"/>
+    
+    <ListView 
+        android:id="@+id/lv_new_exchanged"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_underline"
+        android:layout_marginBottom="60dp"
+        android:divider="@color/graythem"
+        android:dividerHeight="0.5dp">
+        
+    </ListView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_for_record"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp" 
+        android:visibility="gone"/>
+
+</RelativeLayout>
+
+
+
+
+

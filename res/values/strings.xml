@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">钱包锁屏</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="t_wave">每日摇一摇</string>
+    <string name="finished">已完成</string>
+    <string name="nullString"></string>
+    
+    <!-- 登录 -->
+    <string name="home_page">首页</string>
+    <string name="login">登 录</string>
+    <string name="account">账号：手机号</string>
+    <string name="password">密码：</string>
+    <string name="remember_password">记住密码</string>
+    <string name="remember_account">记住账号</string>
+    <string name="find_password">找回密码</string>
+    <string name="register">新用户注册</string>
+    <string name="binding_phone">绑定手机</string>
+    <string name="quick_start"></string>
+    <string name="testGetCode">获取验证码</string>
+    <string name="phoneNumber">请输入手机号</string>
+    <string name="msgCode">请输入验证码</string>
+    <string name="inviteCode">邀请码可为空</string>
+    <string name="hasUser">已有账号 立即登录</string>
+    <string name="set_password">设置密码</string>
+    
+    
+    <!-- 积分兑换 -->
+    <string name="convertible">可兑换：0</string>
+    <string name="user_center">赚号：888888</string>
+    <string name="more">更多</string>
+    <string name="for_record">最新兑换记录</string>
+    <string name="new_task">新手任务</string>
+    <string name="app_desc">赚钱秘籍</string>
+    <string name="exchange">兑换</string>
+    <string name="eg_qb">兑换后帮您代充，审核通过后1天内到账</string>
+    <string name="need_exchange">需要兑换的积分</string>
+    
+    <!-- dialog 对话框-->
+    <string name="dg_new_title">欢迎加入钱包锁屏</string>
+    <string name="dg_new_confirm">去做新任务</string>
+    <string name="dg_new_cancel">不用了我会玩</string>
+    <string name="dg_new_msg">花费5分钟完成新手任务即可兑换！兑换后一分钟立即到账！</string>
+    <string name="dg_remind_title">友情提示</string>
+    <string name="dg_remind_msg">非常抱歉！检测到当前设备已失去网络连接，请检查并连接网络后打开本应用</string>
+    <string name="dg_to_download">%1$s-已经被您卸载，您的任务还未完成，是否重新下载继续完成任务。</string>
+    <string name="dg_confirm">确认</string>
+    <!-- <string name="dg_improve_userInfo">你尚未完善资料，请到【更多】页面的账号设置完善信息</string> -->
+    <string name="dg_iknow">知道了</string>
+    <string name="dg_wave">马上摇一摇</string>
+    <string name="dg_wave_notice">摇一摇通知</string>
+    <string name="dg_rightNow">马上去做任务</string>
+    <string name="dg_invitation_tips">请先邀请好友注册钱包锁屏，才能分享任务一起赚，一个用户即可获得该任务返利 %1$s积分，一起快钱包锁屏钱，好友越多，赚钱越快。</string>
+    <string name="dg_share_success">分享成功</string>
+    <string name="dg_share_success_tips">您所有符合条件的赚友都会收到任务邀请！共 %1$s个赚友，预计收益 %2$s积分。</string>
+    <string name="dg_invitationNow">马上邀请好友</string>
+    <string name="dg_downLoadNow">马上下载</string>
+    <string name="dg_return">返回</string>
+    <!-- <string name="dg_info_confirm">信息确认</string> -->
+    <string name="dg_improve_qqinfo">你尚未绑定QQ号，请到【更多】页面的【账号设置】完善信息</string>
+    <string name="dg_improve_zfbinfo">你尚未绑定支付宝账号，请到【更多】页面的【账号设置】完善信息</string>
+    <string name="dg_improve_cftinfo">你尚未绑定财付通账号，请到【更多】页面的【账号设置】完善信息</string>
+    <string name="dg_improve_phoneinfo">你尚未绑定手机号，请到【更多】页面的【账号设置】完善信息</string>
+    <string name="dg_modify_success">修改信息成功！</string>
+    <string name="dg_modify_password_success">秘密修改成功</string>
+    <string name="dg_data_loading">数据加载中&#8230;</string>
+    <string name="dg_exchange_success">恭喜您，兑换成功，估计1天后到账！</string>
+    <string name="dg_share">分享</string>
+    <string name="dg_share_wx">微信朋友圈</string>
+    <string name="dg_share_wx_friends">微信好友</string>
+    <string name="dg_share_qq">QQ分享</string>
+    <string name="dg_share_qq_zone">QQ空间</string>
+
+    <!-- 新手任务 -->
+    <string name="task1">了解钱包锁屏</string>
+    <string name="task1_reward">赚0.01元</string>
+    <string name="task2">每日签到</string>
+    <string name="task2_reward">赚0.05元</string>
+    <string name="task3">每日一摇</string>
+    <string name="task3_reward">赚0.05元</string>
+    <string name="task4">分享任务</string>
+    <string name="task4_reward">赚0.05元</string>
+    <string name="task5">应用任务</string>
+    <string name="task5_reward">赚0.1元</string>
+    <string name="task6">游戏任务</string>
+    <string name="task6_reward">赚0.1元</string>
+    <string name="task7">完善兑换信息</string>
+    <string name="task7_reward">赚0.05元</string>
+    <string name="task8">兑换一个Q币</string>
+    <string name="task8_reward">1秒到账</string>
+    <string name="task_finish">已完成</string>
+    
+    <!-- 每日签到 -->
+    <string name="sign_in_title">每日签到升级送礼包</string>
+    <string name="sign_in_gift_bag">5元+</string>
+    <string name="sign_in_instructions">每日做任务即可获得签到，签到后，可立即赚的0.05。累计签到达到一定天数还有哦额外奖励哦！</string>
+    <string name="sign_in_days">签到天数:</string>
+    <string name="sign_in_level">，等级:</string>
+    <string name="levels">等级数</string>
+    <string name="rewards">奖励积分</string>
+    <string name="receive">领取奖励</string>
+    
+    <!-- 应用详情 -->
+    <string name="application_info">应用详情</string>
+    <string name="down_load_install">下载安装</string>
+    <string name="share_friends_app">分享给赚友</string>
+    <string name="down_loading">正在下载</string>
+    
+    <!-- 完善资料 -->
+    <string name="perfect_info">完善资料</string>
+    <string name="user_id">用户ID：</string>
+    <string name="phone_number">手机号：</string>
+    <string name="phone_number_hint">请输入手机号</string>
+    <string name="password_hint">请输入密码</string>
+    <string name="nick_name">昵称：</string>
+    <string name="nick_name_hint">赚号999999</string>
+    <string name="qq">QQ：</string>
+    <string name="qq_hint">兑换Q币用</string>
+    <string name="caifutong">财付通：</string>
+    <string name="caifutong_hint">输入财付通账号，可留空</string>
+    <string name="alipay">支付宝：</string>
+    <string name="alipay_hint">输入支付宝账号，可留空</string>
+    <string name="save">保存</string>
+    <string name="commit">提交</string>
+    <string name="quick_registration">一键注册</string>
+    <string name="cancel">取消</string>
+    <string name="o_password">原密码：</string>
+    <string name="n_password">新密码：</string>
+    <string name="r_password">重复密码：</string>
+    <string name="o_password_hint">请输入原始密码</string>
+    <string name="n_password_hint">请输入新密码</string>
+    <string name="r_password_hint">请重复新密码</string>
+    
+    <!-- 我 个人中心 -->
+    <string name="exchanged">已兑换:</string>
+    <string name="level">等级:</string>
+    <string name="cumulative_earned">累计已赚</string>
+    <string name="kai_bao_xiang">[开宝箱]</string>
+    <string name="ke_yong_xue_bi">可用余额</string>
+    <string name="qu_gua_jiang">[去刮奖]</string>
+    <string name="task_record">任务记录</string>
+    <string name="exchange_record">兑换记录</string>
+    <string name="invitation_record">邀请记录</string>
+    <string name="my_profile">我的资料</string>
+    
+    <!-- 兑换 -->
+    <string name="exchange_qb">兑换Q币</string>
+    <string name="qb_1">Q币1个</string>
+    <string name="qb_10">Q币10个</string>
+    <string name="qb_20">Q币20个</string>
+    <string name="qb_30">Q币30个</string>
+    <string name="qb_50">Q币50个</string>
+    <string name="qb_1_integral">(10万)</string>
+    <string name="qb_10_integral">(98万)</string>
+    <string name="qb_20_integral">(195万)</string>
+    <string name="qb_30_integral">(290万)</string>
+    <string name="qb_50_integral">(480万)</string>
+    
+    <string name="exchange_qq">兑换QQ业务</string>
+    <string name="qq_hy">QQ会员一个月</string>
+    <string name="qq_yellow">QQ黄钻一个月</string>
+    <string name="qq_blue">QQ蓝钻一个月</string>
+    <string name="qq_red">QQ红钻一个月</string>
+    <string name="qq_green">QQ绿钻一个月</string>
+    <string name="qq_supper">超级QQ一个月</string>
+    <string name="qq_integral">(100万)</string>
+    
+    <string name="exchange_zfb">兑换支付宝</string>
+    <string name="zfb_10">支付宝充值10元</string>
+    <string name="zfb_20">支付宝充值20元</string>
+    <string name="zfb_30">支付宝充值30元</string>
+    <string name="zfb_50">支付宝充值50元</string>
+    <string name="zfb_100">支付宝充值100元</string>
+    <string name="zfb_500">支付宝充值500元</string>
+    <string name="zfb_10_integral">(100万)</string>
+    <string name="zfb_20_integral">(200万)</string>
+    <string name="zfb_30_integral">(300万)</string>
+    <string name="zfb_50_integral">(500万)</string>
+    <string name="zfb_100_integral">(1000万)</string>
+    <string name="zfb_500_integral">(5000万)</string>
+    
+    <string name="exchange_hf">兑换话费</string>
+    <string name="hf_20">充值卡20元</string>
+    <string name="hf_30">充值卡30元</string>
+    <string name="hf_50">充值卡50元</string>
+    <string name="hf_100">充值卡100元</string>
+    <string name="hf_20_integral">(200万)</string>
+    <string name="hf_30_integral">(295万)</string>
+    <string name="hf_50_integral">(490万)</string>
+    <string name="hf_100_integral">(960万)</string>
+    
+    <string name="exchange_cft">兑换财富通</string>
+    <string name="cft_10">财富通充值10元</string>
+    <string name="cft_20">财富通充值20元</string>
+    <string name="cft_30">财富通充值30元</string>
+    <string name="cft_50">财富通充值50元</string>
+    <string name="cft_100">财富通充值100元</string>
+    <string name="cft_500">财富通充值500元</string>
+    <string name="cft_10_integral">(100万)</string>
+    <string name="cft_20_integral">(200万)</string>
+    <string name="cft_30_integral">(300万)</string>
+    <string name="cft_50_integral">(500万)</string>
+    <string name="cft_100_integral">(1000万)</string>
+    <string name="cft_500_integral">(5000万)</string>
+    
+    <!-- 更多 -->
+    <string name="m_strategy">推广攻略</string>
+    <string name="m_account_setting">账号设置/手机绑定</string>
+    <string name="m_modify_userInfo">修改资料</string>
+    <string name="m_modify_password">修改密码</string>
+    <string name="m_share_application">分享应用</string>
+    <string name="m_news_help">新手帮助</string>
+    <string name="m_sys_notice">系统公告</string>
+    <string name="m_um_feedback">反馈</string>
+    <string name="m_about_us">关于我们</string>
+    <string name="m_qr_code">二维码</string>
+    <string name="m_lock_screen">锁屏</string>
+    <string name="m_lock_screen_off">关闭</string>
+    <string name="m_lock_screen_on">开启</string>
+    <string name="m_enterprise_qq">客服QQ：3206629081</string>
+    <string name="m_wx_gzhh">微信公众号：qianbaosuoping</string>
+    <string name="m_enterprise_qq_group">钱包锁屏QQ群：438905929</string>
+    
+    <string name="winning_rules">抽奖说明：做任务赚积分，每做满2万积分任务就可以获得一次抽奖机会，一等奖：2万积分，二等奖：1万积分，三等奖：5000积分，四等奖：3000积分，五等奖：2000积分</string>
+
+    <!-- 新手帮助 -->
+    <string name="help_1">什么是钱包锁屏？</string>
+    <string name="help_1_exp">钱包锁屏是一款让你在玩手机的同时还能赚钱的只能智能手机应用，你可以通过安装，试玩，娱乐，邀请，签到等获取积分，获赠的积分可以兑换Q币，手机话费，也可以通过支付宝或财付通提现。</string>
+    <string name="help_2">积分可以做什么？</string>
+    <string name="help_2_exp">目前积分可以兑换的奖品由：Q币，手机话费，支付宝/财付通提现！</string>
+    <string name="help_3">钱包锁屏的原理和价值是什么？</string>
+    <string name="help_3_exp">
+        1. 应用商家愿意付费请您和您的朋友安装，试玩和分享他们的应用，以便达到快速有效的推广效果。\n
+        2. 您可以利用闲暇零碎时间，挣点零花钱，可以冲话费，提现金，Q币等。\n
+        3. 最主要的是，通过这个赚钱体验的过程，您可以挖掘出真正好玩的应用，让你的手机存在的都是写最优秀的应用软件。</string>
+    <string name="help_4">钱包锁屏多少可以申请提现？</string>
+    <string name="help_4_exp">
+        三种方式：\n
+        1. 当您的收入满1元的时候，你可以兑换一个Q币；\n
+        2. 当您的收入满10元的时候，你可以兑换话费；\n
+        3. 当您的收入满20元的时候，你可以通过支付宝或者财付通提现；
+    </string>
+    <string name="help_5">钱包锁屏是否会泄露我的隐私？</string>
+    <string name="help_5_exp">钱包锁屏保护用户的隐私，除法律规定外，不会主动将您的个人隐私泄露给第三方。</string>
+    <string name="help_6">兑换成功的奖品什么时候可以到账？</string>
+    <string name="help_6_exp">所有奖品在成功兑换后，均在24小时内进行发放，节假日适当顺延！</string>
+    <string name="help_7">什么样的情况下兑换后不予发放？</string>
+    <string name="help_7_exp">为维护广告主及个平台的利益，所有通过模拟机，山寨机刷机的非法用户，我们将执行封号不予支付的方式，希望广大用户采用正常的途径赚取积分！</string>
+    <string name="help_8">为什么安装软件没有得到积分？</string>
+    <string name="help_8_exp">
+        请检查是否有如下错误：\n
+        1. 同一任务里是否重复安装了同款软件；\n
+        2. 在任务下载后没有返回到主界面进行积分同步；\n
+        3. 手机里拥有同款软件，请卸载后在进行安装！</string>
+    <string name="help_9">遇到问题如何联系我们？</string>
+    <string name="help_9_exp">钱包锁屏客服：（QQ）3203746318，我们的Q群：368051854</string>
+    
+    <!-- 关于我们 -->
+    <string name="versions">版本：1.0</string>
+    <string name="desc_app">\t\t钱包锁屏是一款免费的APP,致力于将用户日常用的软件游戏集成到一起\n
+        					\t\t在这个物价飞涨的年代，能赚点是一点，手机党们，快快动起你的手指，还在等什么、</string>
+    
+    <string name="sys_starting">正在开启我的钱包锁屏&#8230;</string>					
+    <string name="sys_remind1">系统注册失败，请检查网络。</string>
+    <string name="sys_remind2"></string>
+    <string name="sys_remind3">网络错误</string>
+    <string name="add_score_success">钱包锁屏温馨提示，积分增加成功！</string>
+    
+    <string name="sys_lucky_draw">系统正在抽奖中&#8230;</string>
+    
+    <!-- 退出钱包锁屏 -->
+    <string name="exit_zhuanmi"> 确定要退出钱包锁屏吗？</string>
+    <string name="exit_content">钱包锁屏稳定的兑换系统，还有更多的任务等你来挑战，无间断每日付款，节假日都不休息！</string>
+    <string name="exit_btn_left">继续退出</string>
+    <string name="exit_btn_right">继续赚</string>
+    
+    <!-- 赚 -->
+    <string name="dl_app">点乐积分墙</string>
+    <string name="yg_app">赢告积分墙</string>
+    <string name="ym_app">有米积分墙</string>
+    <string name="dm_app">多盟积分墙</string>
+    <string name="zm_app">指盟积分墙</string>
+    <string name="coco_app">触控积分墙</string>
+    <string name="yeeguo_app">椰果积分墙</string>
+    <string name="yiangyan_app">鹰眼积分墙</string>
+    
+    <string name="more_task_coco">小思推荐赚钱渠道</string>
+    <string name="more_task_coco_tips">推荐指数★★★★★★★</string>
+    <string name="more_task_dianjoy">小乐推荐赚钱渠道</string>
+    <string name="more_task_dianjoy_tips">推荐指数★★★★★</string>
+    <string name="more_task_domob">小友推荐赚钱渠道</string>
+    <string name="more_task_domob_tips">推荐指数★★★★★</string>
+    <string name="more_task_youmi">小米推荐赚钱渠道</string>
+    <string name="more_task_youmi_tips">推荐指数★★★★★</string>
+    <string name="more_task_yun">小云推荐赚钱渠道</string>
+    <string name="more_task_yun_tips">推荐指数★★★★★</string>
+    <string name="more_task_dtn">小鸟推荐赚钱渠道</string>
+    <string name="more_task_dtn_tips">推荐指数★★★★★</string>
+    <string name="more_task_yeeguo">小果推荐赚钱渠道</string>
+    <string name="more_task_yeeguo_tips">推荐指数★★★★★</string>
+    <string name="more_task_yingyan">小鹰推荐赚钱渠道</string>
+    <string name="more_task_yingyan_tips">推荐指数★★★★★</string>
+    <string name="more_task_midi">小迪推荐赚钱渠道</string>
+    <string name="more_task_midi_tips">推荐指数★★★★★</string>
+    
+    <!-- 绑定手机 -->
+    <string name="binding_phone_tips">请先绑定手机号，如果一分钟内没收到验证码，可以重新获取，10分钟内输入验证码有效！</string>
+    <string name="binding_password_tips">您好，感谢您使用钱包锁屏，您已绑定手机号码:%1$s,赶快登录体验吧！</string>
+    <string name="quick_registration_tips">如果您是受人邀请，请填写邀请码。</string>
+    
+    <!-- 找回密码 -->
+    <string name="find_password_tips">请输入您的手机号码，获取短信验证码，修改密码。如果一分钟内没收到验证码，可以重新获取，10分钟内输入验证码有效！</string>
+    <string name="set_password_tips">您的手机号码是:%1$s,请尽快修改密码！</string>
+    
+    <string name="sign_rules">隔%1$s天签到一次，签到%2$s次任务完成</string>
+    
+    <string name="balance_account">我的工资卡</string>
+    <string name="promote_task">邀请任务</string>
+    <string name="recommended_task">推荐任务</string>
+    <string name="daily_check">每日签到</string>
+    <string name="daily_shake">每日一摇</string>
+    
+    <string name="step_1">每次分享即可获得0.05元，每天最多奖励三次，隔2小时分享才有效（锁屏分享类似）。</string>
+    <string name="step_2">每成功邀请一名真实好友，奖励2元，赠送规则:\n
+       		1. 好友注册返0.2元，\n
+       		2. 好友积分超过22万返0.3元，\n
+       		3. 好友积分超过50万返0.5元，\n
+       		4. 好友积分超过200万返1元，</string>
+    <string name="step_3">分享任务（推荐任务界面）和好友一起赚，可获得该任务20%收益</string>
+    <string name="step_4">您的朋友注册时一定要填写您的邀请码 %1$s</string>
+    <string name="step_5">点击下面图标立即分享给好友吧！</string>
+    
+    
+    <!-- 夺宝 -->
+    <string name="snatch_title">一元夺宝</string>
+    <string name="schedule"><Data><![CDATA[开奖进度 <font color="#2dcc70">%1$s</font>]]></Data></string>
+	<string name="db_count"><Data><![CDATA[参与了 <font color="#ef4136">%1$s</font>人次]]></Data></string>
+	<string name="r_money"><Data><![CDATA[剩余 <font color="#2dcc70">%1$s</font>人次]]></Data></string>
+</resources>
+
+
+
+
+
+
+
+
+
+
