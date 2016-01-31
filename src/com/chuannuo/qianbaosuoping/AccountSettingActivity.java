@@ -36,7 +36,7 @@ public class AccountSettingActivity extends BaseActivity {
 	
 	private TextView tv_user_id;
 	private TextView tv_phone_number;
-	private EditText et_qq;
+	private EditText et_address;
 	private EditText et_zfb;
 	private EditText et_cft;
 	private EditText et_o_password; //原始秘密
@@ -55,7 +55,7 @@ public class AccountSettingActivity extends BaseActivity {
 	private MyPagerAdapter myPagerAdapter;
 	private CustomDialog mDialog;
 	
-	private String qq;
+	private String address;
 	private String alipay;
 	private String tenpay;
 	private String o_password;
@@ -89,7 +89,7 @@ public class AccountSettingActivity extends BaseActivity {
 		
 		tv_user_id = (TextView) page1.findViewById(R.id.tv_user_id);
 		tv_phone_number = (TextView) page1.findViewById(R.id.tv_phone_number);
-		et_qq = (EditText) page1.findViewById(R.id.et_qq);
+		et_address = (EditText) page1.findViewById(R.id.et_address);
 		et_zfb = (EditText) page1.findViewById(R.id.et_zfb);
 		et_cft = (EditText) page1.findViewById(R.id.et_cft);
 		btn_userInfo_commit = (Button) page1.findViewById(R.id.btn_userInfo_commit);
@@ -161,6 +161,7 @@ public class AccountSettingActivity extends BaseActivity {
 			@Override
 			public void onClick(View view) {
 				mDialog.cancel();
+				AccountSettingActivity.this.finish();
 			}
 		}, 1);
         mDialog.setTitle(getResources().getString(R.string.dg_remind_title));
@@ -173,12 +174,12 @@ public class AccountSettingActivity extends BaseActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				RequestParams params = new RequestParams();
-				qq = et_qq.getText().toString();
+				address = et_address.getText().toString();
 				alipay = et_zfb.getText().toString();
 				tenpay = et_cft.getText().toString();
 				params.put("appid", pref.getString(Constant.APPID, "0"));
 				params.put("code", pref.getString(Constant.CODE, "0"));				   
-				params.put("qq_code", qq);
+				params.put("address", address);
 				params.put("alipay_code", alipay);
 				params.put("tenpay_code", tenpay);
 				params.put("password", pref.getString(Constant.PASSWORD, "123456"));
@@ -191,7 +192,7 @@ public class AccountSettingActivity extends BaseActivity {
 							if(response.getInt("code") == 1){
 								editor.putString(Constant.PHONE, pref.getString(Constant.PHONE, ""));
 								editor.putString(Constant.PASSWORD, pref.getString(Constant.PASSWORD, ""));
-								editor.putString(Constant.QQ, qq);
+								editor.putString(Constant.ADDRESS, address);
 								editor.putString(Constant.ZFB, alipay);
 								editor.putString(Constant.CFT, tenpay);
 								editor.commit();
@@ -273,16 +274,47 @@ public class AccountSettingActivity extends BaseActivity {
 			params.put("id", id);
 			tv_user_id.setText(id);
 			String s = pref.getString(Constant.PHONE, "");
-			tv_phone_number.setText(pref.getString(Constant.PHONE, ""));
-			if(!pref.getString(Constant.QQ, "").equals("null") && !pref.getString(Constant.QQ, "").equals("")){
-				et_qq.setText(pref.getString(Constant.QQ, ""));
-			}
-			if(!pref.getString(Constant.ZFB, "").equals("null") && !pref.getString(Constant.ZFB, "").equals("")){
-				et_zfb.setText(pref.getString(Constant.ZFB, ""));
-			}
-			if(!pref.getString(Constant.CFT, "").equals("null") && !pref.getString(Constant.ZFB, "").equals("")){
-				et_cft.setText(pref.getString(Constant.CFT, ""));
-			}
+			tv_phone_number.setText(s);
+			
+			openProgressDialog(getResources().getString(R.string.dg_data_loading));
+			openProgressDialog("数据加载中");
+			HttpUtil.get(Constant.USER_INFO_URL, params, new JsonHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, Header[] headers,
+						JSONObject response) {
+						JSONObject json = response;
+						try {
+							if(json.getString("code").equals("0")){
+								Toast.makeText(AccountSettingActivity.this, response.getString("info"), Toast.LENGTH_SHORT).show();
+							}else{
+								
+								if(!json.getString("address").equals("null")){
+									et_address.setText(json.getString("address"));
+								}
+								if(!json.getString("alipay_code").equals("null")){
+									et_zfb.setText(json.getString("alipay_code"));
+								}
+								if(!json.getString("tenpay_code").equals("null")){
+									et_cft.setText(json.getString("tenpay_code"));
+								}
+								
+								
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally{
+							closeProgressDialog();
+						}
+				}
+				
+				@Override
+				public void onFailure(int statusCode, Header[] headers,
+						Throwable throwable, JSONObject errorResponse) {
+					closeProgressDialog();
+					Toast.makeText(AccountSettingActivity.this, getResources().getString(R.string.sys_remind2), Toast.LENGTH_SHORT).show();
+				}
+			});
 
 		}
 		

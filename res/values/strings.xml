@@ -116,8 +116,8 @@
     <string name="password_hint">请输入密码</string>
     <string name="nick_name">昵称：</string>
     <string name="nick_name_hint">赚号999999</string>
-    <string name="qq">QQ：</string>
-    <string name="qq_hint">兑换Q币用</string>
+    <string name="address">收货地址：</string>
+    <string name="address_hint">夺宝中奖后，会通过此地址发货,请填写详细地址</string>
     <string name="caifutong">财付通：</string>
     <string name="caifutong_hint">输入财付通账号，可留空</string>
     <string name="alipay">支付宝：</string>
@@ -336,8 +336,12 @@
     <!-- 夺宝 -->
     <string name="snatch_title">一元夺宝</string>
     <string name="schedule"><Data><![CDATA[开奖进度 <font color="#2dcc70">%1$s</font>]]></Data></string>
-	<string name="db_count"><Data><![CDATA[参与了 <font color="#ef4136">%1$s</font>人次]]></Data></string>
+	<string name="db_count"><Data><![CDATA[本期参与： <font color="#ef4136">%1$s</font>人次]]></Data></string>
 	<string name="r_money"><Data><![CDATA[剩余 <font color="#2dcc70">%1$s</font>人次]]></Data></string>
+	
+	<string name="db_winner"><Data><![CDATA[获奖者： <font color="#2dcc70">%1$s</font>]]></Data></string>
+	<string name="db_win_num"><Data><![CDATA[幸运号码： <font color="#ef4136">%1$s</font>]]></Data></string>
+	<string name="db_my_num_tips"><Data><![CDATA[本期参与： <font color="#ef4136">%1$s</font>人次，以下是您的所有夺宝号码]]></Data></string>
 </resources>
 
 

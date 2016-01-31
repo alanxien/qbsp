@@ -21,7 +21,7 @@ public interface Constant {
 	String CODE = "code";   //校验码
 	String PHONE = "phone"; //用户电话
 	String PASSWORD = "password"; //用户密码
-	String QQ = "qq";
+	String ADDRESS = "address";
 	String CFT = "cft";
 	String ZFB = "zfb";
     String WAVE_TIMES = "waveTimes";   //摇一摇时间
@@ -165,6 +165,7 @@ public interface Constant {
 	String DB_CART_PAY_URL = DB_BASE+"cartExchangeIndiana";//购物车结算
 	String DB_OLD_TASK_URL = DB_BASE+"oldTaskList";//往期揭晓
 	String DB_ORDER_LIST_URL = DB_BASE+"orderIndianatList";//订单接口 
+	String DB_USER_INFO_URL = DB_BASE+"userInfo";//用户余额
 	
 	String DB_CART_NUM = "CARTNUM";//清单列表
 }

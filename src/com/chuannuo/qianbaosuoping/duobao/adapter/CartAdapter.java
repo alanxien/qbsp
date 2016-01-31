@@ -123,7 +123,7 @@ public class CartAdapter extends BaseAdapter {
 		holder.tv_t_money.setText("总需" + list.get(position).gettMoney() + "人次");
 		holder.tv_r_money
 				.setText(Html.fromHtml(context.getResources().getString(
-						R.string.r_money, list.get(position).gettMoney() - list.get(position).getpMoney() + "")));
+						R.string.r_money, list.get(position).gettMoney() - list.get(position).getpMoney()<=0?"0":list.get(position).gettMoney() - list.get(position).getpMoney() + "")));
 		holder.tv_title.setText(list.get(position).getTitle());
 
 		holder.cb_delete

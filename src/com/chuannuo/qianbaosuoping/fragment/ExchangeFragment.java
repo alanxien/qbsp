@@ -27,8 +27,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chuannuo.qianbaosuoping.ExchangeCFTActivity;
+import com.chuannuo.qianbaosuoping.ExchangeDBActivity;
 import com.chuannuo.qianbaosuoping.ExchangeHFActivity;
-import com.chuannuo.qianbaosuoping.ExchangeQBActivity;
 import com.chuannuo.qianbaosuoping.ExchangeZFBActivity;
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.adapter.ExGridViewAdapter;
@@ -91,7 +91,7 @@ public class ExchangeFragment extends Fragment{
 		listItem = new ArrayList<ExchangeMenu>();
 		ExchangeMenu em0 = new ExchangeMenu();
 		em0.setImageId(R.drawable.withdraw_glod);
-		em0.setName("充Q币");
+		em0.setName("夺宝币");
 		ExchangeMenu em1 = new ExchangeMenu();
 		em1.setImageId(R.drawable.withdraw_phone);
 		em1.setName("话费充值");
@@ -118,7 +118,7 @@ public class ExchangeFragment extends Fragment{
 				int imgId = listItem.get(position).getImageId();
 				switch (imgId) {
 				case R.drawable.withdraw_glod:
-					intent.setClass(ExchangeFragment.this.getActivity(), ExchangeQBActivity.class);
+					intent.setClass(ExchangeFragment.this.getActivity(), ExchangeDBActivity.class);
 					startActivity(intent);
 					break;
 				case R.drawable.withdraw_zhi:
@@ -194,7 +194,7 @@ public class ExchangeFragment extends Fragment{
 							
 							editor.putInt(Constant.SCORE, response.getInt("integral"));
 							editor.commit();
-							float integral = (float) (Long.parseLong(response.getString("integral"))/10000.0);//可用积分
+							double integral = (double) (Long.parseLong(response.getString("integral"))/10000.0);//可用积分
 							DecimalFormat df = new DecimalFormat("0.00");//格式化小数
 							df.setRoundingMode(RoundingMode.DOWN);
 							String money = df.format(integral/10.0).replaceAll("0+?$", "").replaceAll("[.]$", "");

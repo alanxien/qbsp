@@ -89,7 +89,7 @@
             android:textSize="16sp"/>
 
         <CheckBox
-            android:id="@+id/cb_delete"
+            android:id="@+id/checkbox"
             style="@style/trench_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,9 +106,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_m_title"
-            android:text="（账户余额：0元）"
-            android:textColor="@color/grey"
-            android:textSize="13sp" />
+            android:text="（夺宝币：0元）"
+            android:textColor="@color/RedTheme"
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <TextView
@@ -119,7 +119,7 @@
         android:background="@color/graythem" />
     
     <TextView
-        android:id="@+id/tv_picker"
+        android:id="@+id/tv_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

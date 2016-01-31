@@ -1,0 +1,118 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white1"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/iv_pic"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="iphone"
+            android:textColor="@color/grey" />
+
+        <TextView
+            android:id="@+id/tv_qihao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="参与期号：4589688"
+            android:textColor="@color/graythem1" />
+
+        <TextView
+            android:id="@+id/tv_t_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="总需:8888"
+            android:textColor="@color/graythem1" />
+        
+        <TextView
+            android:id="@+id/tv_r_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="剩余:0"
+            android:textColor="@color/graythem1" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/db_count"
+                android:textColor="@color/grey" />
+
+            <TextView
+                android:id="@+id/tv_my_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_blue"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="查看我的号码"
+                android:textColor="@color/white1" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/iv_pic"
+        android:layout_below="@+id/linearLayout1"
+        android:padding="10dp"
+        android:background="@color/white">
+        <TextView
+                android:id="@+id/tv_winner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/db_winner"
+                android:textColor="@color/grey" />
+        
+        <TextView
+                android:id="@+id/tv_winner_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/db_count"
+                android:textColor="@color/grey" />
+        
+        <TextView
+                android:id="@+id/tv_win_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/db_win_num"
+                android:textColor="@color/grey" />
+        
+        <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="揭晓时间 ："
+                android:textColor="@color/grey" />
+    </LinearLayout>
+
+</RelativeLayout>

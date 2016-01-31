@@ -85,7 +85,7 @@ public class OldTaskAdapter extends BaseAdapter {
 		}
 		OldTask o = list.get(position);
 		holder.tv_count.setText(o.getCount()+"");
-		holder.tv_time.setText("揭晓时间 "+o.getLotTime());
+		holder.tv_time.setText("揭晓时间 :"+o.getLotTime());
 		holder.tv_winner.setText(o.getAppId()+"");
 		holder.tv_winNum.setText(o.getWinNumber());
 		return convertView;

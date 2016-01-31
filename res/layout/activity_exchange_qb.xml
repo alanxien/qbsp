@@ -1,238 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:orientation="vertical"
-    android:background="@color/white1">
+    android:layout_height="match_parent"
+    android:background="@color/white1"
+    android:orientation="vertical" >
 
-    <RelativeLayout 
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
-        <TextView
-	        android:id="@+id/tv_title"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:background="@color/RedTheme"
-	        android:gravity="center"
-	        android:padding="10dp"
-	        android:text="@string/exchange_qb"
-	        android:textColor="@color/white"
-	        android:textSize="20sp"
-	        android:textStyle="bold" />
-	    
-	    <ImageView
-	        android:id="@+id/iv_share"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_centerVertical="true"
-	        android:clickable="true"
-	        android:onClick="share"
-	        android:padding="5dp"
-	        android:paddingRight="15dp"
-	        android:src="@drawable/share" 
-	        android:background="@drawable/btn_back_yellow"/>
+        android:layout_height="45dp" >
 
-	    <ImageView
-	        android:id="@+id/iv_back"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_centerVertical="true"
-	        android:paddingLeft="10dp"
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/RedTheme"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="兑换夺宝币"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_back_yellow"
+            android:clickable="true"
+            android:onClick="share"
+            android:padding="5dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/share" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_back_yellow"
+            android:clickable="true"
+            android:onClick="back"
+            android:paddingLeft="10dp"
             android:paddingRight="10dp"
-	        android:background="@drawable/btn_back_yellow"
-	        android:clickable="true"
-	        android:onClick="back"
-	        android:src="@drawable/back_selected" />
-
+            android:src="@drawable/back_selected" />
     </RelativeLayout>
-    
-    <LinearLayout 
+
+    <TextView
+        android:id="@+id/tv_ex_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical">
-	    
-    <RelativeLayout
-        android:id="@+id/rl_qb_10"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:text="当前可兑换5元"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/graythem1" />
+
+    <TextView
+        android:id="@+id/tv_ex_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/new_task_selector"
+        android:padding="8dp"
+        android:text="@string/eg_qb"
+        android:textColor="@color/grey"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10.0dip"
+        android:background="@drawable/shape_top_corner_no_bottom_line"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/tv_ex_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15.0dip"
+            android:text="夺宝币"
+            android:textColor="@color/grey"
+            android:textSize="17.0sp" />
+
+        <EditText
+            android:id="@+id/et_ex_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:background="@null"
+            android:paddingLeft="10dp"
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:text="1"
+            android:textColor="@color/grey"
+            android:textSize="17.0sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_ex_confirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10.0dip"
+        android:background="@drawable/btn_style_red"
         android:clickable="true"
-        android:visibility="gone">
+        android:padding="10dp" >
 
-        <ImageView
-            android:id="@+id/iv_task2_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qb" 
-            android:padding="5dp" />
-		<TextView
-            android:id="@+id/tv_title2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_task2_img"
-            android:text="@string/qb_10"
-            android:textColor="@color/grey"
-            android:textSize="17sp" />
         <TextView
-            android:id="@+id/tv_task2_reward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:text="@string/qb_10_integral"
-            android:textColor="@color/redLight1"
-            android:textSize="15sp" />
-        <TextView 
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/iv_task2_img"
-            android:layout_marginTop="5dp"
-            android:background="@color/graythem"/>
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/dg_confirm"
+            android:textColor="@color/white1"
+            android:textSize="20.0sp" />
+    </LinearLayout>
 
-    </RelativeLayout>
-    
-    <RelativeLayout
-        android:id="@+id/rl_qb_20"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/new_task_selector"
-        android:clickable="true"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/iv_task3_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qb" 
-            android:padding="5dp" />
-		<TextView
-            android:id="@+id/tv_title3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_task3_img"
-            android:text="@string/qb_20"
-            android:textColor="@color/grey"
-            android:textSize="17sp" />
-        <TextView
-            android:id="@+id/tv_task3_reward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:text="@string/qb_20_integral"
-            android:textColor="@color/redLight1"
-            android:textSize="15sp" />
-        <TextView 
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/iv_task3_img"
-            android:layout_marginTop="5dp"
-            android:background="@color/graythem"/>
-
-    </RelativeLayout>
-    
-    <RelativeLayout
-        android:id="@+id/rl_qb_30"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/new_task_selector"
-        android:clickable="true">
-
-        <ImageView
-            android:id="@+id/iv_task4_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qb" 
-            android:padding="5dp" />
-		<TextView
-            android:id="@+id/tv_title4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_task4_img"
-            android:text="@string/qb_30"
-            android:textColor="@color/grey"
-            android:textSize="17sp" />
-        <TextView
-            android:id="@+id/tv_task4_reward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:text="@string/qb_30_integral"
-            android:textColor="@color/redLight1"
-            android:textSize="15sp" />
-        <TextView 
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/iv_task4_img"
-            android:layout_marginTop="5dp"
-            android:background="@color/graythem"/>
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_qb_50"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/new_task_selector"
-        android:clickable="true">
-
-        <ImageView
-            android:id="@+id/iv_task5_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/qb" 
-            android:padding="5dp" />
-		<TextView
-            android:id="@+id/tv_title5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_task5_img"
-            android:text="@string/qb_50"
-            android:textColor="@color/grey"
-            android:textSize="17sp" />
-        <TextView
-            android:id="@+id/tv_task5_reward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:text="@string/qb_50_integral"
-            android:textColor="@color/redLight1"
-            android:textSize="15sp" />
-        <TextView 
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/iv_task5_img"
-            android:layout_marginTop="5dp"
-            android:background="@color/graythem"/>
-
-    </RelativeLayout>
-    
 </LinearLayout>
-</LinearLayout>
-
-
-
-
-
-
-
-
-
-
-

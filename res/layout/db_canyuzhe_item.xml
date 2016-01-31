@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="(广东省广州市IP:118.25.32.110)"
         android:textColor="@color/graythem1"
+        android:layout_marginLeft="10dp"
         android:textSize="12sp" />
 </LinearLayout>
 
@@ -42,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2016-01-18 22:03:35:56"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/graythem1"
         android:textSize="12sp" />
 </LinearLayout>

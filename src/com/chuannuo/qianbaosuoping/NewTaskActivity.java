@@ -92,7 +92,7 @@ public class NewTaskActivity extends BaseActivity implements OnClickListener{
 			tv_experience_reward.setText(getResources().getString(R.string.finished));
 			tv_experience_reward.setTextColor(getResources().getColor(R.color.RedTheme));
 		}
-		if(pref.getBoolean(Constant.TASK_USER_INFO, false) || (!pref.getString(Constant.QQ, "").equals("") && 
+		if(pref.getBoolean(Constant.TASK_USER_INFO, false) || (!pref.getString(Constant.ADDRESS, "").equals("") && 
 			!pref.getString(Constant.ZFB, "").equals("") && !pref.getString(Constant.CFT, "").equals(""))){
 			
 			tv_user_info_reward.setText(getResources().getString(R.string.finished));

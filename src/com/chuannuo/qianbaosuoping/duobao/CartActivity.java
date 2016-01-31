@@ -62,6 +62,7 @@ public class CartActivity extends BaseActivity implements CartClickListener {
 	private int totalNum;
 	private ProgressBar progressBar;
 	private LinearLayout ll_empty;
+	public static boolean isPay = false;
 
 	/*
 	 * (non-Javadoc)
@@ -81,6 +82,7 @@ public class CartActivity extends BaseActivity implements CartClickListener {
 		tv_opt = (TextView) findViewById(R.id.tv_opt);
 		ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
 
+		initData();
 	}
 	
 	/* (non-Javadoc)
@@ -88,7 +90,27 @@ public class CartActivity extends BaseActivity implements CartClickListener {
 	 */
 	@Override
 	protected void onResume() {
-		initData();
+		if(CartActivity.isPay && cList != null){
+			cList.clear();
+			if (null == adapter) {
+				adapter = new CartAdapter(CartActivity.this, cList,
+						CartActivity.this, totalNum);
+			} else {
+				adapter.notifyDataSetChanged();
+			}
+			
+			tv_opt.setText("结算");
+			tv_count.setText("共" + cList.size() + "件商品：");
+			tv_pay_money.setText("0元");
+			
+			if(cList==null || cList.size() ==0){
+				ll_empty.setVisibility(View.VISIBLE);
+				tv_opt.setClickable(false);
+			}else{
+				ll_empty.setVisibility(View.GONE);
+				tv_opt.setClickable(true);
+			}
+		}
 		super.onResume();
 	}
 

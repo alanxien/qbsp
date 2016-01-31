@@ -76,24 +76,6 @@ public class ExchangeActivity extends BaseActivity {
 		// 如果没有绑定手机号
 		if (!isBindingPhone()) {
 			initDialog(Constant.PHONE);
-		} else if (type.equals(Constant.QB)) {
-
-			// 如果没有绑定QQ，弹出框
-			if (!isBindingQQ()) {
-				initDialog(Constant.QQ);
-			}
-			tv_ex_type.setText(getResources().getString(R.string.qq));
-			tv_ex_xb.setText(xbNum / 10000 + "万");
-			tv_ex_account.setText(pref.getString(Constant.QQ, ""));
-		} else if (type.equals(Constant.QQ)) {
-
-			// 如果没有绑定QQ，弹出框
-			if (!isBindingQQ()) {
-				initDialog(Constant.QQ);
-			}
-			tv_ex_type.setText(getResources().getString(R.string.qq));
-			tv_ex_xb.setText(xbNum / 10000 + "万");
-			tv_ex_account.setText(pref.getString(Constant.QQ, ""));
 		} else if (type.equals(Constant.ZFB)) {
 
 			// 如果没有绑定支付宝
@@ -168,11 +150,7 @@ public class ExchangeActivity extends BaseActivity {
 
 		mDialog.setTitle(getResources().getString(R.string.dg_remind_title));
 
-		if (code.equals(Constant.QQ)) {
-
-			mDialog.setContent(getResources().getString(
-					R.string.dg_improve_qqinfo));
-		} else if (code.equals(Constant.ZFB)) {
+		if (code.equals(Constant.ZFB)) {
 
 			mDialog.setContent(getResources().getString(
 					R.string.dg_improve_zfbinfo));

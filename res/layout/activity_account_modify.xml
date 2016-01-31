@@ -142,27 +142,27 @@
             
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="40.0dip"
-                android:layout_margin="5dp"
-                android:gravity="center_vertical">
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
 
                 <TextView 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/qq"
+                    android:text="@string/address"
                     android:textColor="@color/grey"
-                    android:textSize="15.0sp"
-                    android:layout_marginLeft="32dp"/>
+                    android:textSize="15.0sp"/>
                 <EditText
-                    android:id="@+id/et_qq"
+                    android:id="@+id/et_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5.0dip"
-                    android:hint="@string/qq_hint"
+                    android:hint="@string/address_hint"
                     android:textColor="@color/grey"
                     android:textSize="15.0sp" 
+                    android:gravity="top"
+                    android:minLines="3"
                     android:background="@drawable/trench_edittext_bg_selector"
-        android:padding="10dp"/>
+        			android:padding="10dp"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -85,11 +85,11 @@ public class CanyuzheAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		Canyuzhe c = list.get(position);
-		holder.title.setText(c.getTitle());
-		holder.ip.setText(c.getIp());
+		holder.title.setText("×¬ºÅ"+c.getTitle());
+		holder.ip.setText("ip:"+c.getIp());
 		holder.content.setText(Html.fromHtml(context.getResources().getString(R.string.db_count,
 				c.getCount())));
-		holder.date.setText(new Date().toString());
+		holder.date.setText(c.getDate());
 		
 		return convertView;
 	}

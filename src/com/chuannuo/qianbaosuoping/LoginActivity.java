@@ -201,7 +201,7 @@ public class LoginActivity extends BaseActivity {
 					JSONObject response) {
 				try {
 					if(!response.getString("code").equals("0")){
-						editor.putString(Constant.QQ, response.getString("qq_code"));
+						editor.putString(Constant.ADDRESS, response.getString("address"));
 						editor.putString(Constant.ZFB, response.getString("alipay_code"));
 						editor.putString(Constant.CFT, response.getString("tenpay_code"));
 						editor.commit();

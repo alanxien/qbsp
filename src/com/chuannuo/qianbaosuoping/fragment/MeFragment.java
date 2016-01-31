@@ -29,6 +29,7 @@ import com.chuannuo.qianbaosuoping.RecordActivity;
 import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.common.HttpUtil;
 import com.chuannuo.qianbaosuoping.duobao.CartActivity;
+import com.chuannuo.qianbaosuoping.duobao.DuoBaoListActivity;
 import com.chuannuo.qianbaosuoping.duobao.GoodsDetailActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -42,8 +43,8 @@ import com.loopj.android.http.RequestParams;
 public class MeFragment extends Fragment implements OnClickListener{
 
 	private RelativeLayout rl_cart;		//购物车
-	private RelativeLayout rl_order;    //订单
-	private RelativeLayout rl_win_list; //中奖记录
+	private RelativeLayout rl_db_list; //夺宝记录
+	private TextView tv_duobao_yuer;//夺宝余额
 	
 	private LinearLayout ll_my_profile;         //用户资料
 	private View view;
@@ -77,9 +78,8 @@ public class MeFragment extends Fragment implements OnClickListener{
 	}
 	
 	public void initView(){
-		rl_cart = (RelativeLayout) view.findViewById(R.id.rl_cart);
-		rl_order = (RelativeLayout) view.findViewById(R.id.rl_order);
-		rl_win_list = (RelativeLayout) view.findViewById(R.id.rl_win_list);
+		rl_cart = (RelativeLayout) view.findViewById(R.id.rl_me_cart);
+		rl_db_list = (RelativeLayout) view.findViewById(R.id.rl_win_list);
 		ll_my_profile = (LinearLayout) view.findViewById(R.id.ll_my_profile);
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		tv_exchanged = (TextView) view.findViewById(R.id.tv_exchanged);
@@ -88,15 +88,15 @@ public class MeFragment extends Fragment implements OnClickListener{
 		tv_integral_total = (TextView) view.findViewById(R.id.tv_integral_total);
 		tv_integral_usable = (TextView) view.findViewById(R.id.tv_integral_usable);
 		tv_cart_num = (TextView) view.findViewById(R.id.tv_cart_num);
+		tv_duobao_yuer = (TextView) view.findViewById(R.id.tv_duobao_yuer);
 		
 		intent = new Intent();
 		
 		pref = this.getActivity().getSharedPreferences(Constant.STUDENTS_EARN,FragmentActivity.MODE_PRIVATE);
 		editor = pref.edit();
 		
-		rl_order.setOnClickListener(this);
 		rl_cart.setOnClickListener(this);
-		rl_win_list.setOnClickListener(this);
+		rl_db_list.setOnClickListener(this);
 		ll_my_profile.setOnClickListener(this);
 		
 	}
@@ -123,9 +123,9 @@ public class MeFragment extends Fragment implements OnClickListener{
 						tv_sign_times.setText(response.getString("sign_cont"));
 						tv_level.setText(response.getString("grade_cont"));
 						
-						float integraled = (float) (Long.parseLong(response.getString("integraled"))/10000.0);//已兑换积分
-						float integral = (float) (Long.parseLong(response.getString("integral"))/10000.0);//可用积分
-						float integralTotal = (float) ((Long.parseLong(response.getString("integraled"))+Long.parseLong(response.getString("integral")))/10000.0);//累计已赚
+						double integraled = (double) (Long.parseLong(response.getString("integraled"))/10000.0);//已兑换积分
+						double integral = (double) (Long.parseLong(response.getString("integral"))/10000.0);//可用积分
+						double integralTotal = (double) ((Long.parseLong(response.getString("integraled"))+Long.parseLong(response.getString("integral")))/10000.0);//累计已赚
 						
 						editor.putInt(Constant.SCORE, response.getInt("integral"));
 						editor.commit();
@@ -153,6 +153,35 @@ public class MeFragment extends Fragment implements OnClickListener{
 				super.onFailure(statusCode, headers, throwable, errorResponse);
 			}
 		});
+		
+		RequestParams param1 = new RequestParams();
+		param1.put("app_id", pref.getString(Constant.APPID, "0"));
+		
+		HttpUtil.get(Constant.DB_USER_INFO_URL, param1, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				try {
+					if(!response.getString("code").equals("0")){
+						JSONObject obj = response.getJSONObject("data");
+						if(obj != null){
+							int integral = obj.getInt("indiana_money");//可用积分
+							tv_duobao_yuer.setText(integral+"元");
+						}
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				super.onSuccess(statusCode, headers, response);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+		});
 	}
 
 	@Override
@@ -163,14 +192,15 @@ public class MeFragment extends Fragment implements OnClickListener{
 			intent.putExtra("ITEM", 1);
 			startActivity(intent);
 			break;
-		case R.id.rl_cart:
+		case R.id.rl_me_cart:
 			Intent intent = new Intent();
 			intent.setClass(this.getActivity(), CartActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.rl_order:
-			break;
 		case R.id.rl_win_list:
+			Intent intent1 = new Intent();
+			intent1.setClass(this.getActivity(), DuoBaoListActivity.class);
+			startActivity(intent1);
 			break;
 		default:
 			break;

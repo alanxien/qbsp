@@ -62,7 +62,7 @@ public class RecordActivity extends BaseActivity {
     private TextView tv_exchange_total; //兑换记录次数
     private TextView tv_invitation_total;//邀请人数
     private TextView tv_user_account;	//用户账户
-    private TextView tv_qq_number;		//QQ账号
+    private TextView tv_address;		//用户地址
     private TextView tv_alipay_account; //支付宝账户
     private TextView tv_tenpay_account; //财付通账户
     
@@ -242,7 +242,7 @@ public class RecordActivity extends BaseActivity {
 		 tv_task_count = (TextView) pager.findViewById(R.id.tv_task_count);
 		 tv_exchange_total = (TextView) pager.findViewById(R.id.tv_exchange_total);
 		 tv_user_account = (TextView) pager.findViewById(R.id.tv_user_account);
-		 tv_qq_number = (TextView) pager.findViewById(R.id.tv_qq_number);
+		 tv_address = (TextView) pager.findViewById(R.id.tv_address);
 		 tv_alipay_account = (TextView) pager.findViewById(R.id.tv_alipay_account);
 		 tv_tenpay_account = (TextView) pager.findViewById(R.id.tv_tenpay_account);
 		 tv_invitation_total = (TextView) pager.findViewById(R.id.tv_inv_total);
@@ -258,9 +258,9 @@ public class RecordActivity extends BaseActivity {
 					try {
 						if(!response.getString("code").equals("0")){
 							
-							float integraled = (float) (Long.parseLong(response.getString("integraled"))/10000.0);//已兑换积分
+							double integraled = (double) (Long.parseLong(response.getString("integraled"))/10000.0);//已兑换积分
 							double integral = (double) (Long.parseLong(response.getString("integral"))/10000.0);//可用积分
-							float integralTotal = (float) ((Long.parseLong(response.getString("integraled"))+Long.parseLong(response.getString("integral")))/10000.0);//累计已赚
+							double integralTotal = (double) ((Long.parseLong(response.getString("integraled"))+Long.parseLong(response.getString("integral")))/10000.0);//累计已赚
 							
 							
 							DecimalFormat df = new DecimalFormat("0.00");//格式化小数
@@ -279,7 +279,7 @@ public class RecordActivity extends BaseActivity {
 							tv_exchange_total.setText(response.getString("exchange_cont")+"次");
 							tv_invitation_total.setText(response.getString("invitation_cont")+"人");
 							tv_user_account.setText(pref.getString(Constant.APPID, null));
-							tv_qq_number.setText(response.getString("qq_code"));
+							tv_address.setText(response.getString("address"));
 							tv_alipay_account.setText(response.getString("alipay_code"));
 							tv_tenpay_account.setText(response.getString("tenpay_code"));
 						}

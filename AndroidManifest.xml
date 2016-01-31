@@ -96,7 +96,7 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity 
-            android:name="com.chuannuo.qianbaosuoping.ExchangeQBActivity"
+            android:name="com.chuannuo.qianbaosuoping.ExchangeDBActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity 
@@ -197,6 +197,14 @@
         
         <activity 
             android:name="com.chuannuo.qianbaosuoping.duobao.PayOrderActivity"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+        
+        <activity 
+            android:name="com.chuannuo.qianbaosuoping.duobao.DuoBaoListActivity"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+        
+        <activity 
+            android:name="com.chuannuo.qianbaosuoping.duobao.MyNumberActivity"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
         
         <!-- 锁屏 -->

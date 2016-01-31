@@ -35,14 +35,14 @@ public class PerfectInfoActivity extends BaseActivity {
 	
 	private TextView tv_user_id;
 	private TextView tv_phone_number;
-	private EditText et_qq;
+	private EditText et_address;
 	private EditText et_zfb;
 	private EditText et_cft;
 	private Button btn_save;
 	
 	private String app_id;
 	private String phone_number;
-	private String qq;
+	private String address;
 	private String alipay;
 	private String tenpay;
 	
@@ -60,7 +60,7 @@ public class PerfectInfoActivity extends BaseActivity {
 	public void initView(){
 		tv_user_id = (TextView) findViewById(R.id.tv_user_id);
 		tv_phone_number = (TextView) findViewById(R.id.tv_phone_number);
-		et_qq = (EditText) findViewById(R.id.et_qq);
+		et_address = (EditText) findViewById(R.id.et_address);
 		et_zfb = (EditText) findViewById(R.id.et_zfb);
 		et_cft = (EditText) findViewById(R.id.et_cft);
 		btn_save = (Button) findViewById(R.id.btn_save);
@@ -102,8 +102,8 @@ public class PerfectInfoActivity extends BaseActivity {
 								Toast.makeText(PerfectInfoActivity.this, response.getString("info"), Toast.LENGTH_SHORT).show();
 							}else{
 								
-								if(!json.getString("qq_code").equals("null")){
-									et_qq.setText(json.getString("qq_code"));
+								if(!json.getString("address").equals("null")){
+									et_address.setText(json.getString("address"));
 								}
 								if(!json.getString("alipay_code").equals("null")){
 									et_zfb.setText(json.getString("alipay_code"));
@@ -139,13 +139,14 @@ public class PerfectInfoActivity extends BaseActivity {
 					/*
 					 * 完善个人信息
 					 */
-					qq = et_qq.getText().toString();
+					address = et_address.getText().toString();
 					alipay = et_zfb.getText().toString();
 					tenpay = et_cft.getText().toString();
 					params.put("appid", pref.getString(Constant.APPID, "0"));
 					params.put("code", pref.getString(Constant.CODE, "0"));
+					params.put("password", pref.getString(Constant.PASSWORD, "123456"));
 					params.put("mobile", phone_number);					   
-					params.put("qq_code", qq);
+					params.put("address", address);
 					params.put("alipay_code", alipay);
 					params.put("tenpay_code", tenpay);
 					
@@ -157,7 +158,7 @@ public class PerfectInfoActivity extends BaseActivity {
 									
 									myApplication.setPhone(phone_number);
 									editor.putString(Constant.PHONE, phone_number);
-									editor.putString(Constant.QQ, qq);
+									editor.putString(Constant.ADDRESS, address);
 									editor.putString(Constant.ZFB, alipay);
 									editor.putString(Constant.CFT, tenpay);
 									if(!pref.getBoolean(Constant.TASK_USER_INFO, false)){

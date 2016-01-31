@@ -92,18 +92,14 @@ public class GoodsAdapter extends BaseAdapter {
 			holder.duobao = (TextView) convertView.findViewById(R.id.tv_cart);
 			holder.progressBar = (ProgressBar) convertView.findViewById(R.id.progressbar);
 			convertView.setTag(holder);
-			
-			numberFormat = NumberFormat.getInstance();
-			// 设置精确到小数点后2位   
-	        numberFormat.setMaximumFractionDigits(2); 
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final Goods g = list.get(position);
 		holder.title.setText(g.getTitle());
 		ImageLoader.getInstance().displayImage(g.getPic(),holder.pic);
-		String result = numberFormat.format((float)g.getPayMoney()/(float)g.getTotalMoney()*100);
-		holder.progressBar.setProgress(Integer.parseInt(result));
+		int result = g.getPayMoney()/g.getTotalMoney()*100;
+		holder.progressBar.setProgress(result);
 		holder.schedule.setText(Html.fromHtml(context.getResources().getString(R.string.schedule,
 				result+"%")));
 		

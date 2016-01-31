@@ -202,7 +202,7 @@
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp">  
         <TextView   
-            android:text="QQ" 
+            android:text="address" 
             android:background="@color/white1" 
             android:textColor="@color/grey"     
             android:layout_margin="1dip"
@@ -211,7 +211,7 @@
             android:layout_weight="1"
             android:gravity="center"/>  
         <TextView 
-            android:id="@+id/tv_qq_number"
+            android:id="@+id/tv_address"
             android:text="null" 
             android:background="@color/white1" 
             android:textColor="@color/grey"   

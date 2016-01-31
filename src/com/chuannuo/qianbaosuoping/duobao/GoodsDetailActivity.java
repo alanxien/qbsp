@@ -76,7 +76,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView tv_total;
 	private TextView tv_remain;
 	private ProgressBar progressbar;
-	NumberFormat numberFormat;
 	//ReleaseBitmap releaseBitmap;
 	ProgressBar progressBar;
 	private TextView tv_wqjx;
@@ -156,13 +155,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void initData() {
-		numberFormat = NumberFormat.getInstance();
-		// 设置精确到小数点后2位
-		numberFormat.setMaximumFractionDigits(2);
-
 		tv_title.setText(goods.getTitle());
 		tv_total.setText("总需" + goods.getTotalMoney() + "人次");
-		tv_remain.setText(goods.getTotalMoney() - goods.getPayMoney() + "");
+		tv_remain.setText(goods.getTotalMoney() - goods.getPayMoney()<=0?"0":goods.getTotalMoney() - goods.getPayMoney() + "");
 		
 		String cart = pref.getString(Constant.DB_CART_NUM, "");
 		if(cart !=null && !cart.equals("")){
@@ -171,9 +166,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}else{
 			tv_cart_num.setVisibility(View.GONE);
 		}
-		String result = numberFormat.format((float) goods.getPayMoney()
-				/ (float) goods.getTotalMoney() * 100);
-		progressbar.setProgress(Integer.parseInt(result));
+		int result = goods.getPayMoney()
+				/goods.getTotalMoney() * 100;
+		progressbar.setProgress(result);
 		ImageLoader.getInstance().displayImage(goods.getPic(),
 				myvp);
 		getIndianat();
@@ -409,10 +404,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	@Override
 	public void onClick(View v) {
-		if (!isBindingPhone()) {
-			// 没有绑定手机号
-			initDialog();
-		} else {
 			switch (v.getId()) {
 			case R.id.tv_duobao:
 				isCart = false;
@@ -440,6 +431,5 @@ public class GoodsDetailActivity extends BaseActivity implements
 			default:
 				break;
 			}
-		}
 	}
 }

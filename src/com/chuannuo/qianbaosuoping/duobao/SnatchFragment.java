@@ -90,9 +90,7 @@ public class SnatchFragment extends Fragment{
 	 */
 	@Override
 	public void onResume() {
-		if(list.size()<=0){
-			initData();
-		}
+		initData();
 		super.onResume();
 	}
 

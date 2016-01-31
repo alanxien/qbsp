@@ -614,7 +614,9 @@ public class EarnFragment extends Fragment implements OnClickListener,
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
-						ll_progressBar.setVisibility(View.GONE);
+						if(ll_progressBar != null){
+							ll_progressBar.setVisibility(View.GONE);
+						}
 						super.onFailure(statusCode, headers, throwable,
 								errorResponse);
 					}
@@ -912,7 +914,9 @@ public class EarnFragment extends Fragment implements OnClickListener,
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
-						ll_share_progressBar.setVisibility(View.GONE);
+						if(ll_share_progressBar != null){
+							ll_share_progressBar.setVisibility(View.GONE);
+						}
 						super.onFailure(statusCode, headers, throwable,
 								errorResponse);
 					}
@@ -1058,7 +1062,10 @@ public class EarnFragment extends Fragment implements OnClickListener,
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
-						ll_progressBar.setVisibility(View.GONE);
+						if(ll_progressBar != null){
+							ll_progressBar.setVisibility(View.GONE);
+						}
+						
 						if(EarnFragment.this.getActivity() != null){
 							Toast.makeText(EarnFragment.this.getActivity(),
 									"数据获取失败，请检查网络！", Toast.LENGTH_SHORT).show();

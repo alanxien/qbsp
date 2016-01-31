@@ -326,9 +326,9 @@ public class BaseActivity extends Activity implements IWXAPIEventHandler,IUiList
 	 * @param @return
 	 * @return boolean
 	 */
-	public boolean isBindingQQ(){
-		String qq = pref.getString(Constant.QQ, "");
-		if(!qq.equals("") && qq != null){
+	public boolean isBindingAddress(){
+		String address = pref.getString(Constant.ADDRESS, "");
+		if(!address.equals("") && address != null){
 			return true;
 		}
 		return false;
