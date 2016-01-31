@@ -58,7 +58,7 @@ public class PayOrderActivity extends BaseActivity{
 		
 		getIntent().getIntExtra("payMoney", 0);
 		
-		initData();
+		//initData();
 	}
 
 //	/** 
