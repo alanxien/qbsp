@@ -33,6 +33,7 @@ public class ExchangeDBActivity extends BaseActivity {
 	private TextView tv_ex_title;
 	private EditText et_ex_account;
 	private LinearLayout ll_ex_confirm;
+	private CustomDialog mDialog; // 对话框
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +45,12 @@ public class ExchangeDBActivity extends BaseActivity {
 
 		xbNum = pref.getInt(Constant.SCORE, 0);
 		tv_ex_title.setText("当前可兑换" + xbNum / 100000 + "夺宝币");
-		et_ex_account.setText(xbNum / 100000+"");
+		et_ex_account.setText(xbNum / 100000 + "");
 		et_ex_account.addTextChangedListener(textWatcher);
 
-		if(xbNum / 100000 <= 0){
+		if (xbNum / 100000 <= 0) {
 			ll_ex_confirm.setVisibility(View.GONE);
-		}else{
+		} else {
 			ll_ex_confirm.setVisibility(View.VISIBLE);
 			ll_ex_confirm.setOnClickListener(new OnClickListener() {
 
@@ -59,7 +60,6 @@ public class ExchangeDBActivity extends BaseActivity {
 				}
 			});
 		}
-		
 
 	}
 
@@ -72,60 +72,88 @@ public class ExchangeDBActivity extends BaseActivity {
 	 * @throws
 	 */
 	protected void exchange() {
-		RequestParams params = new RequestParams();
-		params.put("appid", pref.getString(Constant.APPID, "0"));
-		params.put("code", pref.getString(Constant.CODE, ""));
-		params.put("count", et_ex_account.getText());
-		params.put("integral",
-				Integer.parseInt(et_ex_account.getText().toString()) * 100000);
-		params.put("type", "1");
+		// 如果没有绑定手机号
+		if (!isBindingPhone()) {
+			mDialog = new CustomDialog(this, R.style.CustomDialog,
+					new CustomDialog.CustomDialogListener() {
 
-		dialog = new CustomDialog(this, R.style.CustomDialog,
-				new CustomDialog.CustomDialogListener() {
-
-					@Override
-					public void onClick(View view) {
-						dialog.cancel();
-						ExchangeDBActivity.this.finish();
-					}
-				}, 1);
-		dialog.setTitle(getResources().getString(R.string.dg_remind_title));
-		dialog.setBtnStr(getResources().getString(R.string.dg_iknow));
-		dialog.setCancelable(false);
-		dialog.setCanceledOnTouchOutside(false);
-
-		HttpUtil.get(Constant.EXCHANGE_QB_URL, params,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						try {
-							if (response.getInt("code") == 1) {
-								dialog.setContent(ExchangeDBActivity.this
-										.getResources().getString(
-												R.string.dg_exchange_success));
-							} else if (response.getInt("code") == 0) {
-								dialog.setContent("很抱歉，"
-										+ response.getString("info") + "!");
-							}
-							dialog.show();
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						@Override
+						public void onClick(View view) {
+							mDialog.cancel();
+							Intent intent = new Intent();
+							intent.setClass(ExchangeDBActivity.this,
+									BindingPhoneActivity.class);
+							ExchangeDBActivity.this.finish();
+							startActivity(intent);
 						}
-						super.onSuccess(statusCode, headers, response);
-					}
+					}, 1);
 
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						Toast.makeText(ExchangeDBActivity.this,
-								getResources().getString(R.string.sys_remind2),
-								Toast.LENGTH_SHORT).show();
-						super.onFailure(statusCode, headers, throwable,
-								errorResponse);
-					}
-				});
+			mDialog.setTitle(getResources().getString(R.string.dg_remind_title));
+			mDialog.setContent("请先绑定手机号在兑换");
+			mDialog.setBtnStr(getResources().getString(R.string.dg_iknow));
+			mDialog.setCancelable(false);
+			mDialog.setCanceledOnTouchOutside(false);
+			mDialog.show();
+		} else {
+			RequestParams params = new RequestParams();
+			params.put("appid", pref.getString(Constant.APPID, "0"));
+			params.put("code", pref.getString(Constant.CODE, ""));
+			params.put("count", et_ex_account.getText());
+			params.put(
+					"integral",
+					Integer.parseInt(et_ex_account.getText().toString()) * 100000);
+			params.put("type", "6");
+
+			dialog = new CustomDialog(this, R.style.CustomDialog,
+					new CustomDialog.CustomDialogListener() {
+
+						@Override
+						public void onClick(View view) {
+							dialog.cancel();
+							ExchangeDBActivity.this.finish();
+						}
+					}, 1);
+			dialog.setTitle(getResources().getString(R.string.dg_remind_title));
+			dialog.setBtnStr(getResources().getString(R.string.dg_iknow));
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+
+			HttpUtil.get(Constant.EXCHANGE_INDIANA, params,
+					new JsonHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, Header[] headers,
+								JSONObject response) {
+							try {
+								if (response.getInt("code") == 1) {
+									dialog.setContent(ExchangeDBActivity.this
+											.getResources()
+											.getString(
+													R.string.dg_exchange_success));
+								} else if (response.getInt("code") == 0) {
+									dialog.setContent("很抱歉，"
+											+ response.getString("info") + "!");
+								}
+								dialog.show();
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							super.onSuccess(statusCode, headers, response);
+						}
+
+						@Override
+						public void onFailure(int statusCode, Header[] headers,
+								Throwable throwable, JSONObject errorResponse) {
+							Toast.makeText(
+									ExchangeDBActivity.this,
+									getResources().getString(
+											R.string.sys_remind2),
+									Toast.LENGTH_SHORT).show();
+							super.onFailure(statusCode, headers, throwable,
+									errorResponse);
+						}
+					});
+		}
 	}
 
 	private TextWatcher textWatcher = new TextWatcher() {

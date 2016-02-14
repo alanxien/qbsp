@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chuannuo.qianbaosuoping.DownLoadAppActivity;
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.common.HttpUtil;
@@ -141,37 +142,45 @@ public class DepthTaskAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				
 				if(checkPackage(infoList.get(position).getPackage_name())){//如果 应用已经安装
-					doStartApplicationWithPackageName(infoList.get(position).getPackage_name());
-					editor.putLong(Constant.APP_RUNNING_TIME, System.currentTimeMillis());
-					editor.commit();
-					
-					Toast.makeText(context, "试玩两分钟即完成签到！",Toast.LENGTH_SHORT ).show();
-					timer = new Timer();
-					
-					timer.schedule(new TimerTask() {
+					if(infoList.get(position).getIs_photo_task()== 1 && (infoList.get(position).getPhoto_status()==0||infoList.get(position).getPhoto_status()==3)){
+						Intent intent = new Intent(context,DownLoadAppActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable(Constant.ITEM, appInfo);
+						context.startActivity(intent);
+					}else{
+						doStartApplicationWithPackageName(infoList.get(position).getPackage_name());
+						editor.putLong(Constant.APP_RUNNING_TIME, System.currentTimeMillis());
+						editor.commit();
 						
-						@Override
-						public void run() {
-							if(isTopActivity(infoList.get(position).getPackage_name())){
-								if(moreThanTimes(System.currentTimeMillis(),2)){
-									Log.i(TAG, "---运行超过2分钟，开始签到。。。---");
-									timer.cancel();
-									Message msg = mHandler.obtainMessage(1,infoList.get(position));
-									msg.what = infoList.get(position).getInstall_id();
-									msg.arg1 = infoList.get(position).getSign_rules();
-									msg.arg2 = infoList.get(position).getIsAddIntegral();
-									mHandler.sendMessage(msg);
+						Toast.makeText(context, "试玩两分钟即完成签到！",Toast.LENGTH_SHORT ).show();
+						timer = new Timer();
+						
+						timer.schedule(new TimerTask() {
+							
+							@Override
+							public void run() {
+								if(isTopActivity(infoList.get(position).getPackage_name())){
+									if(moreThanTimes(System.currentTimeMillis(),2)){
+										Log.i(TAG, "---运行超过2分钟，开始签到。。。---");
+										timer.cancel();
+										Message msg = mHandler.obtainMessage(1,infoList.get(position));
+										msg.what = infoList.get(position).getInstall_id();
+										msg.arg1 = infoList.get(position).getSign_rules();
+										msg.arg2 = infoList.get(position).getIsAddIntegral();
+										mHandler.sendMessage(msg);
+									}else{
+										Log.i(TAG, "---正在签到。。。---");
+										editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 1); //签到中
+									}
 								}else{
-									Log.i(TAG, "---正在签到。。。---");
-									editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 1); //签到中
+									Log.i(TAG, "---退出签到---");
+									timer.cancel();
 								}
-							}else{
-								Log.i(TAG, "---退出签到---");
-								timer.cancel();
+								editor.commit();
 							}
-							editor.commit();
-						}
-					}, 3000,60*1000);
+						}, 3000,60*1000);
+					}
+					
 				}else{
 					//应用被卸载，重新安装
 					appInfo = infoList.get(position);

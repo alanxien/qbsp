@@ -471,7 +471,10 @@ public class DownloadService extends Service {
 					}
 				});
 
-		monitoring();
+		if(appInfo.getScore()>0){
+			monitoring();
+		}
+		
 	}
 
 	/**

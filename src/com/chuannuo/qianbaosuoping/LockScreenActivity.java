@@ -379,7 +379,7 @@ public class LockScreenActivity extends BaseActivity {
 	private void getAppList() {
 		RequestParams params = new RequestParams();
 		params.put("app_id", pref.getString(Constant.APPID, "0"));
-		params.put("limit", 8);
+		params.put("channel_id", getMetaData(LockScreenActivity.this, "LEZHUAN_CHANNEL"));
 		HttpUtil.get(Constant.DOWNLOAD_URL, params,
 				new JsonHttpResponseHandler() {
 

@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.model.AppInfo;
@@ -19,6 +22,9 @@ public class CustomADImageDialog extends Dialog implements android.view.View.OnC
     private static CustomADImageDialog customAdImageDialog = null; 
     private static ImageView iv_ad_image;
     private static ImageView iv_ad_close;
+    private static ImageView iv_big_image;
+    private static ProgressBar progressBar;
+    private static TextView tv_per;
     private AppInfo appInfo;
     
     private static Intent intent ;
@@ -33,23 +39,32 @@ public class CustomADImageDialog extends Dialog implements android.view.View.OnC
         this.context = context;
     }  
       
-    public static CustomADImageDialog createDialog(Context context){  
+    public static CustomADImageDialog createDialog(Context context,int t){  
     	if(context != null){
     		customAdImageDialog = new CustomADImageDialog(context,R.style.CustomProgressDialog);  
-    		customAdImageDialog.setContentView(R.layout.custom_ad_image_dialog);  
     		customAdImageDialog.getWindow().getAttributes().gravity = Gravity.CENTER;  
+    	}
+    	if(t == 1){
+    		customAdImageDialog.setContentView(R.layout.custom_ad_image_dialog); 
     		customAdImageDialog.setCanceledOnTouchOutside(false);
+    		iv_ad_image = (ImageView) customAdImageDialog.findViewById(R.id.iv_ad_image);
+        	iv_ad_close = (ImageView) customAdImageDialog.findViewById(R.id.iv_ad_close);
+        	iv_ad_image.setOnClickListener(customAdImageDialog);
+        	iv_ad_close.setOnClickListener(customAdImageDialog);
+    	}else if(t == 2){
+    		customAdImageDialog.setContentView(R.layout.custom_big_image_dialog); 
+    		customAdImageDialog.setCanceledOnTouchOutside(false);
+    		iv_big_image = (ImageView) customAdImageDialog.findViewById(R.id.iv_big_image);
+        	iv_big_image.setOnClickListener(customAdImageDialog);
+    	}else if(t == 3){
+    		customAdImageDialog.setContentView(R.layout.upload_progress_dialog); 
+    		customAdImageDialog.setCanceledOnTouchOutside(false);
+    		progressBar = (ProgressBar) customAdImageDialog.findViewById(R.id.progressbar);
+    		tv_per = (TextView) customAdImageDialog.findViewById(R.id.tv_per);
     	}
     	if(intent == null){
     		intent = new Intent(context,DownloadService.class);
     	}
-    	
-    	iv_ad_image = (ImageView) customAdImageDialog.findViewById(R.id.iv_ad_image);
-    	iv_ad_close = (ImageView) customAdImageDialog.findViewById(R.id.iv_ad_close);
-    	iv_ad_image.setOnClickListener(customAdImageDialog);
-    	iv_ad_close.setOnClickListener(customAdImageDialog);
-    	
-    	
         return customAdImageDialog;  
     }
 
@@ -62,6 +77,9 @@ public class CustomADImageDialog extends Dialog implements android.view.View.OnC
 			break;
 		case R.id.iv_ad_close:
 			customAdImageDialog.dismiss();
+		case R.id.iv_big_image:
+			customAdImageDialog.dismiss();
+			break;
 		default:
 			break;
 		}
@@ -76,6 +94,21 @@ public class CustomADImageDialog extends Dialog implements android.view.View.OnC
 		iv_ad_image.setImageBitmap(bm);
     	return customAdImageDialog;
     }
+	
+	public CustomADImageDialog setProgress(int num){
+		progressBar.setProgress(num);
+    	return customAdImageDialog;
+    }
+	
+	public CustomADImageDialog setBigImage(Bitmap bm){
+		iv_big_image.setImageBitmap(bm);
+    	return customAdImageDialog;
+	}
+	
+	public CustomADImageDialog setPer(int num){
+		tv_per.setText(num+"%");
+		return customAdImageDialog;
+	}
 	
 	public void downLoadApp(){
 		if(null != appInfo && appInfo.getFile() != null && !appInfo.getFile().equals("")){

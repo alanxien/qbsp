@@ -201,11 +201,7 @@ public class ExchangeActivity extends BaseActivity {
 		dialog.setCancelable(false);
 		dialog.setCanceledOnTouchOutside(false);
 
-		if (type.equals(Constant.QB)) {
-
-			params.put("type", "1");
-			url = Constant.EXCHANGE_QB_URL;
-		} else if (type.equals(Constant.PHONE)) {
+		if (type.equals(Constant.PHONE)) {
 
 			params.put("type", "2");
 			url = Constant.EXCHANGE_PHONE_URL;

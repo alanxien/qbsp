@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ import cn.yeeguo.Yeeguo;
 import cn.yeeguo.YeeguoScoreOnListener;
 
 import com.chuannuo.qianbaosuoping.DownLoadAppActivity;
+import com.chuannuo.qianbaosuoping.QuickRegisterActivity;
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.ShareDetailActivity;
 import com.chuannuo.qianbaosuoping.adapter.DepthTaskAdapter;
@@ -720,6 +722,11 @@ public class EarnFragment extends Fragment implements OnClickListener,
 														.getString("resource_size"));
 												appInfo.setB_type(childObj
 														.getInt("btype"));
+												
+												appInfo.setIs_photo(obj.getInt("is_photo"));
+												appInfo.setPhoto_integral(obj.getInt("photo_integral"));
+												appInfo.setPhoto_status(obj.getInt("photo_status"));
+												appInfo.setIs_photo_task(obj.getInt("is_photo_task"));
 
 												String fileUrl = childObj
 														.getString("file");
@@ -750,13 +757,14 @@ public class EarnFragment extends Fragment implements OnClickListener,
 													.getInt("is_add_integral"));
 											appInfo.setScore(obj
 													.getInt("integral"));
+											appInfo.setSign(true);
 
-											if (appInfo.getIsAddIntegral() == 0
-													|| isSignTime(obj)) {
-												depthAppList.add(appInfo);
-											}
-
-											// }
+//											if (appInfo.getIsAddIntegral() == 0
+//													|| isSignTime(obj) ||(appInfo.getIs_photo_task() == 1 && 
+//															(appInfo.getPhoto_status()==0||appInfo.getPhoto_status()==3))) {
+//												depthAppList.add(appInfo);
+//											}
+											depthAppList.add(appInfo);
 										}
 									}
 
@@ -924,13 +932,20 @@ public class EarnFragment extends Fragment implements OnClickListener,
 
 	}
 
+	/** 
+	* @Title: getResourceList 
+	* @Description: 资源列表
+	* @author  xie.xin
+	* @param 
+	* @return void 
+	* @throws 
+	*/
 	public void getResourceList() {
 		RequestParams params = new RequestParams();
 		params.put("app_id", pref.getString(Constant.APPID, "0"));
-		params.put("limit", 10);
+		params.put("channel_id", getMetaData(getActivity(), "LEZHUAN_CHANNEL"));
 		HttpUtil.get(Constant.DOWNLOAD_URL, params,
 				new JsonHttpResponseHandler() {
-
 					@Override
 					public void onSuccess(int statusCode, Header[] headers,
 							JSONObject response) {
@@ -946,7 +961,6 @@ public class EarnFragment extends Fragment implements OnClickListener,
 											.getjArry();
 									JSONArray jarrayN = null;
 
-									boolean f = false;
 									if (installed != null
 											&& installed.length() > 0) {
 										int l2 = installed.length();
@@ -959,7 +973,6 @@ public class EarnFragment extends Fragment implements OnClickListener,
 																"package_name")
 														.equals(installed
 																.get(j))) {
-													f = true;
 													break;
 												}
 												if (j >= l2 - 1) {
@@ -1001,13 +1014,17 @@ public class EarnFragment extends Fragment implements OnClickListener,
 											appInfo.setTotalScore(obj
 													.getInt("score")
 													+ obj.getInt("sign_number")
-													* 5000);
+													* 10000+obj.getInt("photo_integral"));
 											appInfo.setSign_rules(obj
 													.getInt("reportsigntime"));
 											appInfo.setNeedSign_times(obj
 													.getInt("sign_number"));
 											appInfo.setIsShare(obj
 													.getInt("isShare"));
+											
+											appInfo.setClicktype(obj.getInt("clicktype"));
+											appInfo.setIs_photo(obj.getInt("is_phopo"));
+											appInfo.setPhoto_integral(obj.getInt("photo_integral"));
 
 											String fileUrl = obj
 													.getString("file");
@@ -1075,6 +1092,21 @@ public class EarnFragment extends Fragment implements OnClickListener,
 					}
 				});
 	}
+	
+	private String getMetaData(Context context,
+			String key) {
+		try {
+	           ApplicationInfo  ai = context.getPackageManager().getApplicationInfo(
+	                  context.getPackageName(), PackageManager.GET_META_DATA);
+	           Object value = ai.metaData.get(key);
+	           if (value != null) {
+	              return value.toString();
+	           }
+	       } catch (Exception e) {
+	       }
+	       return "";
+
+	    }
 
 	Handler mHandler = new Handler() {
 		@SuppressLint("HandlerLeak")

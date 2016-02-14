@@ -124,31 +124,6 @@ public class QuickRegisterActivity extends BaseActivity{
 			}
 		});
 	}
-	
-	/**
-	 * @author alan.xie
-	 * @date 2015-1-14 下午12:37:59
-	 * @Description: 获取渠道号
-	 * @param @param context
-	 * @param @param key
-	 * @param @return
-	 * @return String
-	 */
-	private String getMetaData(Context context,
-			String key) {
-		try {
-	           ApplicationInfo  ai = context.getPackageManager().getApplicationInfo(
-	                  context.getPackageName(), PackageManager.GET_META_DATA);
-	           Object value = ai.metaData.get(key);
-	           if (value != null) {
-	              return value.toString();
-	           }
-	       } catch (Exception e) {
-	       }
-	       return "";
-
-	    }
-
 }
 
 

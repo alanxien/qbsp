@@ -33,6 +33,21 @@ public class AppInfo implements Serializable{
 	public int isAddIntegral;    //判断用户是否添加了下载积分
 	public Bitmap bitmap;		//app图标
 	public int isShare;          //是否是分享app
+	
+	public int is_photo;        //是否已经上传，0未上传，1已经 上传
+	private int photo_integral;  //上传任务可以获取多少积分
+	private int photo_status;   //图片 审核状态，0未上传，1待审核，2任务成功，3任务失败
+	private int is_photo_task;  //0不支持，1支持
+	private String photo;//客户上传的照片
+	
+	private boolean isSign = false; //是否是签到任务
+	
+	public int getIs_photo() {
+		return is_photo;
+	}
+	public void setIs_photo(int is_photo) {
+		this.is_photo = is_photo;
+	}
 
 	public int getId() {
 		return id;
@@ -82,12 +97,6 @@ public class AppInfo implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getClick_type() {
-		return click_type;
-	}
-	public void setClick_type(int click_type) {
-		this.click_type = click_type;
-	}
 	public int getB_type() {
 		return b_type;
 	}
@@ -117,6 +126,12 @@ public class AppInfo implements Serializable{
 	}
 	public void setPackage_name(String package_name) {
 		this.package_name = package_name;
+	}
+	public int getPhoto_integral() {
+		return photo_integral;
+	}
+	public void setPhoto_integral(int photo_integral) {
+		this.photo_integral = photo_integral;
 	}
 	public String getBrief() {
 		return brief;
@@ -195,6 +210,30 @@ public class AppInfo implements Serializable{
 	}
 	public void setFile(String file) {
 		this.file = file;
+	}
+	public int getPhoto_status() {
+		return photo_status;
+	}
+	public void setPhoto_status(int photo_status) {
+		this.photo_status = photo_status;
+	}
+	public int getIs_photo_task() {
+		return is_photo_task;
+	}
+	public void setIs_photo_task(int is_photo_task) {
+		this.is_photo_task = is_photo_task;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	public boolean isSign() {
+		return isSign;
+	}
+	public void setSign(boolean isSign) {
+		this.isSign = isSign;
 	}
 
 }

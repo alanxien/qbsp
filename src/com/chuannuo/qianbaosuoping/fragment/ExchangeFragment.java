@@ -82,7 +82,7 @@ public class ExchangeFragment extends Fragment{
 		if(mList.size()<=0){
 			initData();
 		}
-		
+		initTitle();
 		super.onResume();
 	}
 	
@@ -181,7 +181,10 @@ public class ExchangeFragment extends Fragment{
 				super.onFailure(statusCode, headers, throwable, errorResponse);
 			}
 		});
-		
+		initTitle();
+	}
+	
+	private void initTitle(){
 		RequestParams param = new RequestParams();
 		param.put("id", pref.getString(Constant.APPID, "0"));
 		
@@ -213,7 +216,6 @@ public class ExchangeFragment extends Fragment{
 				super.onFailure(statusCode, headers, throwable, errorResponse);
 			}
 		});
-		
 	}
 }
 

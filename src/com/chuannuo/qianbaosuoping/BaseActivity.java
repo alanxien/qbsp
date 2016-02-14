@@ -10,9 +10,12 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -131,6 +134,31 @@ public class BaseActivity extends Activity implements IWXAPIEventHandler,IUiList
 		super.onResume();
 	}
 	
+
+	/**
+	 * @author alan.xie
+	 * @date 2015-1-14 下午12:37:59
+	 * @Description: 获取渠道号
+	 * @param @param context
+	 * @param @param key
+	 * @param @return
+	 * @return String
+	 */
+	public String getMetaData(Context context,
+			String key) {
+		try {
+	           ApplicationInfo  ai = context.getPackageManager().getApplicationInfo(
+	                  context.getPackageName(), PackageManager.GET_META_DATA);
+	           Object value = ai.metaData.get(key);
+	           if (value != null) {
+	              return value.toString();
+	           }
+	       } catch (Exception e) {
+	       }
+	       return "";
+
+	    }
+	
 	/**
 	 * @author alan.xie
 	 * @date 2014-11-27 下午4:39:11
@@ -236,7 +264,7 @@ public class BaseActivity extends Activity implements IWXAPIEventHandler,IUiList
 	 */
 	public void initImageAdDialog(final AppInfo appInfo){
 		if(this.adDialog == null){
-			this.adDialog = CustomADImageDialog.createDialog(this);
+			this.adDialog = CustomADImageDialog.createDialog(this,1);
 		}
 		ImageLoader.getInstance().loadImage(appInfo.getH5_big_url(), new ImageLoadingListener() {
 			

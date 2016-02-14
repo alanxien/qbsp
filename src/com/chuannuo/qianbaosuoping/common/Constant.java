@@ -91,7 +91,7 @@ public interface Constant {
 	String MODIFY_USER_URL = BASE_URL + "/modifyUser";			//用户资料修改
 	String ADD_INTEGRAL_URL  = BASE_URL + "/addIntegral";		//增加积分
 	String MODIFY_PASSWORD_URL = BASE_URL + "/modifyPassword";  //修改密码
-	String EXCHANGE_QB_URL = BASE_URL + "/exchangeQQ";          //兑换Q币
+	//String EXCHANGE_QB_URL = BASE_URL + "/exchangeQQ";          //兑换Q币
 	String EXCHANGE_PHONE_URL = BASE_URL + "/exchangeMobile";   //手机充值
 	String EXCHANGE_ZFB_URL = BASE_URL + "/exchangeAlipay";     //支付宝充值
 	String EXCHANGE_CFT_URL = BASE_URL + "/exchangeTenpay";     //财付通充值
@@ -106,7 +106,7 @@ public interface Constant {
 	String DEPTH_TASK_LIST_URL = BASE_URL + "/unfinishedSignList"; //深度任务list
 	
 	String SHARE_URL = BASE_URL + "/index&invitation_code=";      //分享
-	String DOWNLOAD_URL = BASE_URL + "/getResourceList";		//下载
+	//String DOWNLOAD_URL = BASE_URL + "/getResourceList";		//下载
 	String REPORT_URL = BASE_URL + "/reportPackageNames";        //上报应用安装
 	String LOGO_URL = ROOT_URL + "/images/ic_launcher.png";    //logo_url
 	String SHARE_TASK_URL = BASE_URL + "/getPostList";			//分享任务
@@ -122,6 +122,14 @@ public interface Constant {
 	String QUICK_LOGIN_URL = BASE_URL + "/getUserByImei";//吴手机号登陆
 	String BIND_MOBILE_URL = BASE_URL + "/bindMobile";   //绑定手机
 	String GET_RESOURCE_LIST_SDK = BASE_URL+"/getResourceListSDK";//游戏SDK列表
+	
+	/*
+	 * 上传截图接口
+	 */
+	String DOWNLOAD_URL = BASE_URL+"/getResourceListHtml"; //截图任务接口
+	String EXCHANGE_INDIANA = BASE_URL +"/exchangeIndiana";//兑换夺宝币
+	String UPLOADS_PHOTO = BASE_URL +"/uploadsPhoto";//上传图片
+	String UPLOADS_PHOTO_H5 = BASE_URL +"/uploadsPhotoHtml";//上传图片
 	
 	int PAGER0 = 0;//游戏任务
 	int PAGER1 = 1;//推荐任务
