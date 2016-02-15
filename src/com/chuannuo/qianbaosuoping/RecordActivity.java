@@ -97,19 +97,19 @@ public class RecordActivity extends BaseActivity {
 		item = getIntent().getIntExtra("ITEM", 0);
 		switch(item){
 		case 1:
-			tv_profile.callOnClick();
+			tv_profile.performClick();
 			break;
 		case 2:
-			tv_task.callOnClick();
+			tv_task.performClick();
 			break;
 		case 3:
-			tv_exchange.callOnClick();
+			tv_exchange.performClick();
 			break;
 		case 4:
-			tv_invitation.callOnClick();
+			tv_invitation.performClick();
 			break;
 		default:
-			tv_profile.callOnClick();
+			tv_profile.performClick();
 			break;
 		}
 		

@@ -23,6 +23,7 @@ public class MyApplication extends Application {
 	private String password;
 	private int flag; //1推荐任务界面,2分享任务界面
 	private int type; //0推荐任务，1推荐任务，2分享任务，3更多任务
+	private boolean isSign;
 	private JSONArray jArry;
 	private String target; //id_type,type=1为qq分享，type=2为微信分享，type=3分享完成
 	private boolean isWxShare;
@@ -43,6 +44,7 @@ public class MyApplication extends Application {
 		setTarget("0_0");
 		setWxShare(false);
 		setShare_count(0);
+		setSign(false);
 	}
 	
 	public WindowManager.LayoutParams getWindowParams(){  
@@ -143,6 +145,14 @@ public class MyApplication extends Application {
 
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+
+	public boolean isSign() {
+		return isSign;
+	}
+
+	public void setSign(boolean isSign) {
+		this.isSign = isSign;
 	}
 	
 }

@@ -129,7 +129,13 @@ public class DepthTaskAdapter extends BaseAdapter {
 		ImageLoader.getInstance().displayImage(this.infoList.get(position).getIcon(),holder.app_icon);
 		holder.app_sign_rule.setText(context.getResources().getString(R.string.sign_rules,this.infoList.get(position).getSign_rules(),this.infoList.get(position).getNeedSign_times()));
 		holder.app_sign_times.setText(this.infoList.get(position).getSign_times()+"");
-		
+		if(infoList.get(position).getIs_photo_task()== 1 && infoList.get(position).getPhoto_status()==0){
+			holder.app_sign.setText("上传截图");
+			holder.tv_is_add_ntegral.setText("任务未完成，请上传截图");
+		}else{
+			holder.app_sign.setText("签到");
+			holder.tv_is_add_ntegral.setText("任务未完成，签到完成任务");
+		}
 		if(this.infoList.get(position).getIsAddIntegral() == 0){
 			holder.tv_is_add_ntegral.setVisibility(View.VISIBLE);
 		}else{
@@ -142,10 +148,11 @@ public class DepthTaskAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				
 				if(checkPackage(infoList.get(position).getPackage_name())){//如果 应用已经安装
-					if(infoList.get(position).getIs_photo_task()== 1 && (infoList.get(position).getPhoto_status()==0||infoList.get(position).getPhoto_status()==3)){
+					if(infoList.get(position).getIs_photo_task()== 1 && infoList.get(position).getPhoto_status()==0){
 						Intent intent = new Intent(context,DownLoadAppActivity.class);
 						Bundle bundle = new Bundle();
-						bundle.putSerializable(Constant.ITEM, appInfo);
+						bundle.putSerializable(Constant.ITEM, infoList.get(position));
+						intent.putExtras(bundle);
 						context.startActivity(intent);
 					}else{
 						doStartApplicationWithPackageName(infoList.get(position).getPackage_name());

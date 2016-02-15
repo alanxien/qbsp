@@ -98,7 +98,7 @@ public class GoodsAdapter extends BaseAdapter {
 		final Goods g = list.get(position);
 		holder.title.setText(g.getTitle());
 		ImageLoader.getInstance().displayImage(g.getPic(),holder.pic);
-		int result = g.getPayMoney()/g.getTotalMoney()*100;
+		int result = g.getPayMoney()*100/g.getTotalMoney();
 		holder.progressBar.setProgress(result);
 		holder.schedule.setText(Html.fromHtml(context.getResources().getString(R.string.schedule,
 				result+"%")));

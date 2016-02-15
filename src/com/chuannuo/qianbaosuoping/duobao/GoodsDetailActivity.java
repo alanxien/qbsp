@@ -166,8 +166,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}else{
 			tv_cart_num.setVisibility(View.GONE);
 		}
-		int result = goods.getPayMoney()
-				/goods.getTotalMoney() * 100;
+		int result = goods.getPayMoney() * 100
+				/goods.getTotalMoney();
 		progressbar.setProgress(result);
 		ImageLoader.getInstance().displayImage(goods.getPic(),
 				myvp);

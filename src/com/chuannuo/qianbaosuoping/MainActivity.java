@@ -122,7 +122,7 @@ public class MainActivity extends BaseFragmentActivity implements
 			startService(intent); //这里要显示的调用服务
 		}
 		
-		PollingUtils.startPollingService(this, 24*60*60, PollingService.class); //启动轮询服务，任务推送
+		//PollingUtils.startPollingService(this, 24*60*60, PollingService.class); //启动轮询服务，任务推送
 
 		if(agent == null){
 			agent = new FeedbackAgent(this);

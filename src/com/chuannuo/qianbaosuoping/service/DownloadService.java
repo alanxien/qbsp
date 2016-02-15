@@ -36,6 +36,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
@@ -50,7 +51,6 @@ import com.chuannuo.qianbaosuoping.common.HttpUtil;
 import com.chuannuo.qianbaosuoping.common.MyApplication;
 import com.chuannuo.qianbaosuoping.dao.AppDao;
 import com.chuannuo.qianbaosuoping.model.AppInfo;
-
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -78,6 +78,7 @@ public class DownloadService extends Service {
 	private File downloadFile = null;
 	// 通知栏
 	private NotificationManager downloadNotificationManager = null;
+	private Notification notify = null;
 	// 通知栏跳转Intent
 	// private Intent downloadIntent = null;
 	private PendingIntent downloadPendingIntent = null;
@@ -108,22 +109,22 @@ public class DownloadService extends Service {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	private void initImageLoader() {
 		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-//				.showImageOnLoading(R.drawable.ic_launcher)
-//				.showImageForEmptyUri(R.drawable.ic_launcher)
+		// .showImageOnLoading(R.drawable.ic_launcher)
+		// .showImageForEmptyUri(R.drawable.ic_launcher)
 				.cacheInMemory(true).cacheOnDisk(true)
-				//.bitmapConfig(Bitmap.Config.RGB_565)    //设置图片的质量
-	            .imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
+				// .bitmapConfig(Bitmap.Config.RGB_565) //设置图片的质量
+				.imageScaleType(ImageScaleType.IN_SAMPLE_INT).build();
 
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext())
 				.defaultDisplayImageOptions(defaultOptions)
 				.threadPriority(Thread.NORM_PRIORITY)
 				.denyCacheImageMultipleSizesInMemory()
-                //.memoryCacheExtraOptions(300, 200)
-                .memoryCache(new WeakMemoryCache())
+				// .memoryCacheExtraOptions(300, 200)
+				.memoryCache(new WeakMemoryCache())
 				.tasksProcessingOrder(QueueProcessingType.LIFO).build();
 
 		ImageLoader.getInstance().init(config);
@@ -149,37 +150,54 @@ public class DownloadService extends Service {
 		appInstallFilter.addDataScheme("package");
 		getApplicationContext().registerReceiver(appInstallReceiver,
 				appInstallFilter);
-
-		builder = new Notification.Builder(this);
-		builder.setProgress(100, 2, false)
-				.setContentTitle(appInfo.getTitle() + "-正在下载")
-				// 设置通知栏标题
-				.setContentText("5%")
-				.setContentIntent(null)
-				// 设置通知栏点击意图
-				// .setNumber(number) //设置通知集合的数量
-				.setTicker("开始下载")
-				// 通知首次出现在通知栏，
-				.setWhen(System.currentTimeMillis())
-				// 通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
-				.setPriority(Notification.PRIORITY_DEFAULT)
-				// 设置该通知优先级
-				.setAutoCancel(false)
-				// 设置这个标志当用户单击面板就可以让通知将自动取消
-				.setOngoing(false)
-				// ture，设置他为一个正在进行的通知。他们通常是用来表示一个后台任务,用户积极参与(如播放音乐)或以某种方式正在等待,因此占用设备(如一个文件下载,同步操作,主动网络连接)
-				.setDefaults(Notification.DEFAULT_VIBRATE)
-				// 向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合
-				.setSmallIcon(R.drawable.ic_launcher)
-				.setOnlyAlertOnce(true)
-				.setLargeIcon(
-						BitmapFactory.decodeResource(getApplicationContext()
-								.getResources(), R.drawable.ic_launcher));// 设置通知ICON
-
 		this.downloadNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		// 发出通知
-		downloadNotificationManager.notify(0, builder.build());
-		
+		if (Build.VERSION.SDK_INT >= 16) {
+			builder = new Notification.Builder(this);
+			builder.setProgress(100, 2, false)
+					.setContentTitle(appInfo.getTitle() + "-正在下载")
+					// 设置通知栏标题
+					.setContentText("5%")
+					.setContentIntent(null)
+					// 设置通知栏点击意图
+					// .setNumber(number) //设置通知集合的数量
+					.setTicker(appInfo.getTitle() + "-开始下载")
+					// 通知首次出现在通知栏，
+					.setWhen(System.currentTimeMillis())
+					// 通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
+					.setPriority(Notification.PRIORITY_DEFAULT)
+					// 设置该通知优先级
+					.setAutoCancel(false)
+					// 设置这个标志当用户单击面板就可以让通知将自动取消
+					.setOngoing(false)
+					// ture，设置他为一个正在进行的通知。他们通常是用来表示一个后台任务,用户积极参与(如播放音乐)或以某种方式正在等待,因此占用设备(如一个文件下载,同步操作,主动网络连接)
+					.setDefaults(Notification.DEFAULT_VIBRATE)
+					// 向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合
+					.setSmallIcon(R.drawable.ic_launcher)
+					.setOnlyAlertOnce(true)
+					.setLargeIcon(
+							BitmapFactory.decodeResource(
+									getApplicationContext().getResources(),
+									R.drawable.ic_launcher));// 设置通知ICON
+
+			// 发出通知
+			downloadNotificationManager.notify(0, builder.build());
+		} else {
+			notify = new Notification.Builder(this)
+					.setSmallIcon(R.drawable.ic_launcher) // 设置状态栏中的小图片，尺寸一般建议在24×24，这个图片同样也是在下拉状态栏中所显示，如果在那里需要更换更大的图片，可以使用setLargeIcon(Bitmap
+															// icon)
+					.setTicker(appInfo.getTitle() + "-正在下载")// 设置在status
+															// bar上显示的提示文字
+					.setContentTitle(appInfo.getTitle() + "")// 设置在下拉status
+					.setDefaults(Notification.DEFAULT_VIBRATE) // bar后Activity，本例子中的NotififyMessage的TextView中显示的标题
+					.setContentText("正在下载 ,请稍后...")// TextView中显示的详细内容
+					.setOnlyAlertOnce(true)
+					// .setContentIntent(pendingIntent) // 关联PendingIntent
+					.setNumber(1) // 在TextView的右方显示的数字，可放大图片看，在最右侧。这个number同时也起到一个序列号的左右，如果多个触发多个通知（同一ID），可以指定显示哪一个。
+					.getNotification(); // 需要注意build()是在API level
+			notify.flags |= Notification.FLAG_AUTO_CANCEL;
+			downloadNotificationManager.notify(1, notify);
+		}
+
 		/*
 		 * 异步加载图标
 		 */
@@ -200,9 +218,15 @@ public class DownloadService extends Service {
 					@Override
 					public void onLoadingComplete(String arg0, View arg1,
 							Bitmap bitmap) {
-						builder.setLargeIcon(bitmap);
-						// 发出通知
-						downloadNotificationManager.notify(0, builder.build());
+						if (Build.VERSION.SDK_INT >= 16) {
+							
+							builder.setLargeIcon(bitmap);
+							// 发出通知
+							downloadNotificationManager.notify(0, builder.build());
+						}else{
+							notify.largeIcon = bitmap;
+							downloadNotificationManager.notify(1,notify);
+						}
 					}
 
 					@Override
@@ -214,7 +238,8 @@ public class DownloadService extends Service {
 		// 开启一个新的线程下载，如果使用Service同步下载，会导致ANR问题，Service本身也会阻塞
 		new Thread(new downloadRunnable()).start();// 这个是下载的重点，是下载的过程
 
-		return super.onStartCommand(intent, Service.START_REDELIVER_INTENT, startId);
+		return super.onStartCommand(intent, Service.START_REDELIVER_INTENT,
+				startId);
 	}
 
 	/**
@@ -265,10 +290,16 @@ public class DownloadService extends Service {
 				if ((downloadCount == 0)
 						|| (int) (totalSize * 100 / updateTotalSize) - 1 > downloadCount) {
 					downloadCount += 1;
-					builder.setProgress(100, downloadCount, false)
-							.setContentText(
-									totalSize * 100 / updateTotalSize + "%");
-					downloadNotificationManager.notify(0, builder.build());
+					if(Build.VERSION.SDK_INT >= 16){
+						
+						builder.setProgress(100, downloadCount, false)
+						.setContentText(
+								totalSize * 100 / updateTotalSize + "%");
+						downloadNotificationManager.notify(0, builder.build());
+					}else{
+						notify.number = (int) (totalSize*100/updateTotalSize);
+						downloadNotificationManager.notify(1,notify);
+					}
 				}
 			}
 		} finally {
@@ -303,15 +334,15 @@ public class DownloadService extends Service {
 						"application/vnd.android.package-archive");
 				downloadPendingIntent = PendingIntent.getActivity(
 						DownloadService.this, 0, installIntent, 0);
-//				builder.setProgress(100, 100, false).setTicker("下载完成")
-//						.setContentTitle(appInfo.getTitle() + "-正在下载")
-//						.setContentText("100%");
+				// builder.setProgress(100, 100, false).setTicker("下载完成")
+				// .setContentTitle(appInfo.getTitle() + "-正在下载")
+				// .setContentText("100%");
 				// updateNotification.setLatestEventInfo(UpdateService.this,
 				// "xxxx", "下载完成,点击安装。", updatePendingIntent);
-				//downloadNotificationManager.notify(0, builder.build());
+				// downloadNotificationManager.notify(0, builder.build());
 				installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				DownloadService.this.startActivity(installIntent);
-				
+
 				Log.i(TAG, "---开始安装---");
 
 				// 停止服务
@@ -320,8 +351,13 @@ public class DownloadService extends Service {
 				break;
 			case DOWNLOAD_FAIL:
 				// 下载失败
-				builder.setProgress(100, 99, false).setTicker("下载失败");
-				downloadNotificationManager.notify(0, builder.build());
+				if(Build.VERSION.SDK_INT >= 16){
+					builder.setProgress(100, 99, false).setTicker("下载失败");
+					downloadNotificationManager.notify(0, builder.build());
+				}else{
+					notify.tickerText="下载失败";
+					downloadNotificationManager.notify(1,notify);
+				}
 				break;
 			default:
 				stopSelf();
@@ -344,8 +380,8 @@ public class DownloadService extends Service {
 				}
 				// 下载函数，以QQ为例子
 				// 增加权限;
-				long downloadSize = downloadFile(
-						appInfo.getFile(), downloadFile);
+				long downloadSize = downloadFile(appInfo.getFile(),
+						downloadFile);
 				if (downloadSize > 0) {
 					// 下载成功
 					downloadHandler.sendMessage(message);
@@ -371,9 +407,9 @@ public class DownloadService extends Service {
 				pref = getSharedPreferences(Constant.STUDENTS_EARN,
 						MODE_PRIVATE);
 				editor = pref.edit();
-				if(isRepeatDown){
-					signIn(); //签到
-				}else{
+				if (isRepeatDown) {
+					signIn(); // 签到
+				} else {
 					editor.putLong(Constant.DOWNLOAD_APP_TIME,
 							System.currentTimeMillis());
 					editor.commit();
@@ -392,7 +428,7 @@ public class DownloadService extends Service {
 			}
 		}
 	};
-	
+
 	/**
 	 * @author alan.xie
 	 * @date 2014-12-8 上午10:58:26
@@ -451,9 +487,9 @@ public class DownloadService extends Service {
 								JSONObject json = response
 										.getJSONObject("data");
 								ad_install_id = json.getInt("id");
-								Log.i(TAG,"---上报成功---");
-							}else{
-								Log.i(TAG,response.getString("info"));
+								Log.i(TAG, "---上报成功---");
+							} else {
+								Log.i(TAG, response.getString("info"));
 							}
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -471,10 +507,10 @@ public class DownloadService extends Service {
 					}
 				});
 
-		if(appInfo.getScore()>0){
+		if (appInfo.getScore() > 0) {
 			monitoring();
 		}
-		
+
 	}
 
 	/**
@@ -494,7 +530,7 @@ public class DownloadService extends Service {
 			@Override
 			public void run() {
 				if (isTopActivity(appInfo.getPackage_name())) {
-					Log.i(TAG,"---开始计时中5s---");
+					Log.i(TAG, "---开始计时中5s---");
 					if (moreThanTimes(Constant.APP_RUNNING_TIME,
 							System.currentTimeMillis(), 3)) {
 						Log.i(TAG, "应用试玩成功----timer.cancel()");
@@ -510,7 +546,7 @@ public class DownloadService extends Service {
 				}
 				editor.commit();
 			}
-		}, 3000, 60*1000);
+		}, 3000, 60 * 1000);
 	}
 
 	Handler mHandler = new Handler() {
@@ -520,7 +556,7 @@ public class DownloadService extends Service {
 				RequestParams params = new RequestParams();
 				params.put("app_id", pref.getString(Constant.APPID, "0"));
 				params.put("ad_install_id", ad_install_id);
-				
+
 				HttpUtil.post(Constant.CONFIRM_INSTALL_INTEGRAL, params,
 						new JsonHttpResponseHandler() {
 
@@ -569,33 +605,47 @@ public class DownloadService extends Service {
 				RequestParams p = new RequestParams();
 				p.put("app_id", pref.getString(Constant.APPID, "0"));
 				p.put("ad_install_id", ad_install_id);
-				
+
 				/*
 				 * 签到
 				 */
-				HttpUtil.get(Constant.REPEAT_SIGN_URL, p, new JsonHttpResponseHandler(){
-					public void onSuccess(int statusCode, Header[] headers, org.json.JSONObject response) {
-						try {
-							if(response.getInt("code") == 1){
-								Toast.makeText(getApplicationContext(), "恭喜您，签到成功！",Toast.LENGTH_SHORT ).show();
-								editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 2); //签到成功
-							}else{
-								Toast.makeText(getApplicationContext(), response.getString("info"),Toast.LENGTH_SHORT ).show();
-								editor.putInt(Constant.APP_SIGN_IS_SUCCESS, -1); //签到失败
-							}
-							editor.commit();
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					};
-					public void onFailure(int statusCode, Header[] headers, Throwable throwable, org.json.JSONObject errorResponse) {
-						Toast.makeText(getApplicationContext(), "抱歉，签到失败！",Toast.LENGTH_SHORT ).show();
-						editor.putInt(Constant.APP_SIGN_IS_SUCCESS, -1); //签到失败
-						editor.commit();
-					};
-				});
+				HttpUtil.get(Constant.REPEAT_SIGN_URL, p,
+						new JsonHttpResponseHandler() {
+							public void onSuccess(int statusCode,
+									Header[] headers,
+									org.json.JSONObject response) {
+								try {
+									if (response.getInt("code") == 1) {
+										Toast.makeText(getApplicationContext(),
+												"恭喜您，签到成功！", Toast.LENGTH_SHORT)
+												.show();
+										editor.putInt(
+												Constant.APP_SIGN_IS_SUCCESS, 2); // 签到成功
+									} else {
+										Toast.makeText(getApplicationContext(),
+												response.getString("info"),
+												Toast.LENGTH_SHORT).show();
+										editor.putInt(
+												Constant.APP_SIGN_IS_SUCCESS,
+												-1); // 签到失败
+									}
+									editor.commit();
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
+							};
+
+							public void onFailure(int statusCode,
+									Header[] headers, Throwable throwable,
+									org.json.JSONObject errorResponse) {
+								Toast.makeText(getApplicationContext(),
+										"抱歉，签到失败！", Toast.LENGTH_SHORT).show();
+								editor.putInt(Constant.APP_SIGN_IS_SUCCESS, -1); // 签到失败
+								editor.commit();
+							};
+						});
 				break;
 			default:
 				break;
@@ -643,36 +693,36 @@ public class DownloadService extends Service {
 			return false;
 		}
 	}
-	
-	public void signIn(){
+
+	public void signIn() {
 		editor.putLong(Constant.APP_RUNNING_TIME, System.currentTimeMillis());
 		editor.commit();
-		
-		Toast.makeText(this, "试玩两分钟即完成签到！",Toast.LENGTH_SHORT ).show();
+
+		Toast.makeText(this, "试玩两分钟即完成签到！", Toast.LENGTH_SHORT).show();
 		timer = new Timer();
-		
+
 		timer.schedule(new TimerTask() {
-			
+
 			@Override
 			public void run() {
-				if(isTopActivity(appInfo.getPackage_name())){
-					if(moreThanTimes(Constant.APP_RUNNING_TIME,System.currentTimeMillis(),2)){
+				if (isTopActivity(appInfo.getPackage_name())) {
+					if (moreThanTimes(Constant.APP_RUNNING_TIME,
+							System.currentTimeMillis(), 2)) {
 						Log.i(TAG, "---开始签到。。。---");
 						timer.cancel();
 						ad_install_id = appInfo.getInstall_id();
 						Message msg = mHandler.obtainMessage(2);
 						mHandler.sendMessage(msg);
-					}else{
+					} else {
 						Log.i(TAG, "---正在签到。。。---");
-						editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 1); //签到中
+						editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 1); // 签到中
 					}
-				}else{
+				} else {
 					Log.i(TAG, "---退出签到---");
 					timer.cancel();
 				}
 				editor.commit();
 			}
-		}, 3000,5000);
+		}, 3000, 5000);
 	}
-
 }

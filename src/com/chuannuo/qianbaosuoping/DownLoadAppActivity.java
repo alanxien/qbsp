@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+import net.youmi.android.offers.OffersManager;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,6 +70,7 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 	private ImageView iv_upload;
 	private Bitmap imgBitmap;
 	private CustomADImageDialog uDialog;
+	private CustomDialog dialog;
 
 	String game = "";
 
@@ -187,8 +190,6 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 		String money = df.format(integral / 10.0).replaceAll("0+?$", "")
 				.replaceAll("[.]$", "");
 
-		myApplication.setDownload(0);
-
 		String url = appInfo.getIcon();
 		ImageLoader.getInstance().displayImage(url, iv_logo);
 		tv_app_name.setText(appInfo.getTitle());
@@ -208,7 +209,7 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 			tv_tips1.setMovementMethod(LinkMovementMethod.getInstance());
 			tv_downLoad.setVisibility(View.GONE);
 			tv_tips2.setText("打开上面连接，按提示完成操作。");
-			tv_tips3.setText("按下面示例图截图上传即可获得 "+ money2 + " 元");
+			tv_tips3.setText("按下面示例图截图上传即可获得 "+ money2 + " 元，（注意只有一次上传机会，请严格按照要求上传）");
 			rl_example.setVisibility(View.VISIBLE);
 			iv_upload.setVisibility(View.VISIBLE);
 			loadImage();
@@ -220,10 +221,14 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 			} else {
 				str = "下载安装后，使用3分钟系统将会赚  " + money + "元。";
 			}
-			if (appInfo.getIs_photo() == 1) {
-				tv_tips1.setText(str+"请到未完成任务列表中,按下面示例图截图上传即可获得 "+ money2 + " 元");
+			if (appInfo.getIs_photo() == 1 || appInfo.isSign()) {
+				tv_tips1.setText(str+"请到未完成任务列表中,按下面示例图截图上传即可获得 "+ money2 + " 元，（注意只有一次上传机会，请严格按照要求上传）");
 				rl_example.setVisibility(View.VISIBLE);
-				iv_upload.setVisibility(View.GONE);
+				if(appInfo.isSign()){
+					iv_upload.setVisibility(View.VISIBLE);
+				}else{
+					iv_upload.setVisibility(View.GONE);	
+				}
 				loadImage();
 			} else {
 				tv_tips1.setText(str);
@@ -403,6 +408,35 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
             String picturePath = cursor.getString(columnIndex);  
             cursor.close();  
             
+            dialog = new CustomDialog(this, R.style.CustomDialog,
+					new CustomDialog.CustomDialogListener() {
+
+						@Override
+						public void onClick(View view) {
+							switch (view.getId()) {
+							case R.id.btn_left:
+								dialog.dismiss();
+								OffersManager.getInstance(
+										BaseFragmentActivity.this).onAppExit();
+								BaseFragmentActivity.this.finish();
+								break;
+							case R.id.btn_right:
+								dialog.dismiss();
+								break;
+							default:
+								break;
+							}
+						}
+					}, 2);
+			dialog.setTitle(getResources().getString(R.string.exit_zhuanmi));
+			dialog.setContent(getResources().getString(R.string.exit_content));
+			dialog.setBtnLeftStr(getResources().getString(
+					R.string.exit_btn_left));
+			dialog.setBtnRightStr(getResources().getString(
+					R.string.exit_btn_right));
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
             uploadFile(new File(picturePath));
         }  
     }
@@ -442,7 +476,7 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 		    params.put("ad_install_id", appInfo.getInstall_id());
 			params.put("code", pref.getString(Constant.CODE, "0"));
 			
-	    	upLoading(Constant.UPLOADS_PHOTO_H5,params);
+	    	upLoading(Constant.UPLOADS_PHOTO,params);
 	    }
 	    
 	}
@@ -466,7 +500,10 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 	        public void onSuccess(int statusCode, Header[] headers,  
 	                byte[] responseBody) {  
 	            // 上传成功后要做的工作  
-	            Toast.makeText(DownLoadAppActivity.this, "图片上传成功", Toast.LENGTH_LONG).show();  
+	            Toast.makeText(DownLoadAppActivity.this, "图片上传成功", Toast.LENGTH_LONG).show();
+	            if(appInfo.isSign()){
+	            	myApplication.setSign(true);
+	            }
 	            uDialog.dismiss();  
 	        }
 	        @Override  

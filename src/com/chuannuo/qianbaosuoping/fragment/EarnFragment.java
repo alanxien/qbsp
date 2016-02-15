@@ -181,7 +181,10 @@ public class EarnFragment extends Fragment implements OnClickListener,
 	}
 
 	private void initData() {
-
+		pref = this.getActivity().getSharedPreferences(Constant.STUDENTS_EARN,
+				FragmentActivity.MODE_PRIVATE);
+		editor = pref.edit();
+		initPager0(pager0);
 		myPagerAdapter = new MyPagerAdapter(lists);
 		mViewPager.setAdapter(myPagerAdapter);
 		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -284,44 +287,43 @@ public class EarnFragment extends Fragment implements OnClickListener,
 
 		});
 
-		pref = this.getActivity().getSharedPreferences(Constant.STUDENTS_EARN,
-				FragmentActivity.MODE_PRIVATE);
-		editor = pref.edit();
-
 	}
 
 	@Override
 	public void onResume() {
-		int item = myApplication.getType();
-		infoList = null;
-		switch (item) {
-		case 0:
-			tv_recommended.callOnClick();
-			initPager0(pager0);
-			myApplication.setType(Constant.PAGER0);
-			break;
-		case 1:
-			tv_game_task.callOnClick();
-			initPager1(pager1);
-			myApplication.setType(Constant.PAGER1);
-			break;
-		case 2:
-			tv_share_task.callOnClick();
-			if (null == shareAppList || shareAppList.size() == 0) {
-				initPager2(pager2);
-			}
-			myApplication.setType(Constant.PAGER2);
-			break;
-		case 3:
-			tv_more_task.callOnClick();
-			myApplication.setType(Constant.PAGER3);
-			break;
-		default:
-			tv_game_task.callOnClick();
-			initPager0(pager0);
-			myApplication.setType(Constant.PAGER0);
-			break;
+		if(myApplication.isSign()){
+			tv_depth_task.performClick();
 		}
+//		int item = myApplication.getType();
+		
+//		switch (item) {
+//		case 0:
+//			tv_recommended.performClick();
+//			initPager0(pager0);
+//			myApplication.setType(Constant.PAGER0);
+//			break;
+//		case 1:
+//			tv_game_task.performClick();
+//			initPager1(pager1);
+//			myApplication.setType(Constant.PAGER1);
+//			break;
+//		case 2:
+//			tv_share_task.performClick();
+//			if (null == shareAppList || shareAppList.size() == 0) {
+//				initPager2(pager2);
+//			}
+//			myApplication.setType(Constant.PAGER2);
+//			break;
+//		case 3:
+//			tv_more_task.performClick();
+//			myApplication.setType(Constant.PAGER3);
+//			break;
+//		default:
+//			tv_game_task.performClick();
+//			initPager0(pager0);
+//			myApplication.setType(Constant.PAGER0);
+//			break;
+//		}
 
 		if (pref.getInt(Constant.APP_SIGN_IS_SUCCESS, 0) == 1) {
 			Toast.makeText(EarnFragment.this.getActivity(), "签到失败，试玩没超过2分钟",
@@ -682,6 +684,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 	 * @return void
 	 */
 	private void initDepthTask() {
+		myApplication.setSign(false);
 		RequestParams params = new RequestParams();
 		params.put("app_id", pref.getString(Constant.APPID, "0"));
 		HttpUtil.get(Constant.DEPTH_TASK_LIST_URL, params,
@@ -709,8 +712,6 @@ public class EarnFragment extends Fragment implements OnClickListener,
 											// if(checkPackage(obj.getString("package_name"))){
 											// //判断用户是否已经安装该软件
 											AppInfo appInfo = new AppInfo();
-											appInfo.setInstall_id(obj
-													.getInt("ad_install_id"));
 											if (null != childObj) {
 												appInfo.setTitle(childObj
 														.getString("title"));
@@ -722,7 +723,12 @@ public class EarnFragment extends Fragment implements OnClickListener,
 														.getString("resource_size"));
 												appInfo.setB_type(childObj
 														.getInt("btype"));
+												appInfo.setScore(childObj
+														.getInt("score"));
+												appInfo.setClicktype(childObj.getInt("clicktype"));
 												
+												appInfo.setInstall_id(obj
+														.getInt("ad_install_id"));
 												appInfo.setIs_photo(obj.getInt("is_photo"));
 												appInfo.setPhoto_integral(obj.getInt("photo_integral"));
 												appInfo.setPhoto_status(obj.getInt("photo_status"));
@@ -732,6 +738,13 @@ public class EarnFragment extends Fragment implements OnClickListener,
 														.getString("file");
 												String iconUrl = childObj
 														.getString("icon");
+												String h5Url = childObj
+														.getString("h5_big_url");
+
+												if (!h5Url.contains("http")) {
+													h5Url = Constant.ROOT_URL
+															+ h5Url;
+												}
 
 												if (!fileUrl.contains("http")) {
 													fileUrl = Constant.ROOT_URL
@@ -741,7 +754,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 													iconUrl = Constant.ROOT_URL
 															+ iconUrl;
 												}
-
+												appInfo.setH5_big_url(h5Url);
 												appInfo.setFile(fileUrl);
 												appInfo.setIcon(iconUrl);
 											}
@@ -759,12 +772,11 @@ public class EarnFragment extends Fragment implements OnClickListener,
 													.getInt("integral"));
 											appInfo.setSign(true);
 
-//											if (appInfo.getIsAddIntegral() == 0
-//													|| isSignTime(obj) ||(appInfo.getIs_photo_task() == 1 && 
-//															(appInfo.getPhoto_status()==0||appInfo.getPhoto_status()==3))) {
-//												depthAppList.add(appInfo);
-//											}
-											depthAppList.add(appInfo);
+											if ((appInfo.getIsAddIntegral() == 0 && appInfo.getScore()>0)
+													|| isSignTime(obj) ||(appInfo.getIs_photo_task() == 1 && 
+															appInfo.getPhoto_status()==0)) {
+												depthAppList.add(appInfo);
+											}
 										}
 									}
 
