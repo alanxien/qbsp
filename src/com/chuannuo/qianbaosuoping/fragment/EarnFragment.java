@@ -715,6 +715,10 @@ public class EarnFragment extends Fragment implements OnClickListener,
 											if (null != childObj) {
 												appInfo.setTitle(childObj
 														.getString("title"));
+												if(appInfo.getTitle().equals("")){
+													appInfo.setTitle(childObj
+															.getString("name"));
+												}
 												appInfo.setResource_id(childObj
 														.getInt("id"));
 												appInfo.setAdId(childObj
@@ -1011,6 +1015,9 @@ public class EarnFragment extends Fragment implements OnClickListener,
 													.getString("title"));
 											appInfo.setName(obj
 													.getString("name"));
+											if(appInfo.getTitle().equals("")){
+												appInfo.setTitle(appInfo.getName());
+											}
 											appInfo.setDescription(obj
 													.getString("description"));
 											appInfo.setPackage_name(obj

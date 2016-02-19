@@ -381,7 +381,9 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.rl_example:
-			CustomADImageDialog.createDialog(this,2).setBigImage(imgBitmap).show();
+			if(imgBitmap != null){
+				CustomADImageDialog.createDialog(this,2).setBigImage(imgBitmap).show();
+			}
 			break;
 		case R.id.iv_upload:
 			Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);  
