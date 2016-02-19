@@ -567,56 +567,23 @@ public class MainActivity extends BaseFragmentActivity implements
 								JSONArray jArray = response
 										.getJSONArray("data");
 
-								SimpleDateFormat df = new SimpleDateFormat(
-										"yyyy-MM-dd hh:mm:ss");
-								ArrayList<Long> times = new ArrayList<Long>();
-								String date;
-
 								if (null != jArray && jArray.length() > 0) {
 									// depthAppList = new ArrayList<AppInfo>();
 									for (int i = 0; i < jArray.length(); i++) {
 
 										JSONObject obj = jArray
 												.getJSONObject(i);
-
-										if (i < 100) {
-											date = (null == obj
-													.getString("update_date") || obj
-													.getString("update_date")
-													.equals("null")) ? obj
-													.getString("create_date")
-													: obj.getString("update_date");
-											try {
-												times.add(df.parse(date)
-														.getTime()
-														+ obj.getLong("reportsigntime")
-														* 24 * 60 * 60 * 1000);
-
-											} catch (ParseException e) {
-												// TODO Auto-generated catch
-												// block
-												e.printStackTrace();
-											}
-										}
-									}
-
-									int l = times.size();
-									if (l > 0) {
-										for (int i = 0; i < l - 1; i++) {
-											for (int j = 0; j < l- i - 1; j++) { 
-												
-												if (times.get(j) > times.get(j + 1)){ 
-													long temp = times.get(j);
-													times.set(j, times.get(j+1));
-													times.set(j+1, temp);
-												}
+										String s = obj.getString("resourceArr");
+										if (!s.equals("[]")&&!s.equals("false")) {
+											JSONObject childObj = obj
+													.getJSONObject("resourceArr");
+											if(childObj !=null && (isSignTime(obj)||(obj.getInt("is_photo_task") == 1 && 
+													obj.getInt("photo_status")==0))){
+												depthDialog.setContent("您有未完成任务，可以签到了，马上去[ 推荐任务--未完成任务 ]签到");
+												depthDialog.show();
 											}
 										}
 										
-										if(times.get(0) < System.currentTimeMillis()){
-											depthDialog.setContent("您有未完成任务，可以签到了，马上去[ 推荐任务--未完成任务 ]签到");
-											depthDialog.show();
-										}
 									}
 								}
 
@@ -637,6 +604,29 @@ public class MainActivity extends BaseFragmentActivity implements
 								errorResponse);
 					}
 				});
+	}
+	
+	private boolean isSignTime(JSONObject obj) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String date;
+		long time;
+		try {
+			date = (null == obj.getString("update_date") || obj.getString(
+					"update_date").equals("null")) ? obj
+					.getString("create_date") : obj.getString("update_date");
+
+			time = df.parse(date).getTime() + obj.getLong("reportsigntime")
+					* 24 * 60 * 60 * 1000;
+			if (time < System.currentTimeMillis()) {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch
+			// block
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 	
 	/**

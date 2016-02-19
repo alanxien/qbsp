@@ -706,7 +706,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 										JSONObject obj = jArray
 												.getJSONObject(i);
 										String s = obj.getString("resourceArr");
-										if (!s.equals("[]")) {
+										if (!s.equals("[]")&&!s.equals("false")) {
 											JSONObject childObj = obj
 													.getJSONObject("resourceArr");
 											// if(checkPackage(obj.getString("package_name"))){

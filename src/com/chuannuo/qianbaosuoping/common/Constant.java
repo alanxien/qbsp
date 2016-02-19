@@ -130,6 +130,7 @@ public interface Constant {
 	String EXCHANGE_INDIANA = BASE_URL +"/exchangeIndiana";//兑换夺宝币
 	String UPLOADS_PHOTO = BASE_URL +"/uploadsPhoto";//上传图片
 	String UPLOADS_PHOTO_H5 = BASE_URL +"/uploadsPhotoHtml";//上传图片
+	//String GET_USER_AD_ALERT = BASE_URL+"/getUserAdAlert";//上传图片成功，积分提示
 	
 	int PAGER0 = 0;//游戏任务
 	int PAGER1 = 1;//推荐任务

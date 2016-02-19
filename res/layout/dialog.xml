@@ -48,7 +48,7 @@
         android:layout_margin="2.5dip"
         android:background="@drawable/btn_save"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tv_msg"
@@ -57,7 +57,16 @@
             android:layout_margin="20.0dip"
             android:text="@string/dg_new_msg"
             android:textColor="@color/black1"
-            android:textSize="15.0sp" />
+            android:textSize="15.0sp"/>
+        
+        <ImageView 
+            android:id="@+id/iv_upload_img"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/loading_1"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <ImageView

@@ -142,6 +142,24 @@ public class CustomDialog extends Dialog implements OnClickListener{
 			picker_add.setOnClickListener(this);
 			picker_minus.setOnClickListener(this);
 			et_num.addTextChangedListener(textWatcher);
+		case 6://ÉÏ´«Í¼Æ¬
+			this.setContentView(R.layout.dialog);
+			tv_msg = (TextView) findViewById(R.id.tv_msg);
+			tv_title = (TextView) findViewById(R.id.tv_title);
+			iv_image = (ImageView) findViewById(R.id.iv_upload_img);
+			
+			btn_left = (Button) findViewById(R.id.btn_left);
+			btn_right = (Button) findViewById(R.id.btn_right);
+			btn_left.setOnClickListener(this);
+			btn_right.setOnClickListener(this);
+			
+			tv_msg.setVisibility(View.GONE);
+			btn_left.setText(btnLeftStr);
+			btn_right.setText(btnRightStr);
+			tv_title.setText(title);
+			iv_image.setImageBitmap(image);
+			iv_image.setVisibility(View.VISIBLE);
+			break;
 		default:
 			break;
 		}

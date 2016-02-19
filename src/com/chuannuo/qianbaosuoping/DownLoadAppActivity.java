@@ -2,6 +2,7 @@ package com.chuannuo.qianbaosuoping;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -405,7 +406,7 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
             cursor.moveToFirst();  
    
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);  
-            String picturePath = cursor.getString(columnIndex);  
+            final String picturePath = cursor.getString(columnIndex);  
             cursor.close();  
             
             dialog = new CustomDialog(this, R.style.CustomDialog,
@@ -416,28 +417,33 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 							switch (view.getId()) {
 							case R.id.btn_left:
 								dialog.dismiss();
-								OffersManager.getInstance(
-										BaseFragmentActivity.this).onAppExit();
-								BaseFragmentActivity.this.finish();
 								break;
 							case R.id.btn_right:
 								dialog.dismiss();
+								uploadFile(new File(picturePath));
 								break;
 							default:
 								break;
 							}
 						}
-					}, 2);
-			dialog.setTitle(getResources().getString(R.string.exit_zhuanmi));
-			dialog.setContent(getResources().getString(R.string.exit_content));
-			dialog.setBtnLeftStr(getResources().getString(
-					R.string.exit_btn_left));
-			dialog.setBtnRightStr(getResources().getString(
-					R.string.exit_btn_right));
+					}, 6);
+			dialog.setTitle("您确定选择该图片上传吗？");
+			dialog.setBtnLeftStr("取消重选");
+			dialog.setBtnRightStr("确定上传");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-            uploadFile(new File(picturePath));
+			if(selectedImage!=null){
+				try {
+					dialog.setImage(MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage));
+					dialog.show();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
         }  
     }
 	
@@ -501,6 +507,7 @@ public class DownLoadAppActivity extends BaseActivity implements OnClickListener
 	                byte[] responseBody) {  
 	            // 上传成功后要做的工作  
 	            Toast.makeText(DownLoadAppActivity.this, "图片上传成功", Toast.LENGTH_LONG).show();
+	            iv_upload.setVisibility(View.GONE);
 	            if(appInfo.isSign()){
 	            	myApplication.setSign(true);
 	            }
