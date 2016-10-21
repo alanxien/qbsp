@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.midi.wall.sdk.AdWall;
-import net.midi.wall.sdk.IAdWallGetPointsNotifier;
 import net.youmi.android.offers.OffersManager;
+import net.youmi.android.offers.PointsChangeNotify;
+import net.youmi.android.offers.PointsManager;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -21,6 +21,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,15 +41,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.dm.android.DMOfferWall;
-import cn.dm.android.listener.CheckPointListener;
-import cn.dm.android.model.ErrorInfo;
-import cn.dm.android.model.Point;
-import cn.yeeguo.Yeeguo;
-import cn.yeeguo.YeeguoScoreOnListener;
+import cn.dow.android.DOW;
+import cn.dow.android.listener.DataListener;
 
 import com.chuannuo.qianbaosuoping.DownLoadAppActivity;
-import com.chuannuo.qianbaosuoping.QuickRegisterActivity;
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.ShareDetailActivity;
 import com.chuannuo.qianbaosuoping.adapter.DepthTaskAdapter;
@@ -63,8 +59,11 @@ import com.chuannuo.qianbaosuoping.model.AppInfo;
 import com.chuannuo.qianbaosuoping.model.ShareApp;
 import com.chuannuo.qianbaosuoping.view.CustomProgressDialog;
 import com.chuannuo.qianbaosuoping.view.CustomViewPager;
-import com.dlnetwork.Dianle;
-import com.dlnetwork.GetTotalMoneyListener;
+import com.chuannuo.tangguo.TGData;
+import com.chuannuo.tangguo.TangGuoWall;
+import com.chuannuo.tangguo.listener.TangGuoWallListener;
+import com.chuannuoq.DevInit;
+import com.chuannuoq.GetTotalMoneyListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -73,10 +72,8 @@ import com.loopj.android.http.RequestParams;
  * @date 2015-1-26 下午5:14:47
  * @Description: TODO
  */
-public class EarnFragment extends Fragment implements OnClickListener,
-		YeeguoScoreOnListener, com.baidu.mobads.appoffers.PointsChangeListener,
-		IAdWallGetPointsNotifier {
-	private static final String TAG = "EarnFragment";
+public class EarnFragment extends Fragment implements OnClickListener{
+	public static final String TAG = "EarnFragment";
 
 	private CustomViewPager mViewPager;
 	private List<View> lists = new ArrayList<View>();
@@ -117,9 +114,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 	private RelativeLayout rl_dianjoy; // 点乐积分墙
 	private RelativeLayout rl_domob; // 多盟积分墙
 	private RelativeLayout rl_youmi; // 有米告积分墙
-	private RelativeLayout rl_yeeguo; // 椰果积分墙
-	private RelativeLayout rl_yingyan; // 百度积分墙
-	private RelativeLayout rl_midi; // 米迪积分墙
+	private RelativeLayout rl_tg;//糖果推荐
 
 	private SharedPreferences pref;
 	private Editor editor;
@@ -152,9 +147,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 		rl_dianjoy = (RelativeLayout) pager3.findViewById(R.id.rl_dianjoy);
 		rl_domob = (RelativeLayout) pager3.findViewById(R.id.rl_domob);
 		rl_youmi = (RelativeLayout) pager3.findViewById(R.id.rl_youmi);
-		rl_yeeguo = (RelativeLayout) pager3.findViewById(R.id.rl_yeeguo);
-		rl_yingyan = (RelativeLayout) pager3.findViewById(R.id.rl_yingyan);
-		rl_midi = (RelativeLayout) pager3.findViewById(R.id.rl_midi);
+		//rl_tg = (RelativeLayout) pager3.findViewById(R.id.rl_tg);
 
 		myApplication = (MyApplication) getActivity().getApplication();
 
@@ -166,17 +159,89 @@ public class EarnFragment extends Fragment implements OnClickListener,
 		rl_dianjoy.setOnClickListener(this);
 		rl_domob.setOnClickListener(this);
 		rl_youmi.setOnClickListener(this);
-		rl_yeeguo.setOnClickListener(this);
-		rl_yingyan.setOnClickListener(this);
-		rl_midi.setOnClickListener(this);
+		//rl_tg.setOnClickListener(this);
 
 		lists.add(pager0);
 		lists.add(pager1);
 		lists.add(pager2);
 		lists.add(pager3);
 
-		initData();
+		/*
+		 * 在需要显示积分墙的地方 放入如下两段代码
+		 */
+		TangGuoWall.initWall(getActivity(), "");//参数2为userId，可以为空
+		TangGuoWall.setTangGuoWallListener(new TangGuoWallListener() {
+			
+			/* (non-Javadoc)
+			 * 图片上传审核状态回调。
+			 */
+			@Override
+			public void onUploadImgs(List<TGData> dataList) {
+				/*
+				 * 图片审核状态 TGData
+				 * title，标题
+				 * score，积分
+				 * isPass，审核是否通过，true,false
+				 * remarks，审核true通过remarks为空，失败false，remarks为审核失败理由
+				 */
+				if(dataList.size()>0){
+					int score = 0;
+					for(int i=0; i<dataList.size();i++){
+						if(dataList.get(i).isPass()){
+							score += (int) dataList.get(i).getScore();
+						}
+					}
+					if(score >0){
+						addIntegral(
+								score,
+								EarnFragment.this.getActivity()
+										.getResources()
+										.getString(R.string.tg_app));
+					}
+				}
+			}
+			
+			/* 
+			 * 用户下载应用增加积分
+			 * status 1-体验应用成功，0-体验应用失败
+			 * appName 应用名称
+			 * point 增加多少积分
+			 */
+			@Override
+			public void onAddPoint(int status, String appName, double point) {
+				if(status == 1){
+					Toast.makeText(getActivity(), "体验应用成功", Toast.LENGTH_SHORT).show();
+//					addIntegral(
+//							point,
+//							EarnFragment.this.getActivity()
+//									.getResources()
+//									.getString(R.string.tg_app));
+				}else{
+					Toast.makeText(getActivity(), "体验应用失败", Toast.LENGTH_SHORT).show();
+				}
+			}
 
+			/* 
+			 * 用户签到增加积分
+			 * status 1-应用签到成功，0-应用签到失败
+			 * appName 应用名称
+			 * point 增加多少积分
+			 */
+			@Override
+			public void onSign(int status, String appName, double point) {
+				if(status == 1){
+					Toast.makeText(getActivity(), "应用签到成功", Toast.LENGTH_SHORT).show();
+					/*addIntegral(
+							point,
+							EarnFragment.this.getActivity()
+									.getResources()
+									.getString(R.string.tg_app));*/
+				}else{
+					Toast.makeText(getActivity(), "应用签到失败", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+		initData();
 		return view;
 	}
 
@@ -294,36 +359,6 @@ public class EarnFragment extends Fragment implements OnClickListener,
 		if(myApplication.isSign()){
 			tv_depth_task.performClick();
 		}
-//		int item = myApplication.getType();
-		
-//		switch (item) {
-//		case 0:
-//			tv_recommended.performClick();
-//			initPager0(pager0);
-//			myApplication.setType(Constant.PAGER0);
-//			break;
-//		case 1:
-//			tv_game_task.performClick();
-//			initPager1(pager1);
-//			myApplication.setType(Constant.PAGER1);
-//			break;
-//		case 2:
-//			tv_share_task.performClick();
-//			if (null == shareAppList || shareAppList.size() == 0) {
-//				initPager2(pager2);
-//			}
-//			myApplication.setType(Constant.PAGER2);
-//			break;
-//		case 3:
-//			tv_more_task.performClick();
-//			myApplication.setType(Constant.PAGER3);
-//			break;
-//		default:
-//			tv_game_task.performClick();
-//			initPager0(pager0);
-//			myApplication.setType(Constant.PAGER0);
-//			break;
-//		}
 
 		if (pref.getInt(Constant.APP_SIGN_IS_SUCCESS, 0) == 1) {
 			Toast.makeText(EarnFragment.this.getActivity(), "签到失败，试玩没超过2分钟",
@@ -334,16 +369,11 @@ public class EarnFragment extends Fragment implements OnClickListener,
 			initDepthTask();
 			editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 0);
 			editor.commit();
-		} else if (pref.getInt(Constant.APP_SIGN_IS_SUCCESS, 0) == -1) {
-			Toast.makeText(EarnFragment.this.getActivity(), "签到失败，还没到签到时间！",
-					Toast.LENGTH_SHORT).show();
-			editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 0);
-			editor.commit();
 		}
 
-		addDianJoyPoint();
-		addDMPoint();
-		AdWall.getPoints(this);
+//		addDianJoyPoint();
+//		addDMPoint();
+//		addYMPoint();
 
 		if (infoList != null && infoList.size() > 0) {
 			AppInfo app = new AppInfo();
@@ -386,14 +416,14 @@ public class EarnFragment extends Fragment implements OnClickListener,
 			/*
 			 * 点乐积分墙
 			 */
-			Dianle.showOffers(EarnFragment.this.getActivity());
+			DevInit.showOffers(EarnFragment.this.getActivity());
 			break;
 		case R.id.rl_domob:
 			/*
 			 * 多盟 积分墙
 			 */
-			DMOfferWall.getInstance(EarnFragment.this.getActivity())
-					.showOfferWall(EarnFragment.this.getActivity());
+			DOW.getInstance(EarnFragment.this.getActivity())
+					.show(EarnFragment.this.getActivity());
 			break;
 		case R.id.rl_youmi:
 			/*
@@ -402,23 +432,12 @@ public class EarnFragment extends Fragment implements OnClickListener,
 			OffersManager.getInstance(EarnFragment.this.getActivity())
 					.showOffersWall();
 			break;
-		case R.id.rl_yeeguo:
-			/*
-			 * 椰果 积分墙
-			 */
-			Yeeguo.showOffers(EarnFragment.this.getActivity(), this);
-			break;
-
-		case R.id.rl_yingyan:
-			/*
-			 * 百度积分墙
-			 */
-			com.baidu.mobads.appoffers.OffersManager
-					.showOffers(EarnFragment.this.getActivity());
-			break;
-		case R.id.rl_midi:
-			AdWall.showAppOffers(null);
-			break;
+//		case R.id.rl_tg:
+//			/*
+//			 * 显示积分墙广告
+//			 */
+//			TangGuoWall.show();
+//			break;
 		case R.id.tv_recommended:
 			mViewPager.setCurrentItem(0);
 			myApplication.setType(Constant.PAGER0);
@@ -442,7 +461,10 @@ public class EarnFragment extends Fragment implements OnClickListener,
 			}
 			tv_sign_tips.setVisibility(View.GONE);
 			appListView.setVisibility(View.VISIBLE);
-			depthListView.setVisibility(View.GONE);
+			if(depthListView != null){
+				depthListView.setVisibility(View.GONE);
+			}
+			
 			tv_blew_app_list.setBackgroundColor(getResources().getColor(
 					R.color.RedTheme));
 			tv_blew_depth_task.setBackgroundColor(getResources().getColor(
@@ -577,7 +599,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 													.getString("h5_big_url");
 
 											if (!fileUrl.contains("http")) {
-												fileUrl = Constant.ROOT_URL
+												fileUrl = Constant.DOWN_URL
 														+ fileUrl;
 											}
 											if (!iconUrl.contains("http")) {
@@ -731,12 +753,19 @@ public class EarnFragment extends Fragment implements OnClickListener,
 														.getInt("score"));
 												appInfo.setClicktype(childObj.getInt("clicktype"));
 												
+												appInfo.setCustomStatus(obj.getInt("is_custom_status"));
+												appInfo.setIsCustom(obj.getInt("is_custom"));
+												appInfo.setCustomField1(childObj.getString("custom1"));
+												appInfo.setCustomField2(childObj.getString("custom2"));
+												
+												
 												appInfo.setInstall_id(obj
 														.getInt("ad_install_id"));
 												appInfo.setIs_photo(obj.getInt("is_photo"));
 												appInfo.setPhoto_integral(obj.getInt("photo_integral"));
 												appInfo.setPhoto_status(obj.getInt("photo_status"));
 												appInfo.setIs_photo_task(obj.getInt("is_photo_task"));
+												appInfo.setPhoto_remarks(childObj.getString("photo_remarks"));
 
 												String fileUrl = childObj
 														.getString("file");
@@ -751,7 +780,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 												}
 
 												if (!fileUrl.contains("http")) {
-													fileUrl = Constant.ROOT_URL
+													fileUrl = Constant.DOWN_URL
 															+ fileUrl;
 												}
 												if (!iconUrl.contains("http")) {
@@ -775,11 +804,16 @@ public class EarnFragment extends Fragment implements OnClickListener,
 											appInfo.setScore(obj
 													.getInt("integral"));
 											appInfo.setSign(true);
-
-											if ((appInfo.getIsAddIntegral() == 0 && appInfo.getScore()>0)
-													|| isSignTime(obj) ||(appInfo.getIs_photo_task() == 1 && 
-															appInfo.getPhoto_status()==0)) {
+											if(isSignTime(obj)){
+												appInfo.setSignTime(true);
+											}
+											
+											if (appInfo.getIs_photo_task() != 1) {
 												depthAppList.add(appInfo);
+											}else{
+												if(appInfo.getIs_photo() == 0 || appInfo.getPhoto_status() == 2){
+													depthAppList.add(appInfo);
+												}
 											}
 										}
 									}
@@ -1041,6 +1075,10 @@ public class EarnFragment extends Fragment implements OnClickListener,
 											appInfo.setIsShare(obj
 													.getInt("isShare"));
 											
+											appInfo.setIsCustom(obj.getInt("is_custom"));
+											appInfo.setCustomField1(obj.getString("custom1"));
+											appInfo.setCustomField2(obj.getString("custom2"));
+											
 											appInfo.setClicktype(obj.getInt("clicktype"));
 											appInfo.setIs_photo(obj.getInt("is_phopo"));
 											appInfo.setPhoto_integral(obj.getInt("photo_integral"));
@@ -1053,7 +1091,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 													.getString("h5_big_url");
 
 											if (!fileUrl.contains("http")) {
-												fileUrl = Constant.ROOT_URL
+												fileUrl = Constant.DOWN_URL
 														+ fileUrl;
 											}
 											if (!iconUrl.contains("http")) {
@@ -1095,6 +1133,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 						}
 					}
 
+					
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
@@ -1144,16 +1183,6 @@ public class EarnFragment extends Fragment implements OnClickListener,
 			case 2:
 				dAdapter = new DepthTaskAdapter(getActivity(), depthAppList);
 				depthListView.setAdapter(dAdapter);
-				break;
-			case 3:
-				int coins = msg.arg1;
-				addIntegral((int) coins, EarnFragment.this.getActivity()
-						.getResources().getString(R.string.coco_app));
-				break;
-			case 4:
-				addIntegral(msg.arg1, EarnFragment.this.getActivity()
-						.getResources().getString(R.string.yeeguo_app)
-						+ "-" + msg.obj);
 				break;
 			case 5:
 				editor.putInt(Constant.SHARE_SIZE, shareAppList.size());
@@ -1285,7 +1314,7 @@ public class EarnFragment extends Fragment implements OnClickListener,
 		/*
 		 * 点乐 积分
 		 */
-		Dianle.getTotalMoney(EarnFragment.this.getActivity(),
+		DevInit.getTotalMoney(EarnFragment.this.getActivity(),
 				new GetTotalMoneyListener() {
 
 					/*
@@ -1293,6 +1322,8 @@ public class EarnFragment extends Fragment implements OnClickListener,
 					 */
 					@Override
 					public void getTotalMoneySuccessed(String name, long amount) {
+						Log.i(TAG, "点乐积分回调---"+amount);
+						
 						if (amount == 0) {
 							editor.putInt(Constant.DL_TOTAL_SCORE, 0);
 							editor.commit();
@@ -1336,34 +1367,37 @@ public class EarnFragment extends Fragment implements OnClickListener,
 		/*
 		 * 多盟积分墙
 		 */
-		DMOfferWall.getInstance(EarnFragment.this.getActivity()).checkPoints(
-				new CheckPointListener() {
+		DOW.getInstance(EarnFragment.this.getActivity()).checkPoints(
+				new DataListener() {
 
 					@Override
-					public void onError(ErrorInfo arg0) {
+					public void onError(String arg0) {
 						// TODO Auto-generated method stub
-
+						
 					}
 
 					@Override
-					public void onResponse(Point data) {
-						if (data.point == 0) {
+					public void onResponse(Object... point) {
+						
+						double totalPoint = (Double) point[1];
+						Log.i(TAG, "多盟积分回调---"+totalPoint);
+						if (totalPoint == 0) {
 							editor.putInt(Constant.DM_TOTAL_SCORE, 0);
 							editor.commit();
 						}
 						int score = pref.getInt(Constant.DM_TOTAL_SCORE, -1);
 
 						if (score == -1) {
-							editor.putInt(Constant.DM_TOTAL_SCORE, data.point);
+							editor.putInt(Constant.DM_TOTAL_SCORE, Double.valueOf(totalPoint).intValue());
 							editor.commit();
 						}
 
-						if (score != data.point
-								&& (score != -1 || data.point == 0)) {
-							editor.putInt(Constant.DM_TOTAL_SCORE, data.point);
+						if (score != totalPoint
+								&& (score != -1 || totalPoint == 0)) {
+							editor.putInt(Constant.DM_TOTAL_SCORE, Double.valueOf(totalPoint).intValue());
 							editor.commit();
 							addIntegral(
-									data.point - score,
+									Double.valueOf(totalPoint).intValue() - score,
 									EarnFragment.this.getActivity()
 											.getResources()
 											.getString(R.string.dm_app));
@@ -1371,77 +1405,44 @@ public class EarnFragment extends Fragment implements OnClickListener,
 					}
 				});
 	}
+	
+	/** 
+	* @Title: addYMPoint 
+	* @Description: 有米积分墙监听
+	* @author  xie.xin
+	* @param 
+	* @return void 
+	* @throws 
+	*/
+	private void addYMPoint(){
+		PointsManager.getInstance(getActivity()).registerNotify(new PointsChangeNotify() {
+			
+			@Override
+			public void onPointBalanceChange(float pointsBalance) {
+				Log.i(TAG, "有米积分回调---"+pointsBalance);
+				if (pointsBalance == 0) {
+					editor.putInt(Constant.YM_TOTAL_SCORE, 0);
+					editor.commit();
+				}
+				int score = pref.getInt(Constant.YM_TOTAL_SCORE, -1);
 
-	/*
-	 * 椰果积分墙回调失败
-	 * 
-	 * @see
-	 * cn.yeeguo.YeeguoScoreOnListener#yeeguoErrorListener(java.lang.String)
-	 */
+				if (score == -1) {
+					editor.putInt(Constant.YM_TOTAL_SCORE, Float.valueOf(pointsBalance).intValue());
+					editor.commit();
+				}
 
-	@Override
-	public void yeeguoErrorListener(String arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * 椰果积分墙回调成功
-	 * 
-	 * @see cn.yeeguo.YeeguoScoreOnListener#yeeguoScoreListener(int, int, int,
-	 * java.lang.String, java.lang.String, java.lang.String)
-	 */
-	@Override
-	public void yeeguoScoreListener(int type, int allScore, int score,
-			String unit, String appId, String appName) {
-		if (type == Yeeguo.DOWN_SCORE) {
-			Message msg = mHandler.obtainMessage();
-			msg.what = 4;
-			msg.arg1 = score;
-			msg.obj = appName;
-			mHandler.sendMessage(msg);
-		}
-	}
-
-	// 百度
-	@Override
-	public void onPointsChanged(int arg0) {
-		// TODO Auto-generated method stub
-		Log.d("onPointsChanged", "total points is: " + arg0);
-		addIntegral(arg0, "百度积分墙");
-
-		com.baidu.mobads.appoffers.OffersManager.subPoints(context, arg0);
-
-	}
-
-	@Override
-	public void onFailReceivePoints() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onReceivePoints(String arg0, Integer amount) {
-		if (amount == 0) {
-			editor.putInt(Constant.MD_TOTAL_SCORE, 0);
-			editor.commit();
-		}
-		int score = pref.getInt(Constant.MD_TOTAL_SCORE, -1);
-
-		if (score == -1) {
-			editor.putInt(Constant.MD_TOTAL_SCORE, Long.valueOf(amount)
-					.intValue());
-			editor.commit();
-		}
-
-		// 判断积分是否变化，若改变，则增加积分
-		if (score != -1 && score != Long.valueOf(amount).intValue()) {
-			editor.putInt(Constant.MD_TOTAL_SCORE, Long.valueOf(amount)
-					.intValue());
-			editor.commit();
-			Toast.makeText(getActivity(), "积分增加成功！", Toast.LENGTH_LONG).show();
-		}
-
+				if (score != pointsBalance
+						&& (score != -1 || pointsBalance == 0)) {
+					editor.putInt(Constant.YM_TOTAL_SCORE, Float.valueOf(pointsBalance).intValue());
+					editor.commit();
+					addIntegral(
+							Float.valueOf(pointsBalance).intValue() - score,
+							EarnFragment.this.getActivity()
+									.getResources()
+									.getString(R.string.ym_app));
+				}
+			}
+		});
 	}
 
 }

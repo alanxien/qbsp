@@ -8,7 +8,7 @@
         android:id="@+id/tv_sign_tips" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="钱包锁屏的积分，可以在以下游戏中支付哦！"
+        android:text="钱包夺宝的积分，可以在以下游戏中支付哦！"
         android:padding="10dp"
         android:textSize="15sp"
         android:textColor="#E18165"

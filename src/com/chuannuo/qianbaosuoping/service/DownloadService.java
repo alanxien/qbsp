@@ -5,37 +5,33 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.apache.http.Header;
-import org.apache.http.HttpRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Notification;
-import android.app.ActivityManager.RunningTaskInfo;
-import android.app.Notification.Builder;
 import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.app.Notification;
+import android.app.Notification.Builder;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageInfo;
-import android.content.pm.ResolveInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
@@ -44,14 +40,17 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import com.chuannuo.qianbaosuoping.R;
+import com.chuannuo.qianbaosuoping.androidprocess.AndroidAppProcess;
+import com.chuannuo.qianbaosuoping.androidprocess.AndroidAppProcessLoader;
+import com.chuannuo.qianbaosuoping.androidprocess.Listener;
 import com.chuannuo.qianbaosuoping.common.Configuration;
 import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.common.HttpUtil;
 import com.chuannuo.qianbaosuoping.common.MyApplication;
 import com.chuannuo.qianbaosuoping.dao.AppDao;
 import com.chuannuo.qianbaosuoping.model.AppInfo;
-
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -68,7 +67,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  * @date 2014-12-3 下午4:44:25
  * @Description: 下载服务
  */
-public class DownloadService extends Service {
+public class DownloadService extends Service implements Listener{
 
 	private static String TAG = "DownloadService";
 	// 标题
@@ -95,6 +94,8 @@ public class DownloadService extends Service {
 
 	private Timer timer;
 	private boolean isRepeatDown;
+	private List<AndroidAppProcess> aliList;
+	private int count = 0;
 
 	@Override
 	public void onCreate() {
@@ -408,7 +409,7 @@ public class DownloadService extends Service {
 						MODE_PRIVATE);
 				editor = pref.edit();
 				if (isRepeatDown) {
-					signIn(); // 签到
+					monitoring(); // 签到
 				} else {
 					editor.putLong(Constant.DOWNLOAD_APP_TIME,
 							System.currentTimeMillis());
@@ -437,6 +438,10 @@ public class DownloadService extends Service {
 	 * @return void
 	 */
 	private void adInstall() {
+		if(downloadFile.exists()){
+			downloadFile.delete();
+		}
+		
 		Log.i(TAG, "---开始上报---");
 		if (pref.getInt(Constant.DOWNLOAD_TIMES, 0) == 0) {
 			editor.putInt(Constant.DOWNLOAD_TIMES, 1);
@@ -521,32 +526,40 @@ public class DownloadService extends Service {
 	 * @return void
 	 */
 	public void monitoring() {
-		editor.putLong(Constant.APP_RUNNING_TIME, System.currentTimeMillis());
-		editor.commit();
+//		editor.putLong(Constant.APP_RUNNING_TIME, System.currentTimeMillis());
+//		editor.commit();
 		timer = new Timer();
-
+		ad_install_id = appInfo.getInstall_id();
 		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-				if (isTopActivity(appInfo.getPackage_name())) {
-					Log.i(TAG, "---开始计时中5s---");
-					if (moreThanTimes(Constant.APP_RUNNING_TIME,
-							System.currentTimeMillis(), 3)) {
-						Log.i(TAG, "应用试玩成功----timer.cancel()");
-						timer.cancel();
-						Message msg = mHandler.obtainMessage();
-						msg.what = 1;
-						mHandler.sendMessage(msg);
-
-					}
-				} else {
-					Log.i(TAG, "应用签到失败----timer.cancel()");
-					timer.cancel();
-				}
-				editor.commit();
+				new AndroidAppProcessLoader(getApplicationContext(), DownloadService.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			}
-		}, 3000, 60 * 1000);
+		}, 10000, 30000);
+
+//		timer.schedule(new TimerTask() {
+//
+//			@Override
+//			public void run() {
+//				if (isTopActivity(appInfo.getPackage_name())) {
+//					Log.i(TAG, "---开始计时中5s---");
+//					if (moreThanTimes(Constant.APP_RUNNING_TIME,
+//							System.currentTimeMillis(), 3)) {
+//						Log.i(TAG, "应用试玩成功----timer.cancel()");
+//						timer.cancel();
+//						Message msg = mHandler.obtainMessage();
+//						msg.what = 1;
+//						mHandler.sendMessage(msg);
+//
+//					}
+//				} else {
+//					Log.i(TAG, "应用签到失败----timer.cancel()");
+//					timer.cancel();
+//				}
+//				editor.commit();
+//			}
+//		}, 3000, 60 * 1000);
 	}
 
 	Handler mHandler = new Handler() {
@@ -694,35 +707,93 @@ public class DownloadService extends Service {
 		}
 	}
 
-	public void signIn() {
-		editor.putLong(Constant.APP_RUNNING_TIME, System.currentTimeMillis());
-		editor.commit();
-
-		Toast.makeText(this, "试玩两分钟即完成签到！", Toast.LENGTH_SHORT).show();
-		timer = new Timer();
-
-		timer.schedule(new TimerTask() {
-
-			@Override
-			public void run() {
-				if (isTopActivity(appInfo.getPackage_name())) {
-					if (moreThanTimes(Constant.APP_RUNNING_TIME,
-							System.currentTimeMillis(), 2)) {
-						Log.i(TAG, "---开始签到。。。---");
-						timer.cancel();
-						ad_install_id = appInfo.getInstall_id();
-						Message msg = mHandler.obtainMessage(2);
-						mHandler.sendMessage(msg);
-					} else {
-						Log.i(TAG, "---正在签到。。。---");
-						editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 1); // 签到中
-					}
-				} else {
-					Log.i(TAG, "---退出签到---");
-					timer.cancel();
-				}
-				editor.commit();
+	/* (non-Javadoc)
+	 * @see com.chuannuo.qianbaosuoping.androidprocess.Listener#onComplete(java.util.List)
+	 */
+	@Override
+	public void onComplete(List<AndroidAppProcess> processes) {
+		if(aliList == null){
+			aliList = new ArrayList<AndroidAppProcess>();
+		}else{
+			aliList.clear();
+		}
+		int size = processes.size();
+		AndroidAppProcess aProcess;
+		count++;
+		for(int i=0;i<size;i++){
+			aProcess = processes.get(i);
+			if(aProcess.getPackageName() != null && aProcess.getPackageName().equals(appInfo.getPackage_name().trim())){
+				aliList.add(aProcess);
 			}
-		}, 3000, 5000);
+		}
+		
+		int l =aliList.size();
+		if(l==0){
+			//体验失败
+		}else {
+			Boolean isFg = false;
+			for(int i=0; i<l;i++){
+				if(aliList.get(i).foreground){
+					isFg = true;
+				}
+			}
+			
+			if(isFg){
+				if(count == 5){
+					Toast.makeText(getApplicationContext(), "您已经体验了2分钟，继续体验3分钟！即可获得积分！", Toast.LENGTH_SHORT).show();
+				}else if(count == 7){
+					//体验成功
+					if(isRepeatDown){
+						Message msg = mHandler.obtainMessage();
+						msg.what = 2;
+						mHandler.sendMessage(msg);
+					}else{
+						Message msg = mHandler.obtainMessage();
+						msg.what = 1;
+						mHandler.sendMessage(msg);
+					}
+					
+				}
+			}else{
+				//体验失败
+			}
+		}
+		
+		if(count >=7){
+			timer.cancel();
+			count=0;
+		}
 	}
+
+//	public void signIn() {
+//		editor.putLong(Constant.APP_RUNNING_TIME, System.currentTimeMillis());
+//		editor.commit();
+//
+//		Toast.makeText(this, "试玩两分钟即完成签到！", Toast.LENGTH_SHORT).show();
+//		timer = new Timer();
+//
+//		timer.schedule(new TimerTask() {
+//
+//			@Override
+//			public void run() {
+//				if (isTopActivity(appInfo.getPackage_name())) {
+//					if (moreThanTimes(Constant.APP_RUNNING_TIME,
+//							System.currentTimeMillis(), 2)) {
+//						Log.i(TAG, "---开始签到。。。---");
+//						timer.cancel();
+//						ad_install_id = appInfo.getInstall_id();
+//						Message msg = mHandler.obtainMessage(2);
+//						mHandler.sendMessage(msg);
+//					} else {
+//						Log.i(TAG, "---正在签到。。。---");
+//						editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 1); // 签到中
+//					}
+//				} else {
+//					Log.i(TAG, "---退出签到---");
+//					timer.cancel();
+//				}
+//				editor.commit();
+//			}
+//		}, 3000, 5000);
+//	}
 }

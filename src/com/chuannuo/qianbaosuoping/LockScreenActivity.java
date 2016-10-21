@@ -57,7 +57,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 /**
  * @author alan.xie
  * @date 2014-12-1 上午11:54:24
- * @Description: 锁屏
+ * @Description: 夺宝
  */
 public class LockScreenActivity extends BaseActivity {
 	private final String TAG = "LockScreenActivity";

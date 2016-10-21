@@ -72,7 +72,7 @@ public class LockScreenService extends Service {
 	}
 	
 	/**
-	 * 屏幕变亮的广播，这里要隐藏系统的锁屏界面
+	 * 屏幕变亮的广播，这里要隐藏系统的夺宝界面
 	 */
 	private BroadcastReceiver mScreenOffReceiver = new BroadcastReceiver() {
 		@SuppressWarnings("deprecation")

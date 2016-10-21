@@ -1,4 +1,3 @@
-
 package com.chuannuo.qianbaosuoping.wxapi;
 
 import com.chuannuo.qianbaosuoping.BaseActivity;

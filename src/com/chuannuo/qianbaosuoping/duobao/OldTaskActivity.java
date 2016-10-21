@@ -38,21 +38,24 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-/** 
- * TODO<请描述这个类是干什么的> 
- * @author  xie.xin 
- * @data:  2016-1-19 下午9:12:08 
- * @version:  V1.0 
+/**
+ * TODO<请描述这个类是干什么的>
+ * 
+ * @author xie.xin
+ * @data: 2016-1-19 下午9:12:08
+ * @version: V1.0
  */
-public class OldTaskActivity extends BaseActivity{
-	
+public class OldTaskActivity extends BaseActivity {
+
 	private ListView listView;
 	private List<OldTask> list;
 	private OldTaskAdapter adapter;
 	private ProgressBar progressBar;
 	private int gId;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -60,22 +63,22 @@ public class OldTaskActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.db_activity_old_task);
-		
+
 		listView = (ListView) findViewById(R.id.listView);
 		progressBar = (ProgressBar) findViewById(R.id.progressBar);
-		
+
 		gId = getIntent().getIntExtra("g_id", 0);
 		initData();
 	}
 
-	/** 
-	* @Title: initData 
-	* @Description: TODO
-	* @author  xie.xin
-	* @param 
-	* @return void 
-	* @throws 
-	*/
+	/**
+	 * @Title: initData
+	 * @Description: TODO
+	 * @author xie.xin
+	 * @param
+	 * @return void
+	 * @throws
+	 */
 	private void initData() {
 		progressBar.setVisibility(View.VISIBLE);
 		list = new ArrayList<OldTask>();
@@ -83,7 +86,7 @@ public class OldTaskActivity extends BaseActivity{
 		params.put("appid", pref.getString(Constant.APPID, "0"));// 39887
 		params.put("page", 1);
 		params.put("g_id", gId);
-		HttpUtil.get(Constant.DB_INDIANAT_URL, params,
+		HttpUtil.get(Constant.DB_OLD_TASK_URL, params,
 				new JsonHttpResponseHandler() {
 
 					@Override
@@ -93,24 +96,30 @@ public class OldTaskActivity extends BaseActivity{
 							if (response.getInt("code") == 1) {
 								JSONArray jArray = response
 										.getJSONArray("data");
-								if(jArray != null && jArray.length() >0){
+								if (jArray != null && jArray.length() > 0) {
 									Message msg = mHandler.obtainMessage();
-									JSONObject obj = jArray.getJSONObject(0);
-									if (obj != null) {
-										OldTask c = new OldTask();
-										c.setCount(obj.getInt("count"));
-										c.setWinNumber(obj.getString("winning_number"));
-										c.setAppId(obj.getInt("app_id"));
-										c.setLotTime(obj.getString("the_lottery_time"));
+									int l = jArray.length();
+									for (int i = 0; i < l; i++) {
+										JSONObject obj = jArray
+												.getJSONObject(i);
+										if (obj != null) {
+											OldTask c = new OldTask();
+											c.setCount(obj.getInt("count"));
+											c.setWinNumber(obj
+													.getString("winning_number"));
+											c.setAppId(obj.getInt("app_id"));
+											c.setLotTime(obj
+													.getString("the_lottery_time"));
 
-										list.add(c);
+											list.add(c);
+										}
 									}
-								msg.what = 1;
-								mHandler.sendMessage(msg);
+
+									msg.what = 1;
+									mHandler.sendMessage(msg);
 								}
 							} else {
-								Toast.makeText(
-										OldTaskActivity.this,
+								Toast.makeText(OldTaskActivity.this,
 										response.getString("info"),
 										Toast.LENGTH_SHORT).show();
 							}
@@ -132,15 +141,14 @@ public class OldTaskActivity extends BaseActivity{
 					}
 				});
 	}
-	
+
 	Handler mHandler = new Handler() {
 		@SuppressLint("HandlerLeak")
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
 				if (null == adapter) {
-					adapter = new OldTaskAdapter(OldTaskActivity.this,
-							list);
+					adapter = new OldTaskAdapter(OldTaskActivity.this, list);
 				} else {
 					adapter.notifyDataSetChanged();
 				}

@@ -66,7 +66,7 @@ public class MyNumberActivity extends BaseActivity{
 				int startIndex = sb.toString().indexOf(w.getwNum());
 				if(startIndex>-1){
 					SpannableString s = new SpannableString(sb.toString());
-					s.setSpan(new ForegroundColorSpan(Color.parseColor("#ef4136")), startIndex, w.getwNum().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+					s.setSpan(new ForegroundColorSpan(Color.parseColor("#ef4136")), startIndex, w.getwNum().length()+startIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					tv_my_num.setText(s);
 				}else{
 					tv_my_num.setText(sb.toString());

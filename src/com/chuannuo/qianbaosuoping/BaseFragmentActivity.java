@@ -5,6 +5,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import net.youmi.android.offers.OffersManager;
+import net.youmi.android.offers.PointsChangeNotify;
+import net.youmi.android.offers.PointsManager;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -17,13 +19,20 @@ import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import cn.dow.android.DOW;
+import cn.dow.android.listener.DataListener;
+
 import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.common.HttpUtil;
+import com.chuannuo.qianbaosuoping.fragment.EarnFragment;
 import com.chuannuo.qianbaosuoping.view.CustomDialog;
+import com.chuannuoq.DevInit;
+import com.chuannuoq.GetTotalMoneyListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -116,6 +125,11 @@ public class BaseFragmentActivity extends FragmentActivity implements
 				&& pref.getInt(Constant.LATEST_SCROE, 0) > 0) {
 			waveDialog.show();
 		}
+		
+		addDianJoyPoint();
+		addDMPoint();
+		addYMPoint();
+		
 		super.onResume();
 	}
 
@@ -239,7 +253,7 @@ public class BaseFragmentActivity extends FragmentActivity implements
 		imageUrls.add(Constant.LOGO_URL);
 		bundle.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, imageUrls);
 		// 分享的消息摘要，最长50个字
-		bundle.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, "我又在钱包锁屏兑换了" + desc
+		bundle.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, "我又在钱包夺宝兑换了" + desc
 				+ "，注册立即送5元，小伙伴们快来下载试玩吧！");
 
 		mTencent.shareToQzone(BaseFragmentActivity.this, bundle,
@@ -260,7 +274,7 @@ public class BaseFragmentActivity extends FragmentActivity implements
 		msg = new WXMediaMessage(webpage);
 		msg.title = getResources().getString(R.string.app_name)
 				+ "-注册立刻送2元，我又赚了" + convertScore + "元，小伙伴们快来下载试玩吧！";
-		msg.description = "我又在钱包锁屏兑换了" + desc + "，注册立刻送2元哦，小伙伴们快来下载试玩吧！";
+		msg.description = "我又在钱包夺宝兑换了" + desc + "，注册立刻送2元哦，小伙伴们快来下载试玩吧！";
 		req = new SendMessageToWX.Req();
 		req.transaction = String.valueOf(System.currentTimeMillis())
 				+ "convert-" + convertId;
@@ -357,6 +371,206 @@ public class BaseFragmentActivity extends FragmentActivity implements
 					public void onFailure(int statusCode, Header[] headers,
 							Throwable throwable, JSONObject errorResponse) {
 						// TODO Auto-generated method stub
+						super.onFailure(statusCode, headers, throwable,
+								errorResponse);
+					}
+				});
+	}
+	
+	/**
+	 * @author alan.xie
+	 * @date 2014-12-26 下午4:32:21
+	 * @Description: 监听点乐积分变化
+	 * @param
+	 * @return void
+	 */
+	private void addDianJoyPoint() {
+		/*
+		 * 点乐 积分
+		 */
+		DevInit.getTotalMoney(BaseFragmentActivity.this,
+				new GetTotalMoneyListener() {
+
+					/*
+					 * amount，返回当前总积分
+					 */
+					@Override
+					public void getTotalMoneySuccessed(String name, long amount) {
+						Log.i(EarnFragment.TAG, "点乐积分回调---"+amount);
+						
+						if (amount == 0) {
+							editor.putInt(Constant.DL_TOTAL_SCORE, 0);
+							editor.commit();
+						}
+						int score = pref.getInt(Constant.DL_TOTAL_SCORE, -1);
+
+						if (score == -1) {
+							editor.putInt(Constant.DL_TOTAL_SCORE, Long
+									.valueOf(amount).intValue());
+							editor.commit();
+						}
+
+						// 判断积分是否变化，若改变，则增加积分
+						if (score != -1
+								&& score != Long.valueOf(amount).intValue()) {
+							editor.putInt(Constant.DL_TOTAL_SCORE, Long
+									.valueOf(amount).intValue());
+							editor.commit();
+							addIntegral(
+									Long.valueOf(amount).intValue() - score,
+									BaseFragmentActivity.this
+											.getResources()
+											.getString(R.string.dl_app));
+						}
+					}
+
+					@Override
+					public void getTotalMoneyFailed(String error) {
+					}
+				});
+	}
+
+	/**
+	 * @author alan.xie
+	 * @date 2014-12-26 下午4:32:48
+	 * @Description: 监听多盟积分变化
+	 * @param
+	 * @return void
+	 */
+	private void addDMPoint() {
+		/*
+		 * 多盟积分墙
+		 */
+		DOW.getInstance(this).checkPoints(
+				new DataListener() {
+
+					@Override
+					public void onError(String arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onResponse(Object... point) {
+						
+						double totalPoint = (Double) point[1];
+						Log.i(EarnFragment.TAG, "多盟积分回调---"+totalPoint);
+						if (totalPoint == 0) {
+							editor.putInt(Constant.DM_TOTAL_SCORE, 0);
+							editor.commit();
+						}
+						int score = pref.getInt(Constant.DM_TOTAL_SCORE, -1);
+
+						if (score == -1) {
+							editor.putInt(Constant.DM_TOTAL_SCORE, Double.valueOf(totalPoint).intValue());
+							editor.commit();
+						}
+
+						if (score != totalPoint
+								&& (score != -1 || totalPoint == 0)) {
+							editor.putInt(Constant.DM_TOTAL_SCORE, Double.valueOf(totalPoint).intValue());
+							editor.commit();
+							addIntegral(
+									Double.valueOf(totalPoint).intValue() - score,
+									BaseFragmentActivity.this
+											.getResources()
+											.getString(R.string.dm_app));
+						}
+					}
+				});
+	}
+	
+	/** 
+	* @Title: addYMPoint 
+	* @Description: 有米积分墙监听
+	* @author  xie.xin
+	* @param 
+	* @return void 
+	* @throws 
+	*/
+	private void addYMPoint(){
+		PointsManager.getInstance(BaseFragmentActivity.this).registerNotify(new PointsChangeNotify() {
+			
+			@Override
+			public void onPointBalanceChange(float pointsBalance) {
+				Log.i(EarnFragment.TAG, "有米积分回调---"+pointsBalance);
+				if (pointsBalance == 0) {
+					editor.putInt(Constant.YM_TOTAL_SCORE, 0);
+					editor.commit();
+				}
+				int score = pref.getInt(Constant.YM_TOTAL_SCORE, -1);
+
+				if (score == -1) {
+					editor.putInt(Constant.YM_TOTAL_SCORE, Float.valueOf(pointsBalance).intValue());
+					editor.commit();
+				}
+
+				if (score != pointsBalance
+						&& (score != -1 || pointsBalance == 0)) {
+					editor.putInt(Constant.YM_TOTAL_SCORE, Float.valueOf(pointsBalance).intValue());
+					editor.commit();
+					addIntegral(
+							Float.valueOf(pointsBalance).intValue() - score,
+							BaseFragmentActivity.this
+									.getResources()
+									.getString(R.string.ym_app));
+				}
+			}
+		});
+	}
+	
+	/**
+	 * @author alan.xie
+	 * @date 2014-10-31 上午10:02:50
+	 * @Description: 增加积分
+	 * @param @param integral
+	 * @return void
+	 */
+	public void addIntegral(final int integral, String reason) {
+		RequestParams params = new RequestParams();
+		params.put("appid", pref.getString(Constant.APPID, "0"));
+		params.put("integral", integral);
+		params.put("code", pref.getString(Constant.CODE, ""));
+		params.put("reason", reason);
+
+		HttpUtil.get(Constant.ADD_INTEGRAL_URL, params,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						try {
+							if (response.getInt("code") != 1) {
+								Toast.makeText(BaseFragmentActivity.this,
+										response.getString("info"),
+										Toast.LENGTH_SHORT).show();
+							} else {
+								/*
+								 * 增加积分成功
+								 */
+								Toast.makeText(
+										BaseFragmentActivity.this,
+										getResources().getString(
+												R.string.add_score_success)
+												+ "+" + integral,
+										Toast.LENGTH_SHORT).show();
+								editor.putInt(Constant.SCORE,
+										pref.getInt(Constant.SCORE, 0)
+												+ integral);
+								editor.commit();
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+						}
+						super.onSuccess(statusCode, headers, response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						Toast.makeText(BaseFragmentActivity.this,
+								"网络连接错误，请检查网络", Toast.LENGTH_SHORT).show();
 						super.onFailure(statusCode, headers, throwable,
 								errorResponse);
 					}

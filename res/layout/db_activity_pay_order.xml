@@ -84,7 +84,7 @@
             android:paddingLeft="15dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:text="余额支付"
+            android:text="夺宝币支付"
             android:textColor="@color/grey" 
             android:textSize="16sp"/>
 
@@ -117,6 +117,53 @@
         android:layout_height="1dp"
         android:layout_below="@+id/rel2"
         android:background="@color/graythem" />
+    
+    <TextView 
+        android:id="@+id/tv_earn_db"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:text="赚取夺宝币"
+        android:padding="15dp"
+        android:textColor="@color/grey" 
+        android:background="@drawable/btn_save"
+        android:textSize="16sp"/>
+    
+    <RelativeLayout
+        android:id="@+id/rel_earn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_below="@+id/textView2"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_tg_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="糖果SDK支付"
+            android:textColor="@color/grey" 
+            android:textSize="16sp"/>
+
+        <CheckBox
+            android:id="@+id/tg_checkbox"
+            style="@style/trench_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:text=""
+            android:textColor="@color/lightgrey"/>
+    </RelativeLayout>
+    <TextView
+  		android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_earn_db"
+        android:background="@color/graythem"/>
     
     <TextView
         android:id="@+id/tv_pay"

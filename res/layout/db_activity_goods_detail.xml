@@ -42,7 +42,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/tv_promote_task"
+        android:layout_above="@+id/rl_duobao"
         android:layout_below="@+id/rl_title"
         android:fillViewport="true"
         android:scrollbars="none" >
@@ -51,34 +51,11 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
-
-            <!-- <RelativeLayout
-                android:id="@+id/ll_img_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:orientation="vertical"
-                android:padding="10dp" >
-
-                <com.chuannuo.qianbaosuoping.view.MyImgScroll
-                    android:id="@+id/myvp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:id="@+id/vb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/myvp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal" >
-                </LinearLayout>
-            </RelativeLayout> -->
             
             <ImageView 
                 android:id="@+id/myvp"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:layout_margin="10dp"
                 android:src="@drawable/db_default"/>
 
@@ -149,6 +126,37 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
+                    android:id="@+id/tv_jsxq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_save"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:text="计算详情"
+                    android:textColor="@color/grey" 
+                    />
+                
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="20dp"
+                    android:scaleType="matrix"
+                    android:src="@drawable/mm_submenu" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/greythem" />
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
                     android:id="@+id/tv_wqjx"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -156,7 +164,8 @@
                     android:clickable="true"
                     android:padding="10dp"
                     android:text="往期揭晓"
-                    android:textColor="@color/grey" />
+                    android:textColor="@color/grey" 
+                    />
                 
                 <ImageView
                     android:id="@+id/imageView11"
@@ -253,7 +262,7 @@
             android:id="@+id/tv_duobao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_weight="3"
             android:background="@drawable/btn_red"
             android:clickable="true"
@@ -267,7 +276,7 @@
             android:id="@+id/tv_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_weight="3"
             android:background="@drawable/btn_blue"
             android:clickable="true"

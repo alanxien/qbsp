@@ -32,7 +32,7 @@
                 android:layout_marginLeft="6.0dip"
                 android:text="@string/dg_new_title"
                 android:textColor="@color/white"
-                android:textSize="21.0sp" />
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 

@@ -13,6 +13,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,6 +92,8 @@ public class GoodsAdapter extends BaseAdapter {
 			holder.schedule = (TextView) convertView.findViewById(R.id.tv_schedule);
 			holder.duobao = (TextView) convertView.findViewById(R.id.tv_cart);
 			holder.progressBar = (ProgressBar) convertView.findViewById(R.id.progressbar);
+			holder.price = (TextView) convertView.findViewById(R.id.tv_price);
+			holder.price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG );
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
@@ -102,7 +105,7 @@ public class GoodsAdapter extends BaseAdapter {
 		holder.progressBar.setProgress(result);
 		holder.schedule.setText(Html.fromHtml(context.getResources().getString(R.string.schedule,
 				result+"%")));
-		
+		holder.price.setText(g.getTotalMoney()+"");
 		holder.duobao.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -118,6 +121,7 @@ public class GoodsAdapter extends BaseAdapter {
 		public TextView title;
 		public TextView schedule;//开奖进度
 		public TextView duobao;//夺宝按钮
+		public TextView price;
 		public ProgressBar progressBar;
 	}
 	

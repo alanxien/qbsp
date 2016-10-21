@@ -1,19 +1,24 @@
 package com.chuannuo.qianbaosuoping;
 
-import java.text.ParseException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.midi.wall.sdk.AdWall;
 import net.youmi.android.AdManager;
+import net.youmi.android.offers.EarnPointsOrderList;
 import net.youmi.android.offers.OffersManager;
+import net.youmi.android.offers.PointsChangeNotify;
+import net.youmi.android.offers.PointsEarnNotify;
+import net.youmi.android.offers.PointsManager;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
@@ -23,28 +28,24 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.Toast;
-import cn.dm.android.DMOfferWall;
-import cn.yeeguo.Yeeguo;
 
-import com.baidu.mobads.appoffers.PointsChangeListener;
+import cn.dow.android.DOW;
+
 import com.chuannuo.qianbaosuoping.adapter.FragmentAdapter;
 import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.common.HttpUtil;
 import com.chuannuo.qianbaosuoping.common.MyApplication;
-import com.chuannuo.qianbaosuoping.service.LockScreenService;
-import com.chuannuo.qianbaosuoping.service.PollingService;
-import com.chuannuo.qianbaosuoping.service.PollingUtils;
 import com.chuannuo.qianbaosuoping.view.CustomDialog;
 import com.chuannuo.qianbaosuoping.view.CustomViewPager;
-import com.datouniao.AdPublisher.AppConfig;
-import com.datouniao.AdPublisher.AppConnect;
-import com.datouniao.AdPublisher.ReceiveNotifier;
-import com.dlnetwork.Dianle;
+import com.chuannuo.tangguo.TangGuoWall;
+import com.chuannuoq.DevInit;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.tencent.tauth.Tencent;
@@ -59,7 +60,7 @@ import com.umeng.update.UpdateStatus;
  * @Description: 主界面
  */
 public class MainActivity extends BaseFragmentActivity implements
-		OnClickListener {
+		OnClickListener{
 
 	private static final String TAG = "MainActivity";
 
@@ -73,7 +74,7 @@ public class MainActivity extends BaseFragmentActivity implements
 	private CustomViewPager viewPager;
 	private RadioButton main_tab_home, main_tab_exchange, main_tab_earn,
 			main_tab_snatch,main_tab_me, main_tab_more;
-	private CustomDialog dialogConvert,shareDialog,depthDialog;
+	private CustomDialog dialogConvert,shareDialog,depthDialog,adAlertDialog;
 
 	private MyApplication myApplication;
 	private SharedPreferences pref;
@@ -91,10 +92,6 @@ public class MainActivity extends BaseFragmentActivity implements
 	private int convertScore;
 	static public Context context;
 	
-	/*
-	 * 大头鸟积分墙
-	 */
-	private AppConnect appConnectInstance;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,14 +110,14 @@ public class MainActivity extends BaseFragmentActivity implements
 		}
 
 		
-		if (pref.getBoolean(Constant.IS_LOCK_SCREEN, true)) {
-			if(null == intent){
-				intent = new Intent(MainActivity.this, LockScreenService.class);
-			}
-			editor.putInt(Constant.SLIDED, 0);
-			editor.commit();
-			startService(intent); //这里要显示的调用服务
-		}
+//		if (pref.getBoolean(Constant.IS_LOCK_SCREEN, true)) {
+//			if(null == intent){
+//				intent = new Intent(MainActivity.this, LockScreenService.class);
+//			}
+//			editor.putInt(Constant.SLIDED, 0);
+//			editor.commit();
+//			startService(intent); //这里要显示的调用服务
+//		}
 		
 		//PollingUtils.startPollingService(this, 24*60*60, PollingService.class); //启动轮询服务，任务推送
 
@@ -182,13 +179,13 @@ public class MainActivity extends BaseFragmentActivity implements
 		/*
 		 * 点乐积分墙
 		 */
-		Dianle.initGoogleContext(this, "b3400d657800e5914b2d3c65b55660ae");
-		Dianle.setCurrentUserID(this, "");
+		DevInit.initGoogleContext(this, "b3400d657800e5914b2d3c65b55660ae");
+		DevInit.setCurrentUserID(this, "");
 
 		/*
 		 * 多盟积分墙
 		 */
-		DMOfferWall.init(this, "96ZJ1uSAzeWcHwTDiJ");
+		DOW.getInstance(this).init();
 
 		/*
 		 * 有米积分墙
@@ -196,93 +193,11 @@ public class MainActivity extends BaseFragmentActivity implements
 		AdManager.getInstance(this).init("0ffb317788960341",
 				"f062b23504663252", false);
 		OffersManager.getInstance(this).onAppLaunch();
-
-		/*
-		 * 椰果积分墙
-		 */
-		Yeeguo.initYeeguo(this, "75ed0ae19b1ac31a998fab433f192320","");
-		
-		//初始化大头鸟
-		AppConfig config = new AppConfig();
-		config.setCtx(this);
-		appConnectInstance = AppConnect.getInstance(this);
-		config.setReceiveNotifier(new ReceiveNotifier() {
-			
-			@Override
-			public void GetReceiveResponse(String currencyName, float receiveAmount, float totalAmount,
-					String serverOrderID, String appName) {
-				Log.i(TAG, "currencyName--"+currencyName);
-				Log.i(TAG, "receiveAmount--"+receiveAmount);
-				Log.i(TAG, "totalAmount--"+totalAmount);
-				Log.i(TAG, "serverOrderID--"+serverOrderID);
-				Log.i(TAG, "appName--"+appName);
-				Toast.makeText(MainActivity.this, "积分增加成功", Toast.LENGTH_SHORT).show();
-			}
-		});
 		
 		/*
-		 * 米迪积分墙
+		 * 初始化积分墙  必须放在入口activity中
 		 */
-		AdWall.init(this, "21880", "t1jzelu6gqwjphhg");
-		/*
-		 * 指盟积分墙
-		 */
-		
-		//百度积分监听
-				//设置积分监听接口
-				com.baidu.mobads.appoffers.OffersManager.setPointsChangeListener(new PointsChangeListener(){
-
-							@Override
-							public void onPointsChanged(int arg0) {
-								Log.d("onPointsChanged", "total points is: "+arg0);
-								final int integral=arg0;
-								
-								String reason= "百度积分墙";
-								
-								RequestParams params = new RequestParams();
-								params.put("appid", pref.getString(Constant.APPID, "0"));
-								params.put("integral", integral);
-								params.put("code", pref.getString(Constant.CODE, ""));
-								params.put("reason", reason);
-								
-								HttpUtil.get(Constant.ADD_INTEGRAL_URL,params, new JsonHttpResponseHandler(){
-									@Override
-									public void onSuccess(int statusCode, Header[] headers,
-											JSONObject response) {
-										try {
-											if(response.getInt("code") != 1){
-												Toast.makeText(context, response.getString("info"), Toast.LENGTH_SHORT).show();
-											}else{
-												/*
-												 * 增加积分成功
-												 */
-												Toast.makeText(context, getResources().getString(R.string.add_score_success)+"+"+integral, Toast.LENGTH_SHORT).show();
-												editor.putInt(Constant.SCORE, pref.getInt(Constant.SCORE, 0)+integral);
-												editor.commit();
-											}
-										} catch (JSONException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										} finally{
-										}
-										super.onSuccess(statusCode, headers, response);
-									}
-									
-									@Override
-									public void onFailure(int statusCode, Header[] headers,
-											Throwable throwable, JSONObject errorResponse) {
-										Toast.makeText(context, getResources().getString(R.string.sys_remind3), Toast.LENGTH_SHORT).show();
-										super.onFailure(statusCode, headers, throwable, errorResponse);
-									}
-								});
-								
-								
-								com.baidu.mobads.appoffers.OffersManager.subPoints(context, arg0);
-
-								
-							}
-							
-						});
+		TangGuoWall.init(this,pref.getString(Constant.APPID, "0"));
 	}
 
 	/**
@@ -355,7 +270,147 @@ public class MainActivity extends BaseFragmentActivity implements
 		dialogConvert.setCanceledOnTouchOutside(false);
 		
 		viewPager.setOffscreenPageLimit(3);
+		
+		new Handler().postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				getUserAdAlert();
+			}
+		}, 5000);
 	}
+	
+	private void getUserAdAlert(){
+		adAlertDialog = new CustomDialog(this, R.style.CustomDialog,
+				new CustomDialog.CustomDialogListener() {
+
+					@Override
+					public void onClick(View view) {
+						adAlertDialog.dismiss();
+					}
+				}, 1);
+		adAlertDialog.setTitle("图片上传审核");
+		adAlertDialog.setBtnStr("我知道了");
+		adAlertDialog.setCanceledOnTouchOutside(false);
+		
+		RequestParams p = new RequestParams();
+		p.put("appid", pref.getString(Constant.APPID, "0"));
+		HttpUtil.post(Constant.GET_USER_AD_ALERT, p, new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				try {
+					if(response.getInt("code") == 1){
+						JSONObject obj = response.getJSONObject("data");
+						if(obj != null){
+							JSONArray passArray = obj.getJSONArray("pass");
+							JSONArray failArray = obj.getJSONArray("fail");
+							JSONObject passObject;
+							JSONObject failObject;
+							String passInfo = "";
+							String failInfo = "";
+							String ids ="";
+							
+							DecimalFormat df = new DecimalFormat("0.00");//格式化小数
+							df.setRoundingMode(RoundingMode.DOWN);
+							if(passArray !=null && !passArray.equals("[]") && passArray.length()>0){
+								for(int i=0; i<passArray.length();i++){
+									passObject = passArray.getJSONObject(i);
+									if(passObject != null){
+										double integral = (double) (Long.parseLong(response.getString("photo_integral"))/10000.0);
+										String money = df.format(integral/10.0).replaceAll("0+?$", "").replaceAll("[.]$", "");
+										passInfo = passInfo + passObject.getString("title")+" （审核通过）  +"+money+"元\n";
+										ids = ids+passObject.getInt("ad_install_id")+",";
+									}
+									
+								}
+								
+							}
+							
+							if(failArray !=null && !failArray.equals("[]") && failArray.length()>0){
+								for(int i=0; i<failArray.length();i++){
+									failObject = failArray.getJSONObject(i);
+									if(failObject != null){
+										failInfo = failInfo + failObject.getString("title")+failObject.getString("photo_remarks")+" （审核失败）\n";
+										ids = ids+failObject.getInt("ad_install_id")+",";
+									}
+									
+								}
+								
+							}
+
+							if(passInfo.length() > 0 || failInfo.length()>0){
+								adAlertDialog.setContent(passInfo+failInfo);
+								adAlertDialog.show();
+							}
+							if(ids.length() > 0){
+								Message msg = mHandler.obtainMessage();
+								msg.what = 1;
+								msg.obj = ids.substring(0,ids.length()-1);;
+								mHandler.sendMessage(msg);
+							}
+							
+						}
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				super.onSuccess(statusCode, headers, response);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				// TODO Auto-generated method stub
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+		});
+	}
+	
+	private void modifyAdAlert(Object obj){
+		String adIds = (String) obj;
+		RequestParams p = new RequestParams();
+		p.put("app_id", pref.getString(Constant.APPID, "0"));
+		p.put("ad_install_id_list", adIds);
+		HttpUtil.post(Constant.MODIFY_USER_ADALERT, p, new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				try {
+					if(response.getInt("code") == 1){
+						
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				super.onSuccess(statusCode, headers, response);
+			}
+			
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				// TODO Auto-generated method stub
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+		});
+	}
+	
+	Handler mHandler = new Handler() {
+		@SuppressLint("HandlerLeak")
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				if(msg.obj  != null){
+					modifyAdAlert(msg.obj);
+				}
+				break;
+			default:
+				break;
+			}
+		};
+	};
 
 	private void initData() {
 		
@@ -430,14 +485,14 @@ public class MainActivity extends BaseFragmentActivity implements
 	@Override
 	protected void onResume() {
 		if(myApplication.getFlag() == 1){
-			viewPager.setCurrentItem(TAB_EARN, true);
+			viewPager.setCurrentItem(TAB_EARN, false);
 			main_tab_earn.setChecked(true);
 			main_tab_home.setChecked(false);
 			myApplication.setFlag(0);
 		}
 		if(myApplication.getFlag() == 2){
 			myApplication.setType(Constant.PAGER2);
-			viewPager.setCurrentItem(TAB_EARN, true);
+			viewPager.setCurrentItem(TAB_EARN, false);
 			main_tab_earn.setChecked(true);
 			main_tab_home.setChecked(false);
 			myApplication.setFlag(0);
@@ -450,22 +505,22 @@ public class MainActivity extends BaseFragmentActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.main_tab_home:
-			viewPager.setCurrentItem(TAB_HOME, true);
+			viewPager.setCurrentItem(TAB_HOME, false);
 			break;
 		case R.id.main_tab_exchange:
-			viewPager.setCurrentItem(TAB_EXCHANGE, true);
+			viewPager.setCurrentItem(TAB_EXCHANGE, false);
 			break;
 		case R.id.main_tab_earn:
-			viewPager.setCurrentItem(TAB_EARN, true);
+			viewPager.setCurrentItem(TAB_EARN, false);
 			break;
 		case R.id.main_tab_snatch:
-			viewPager.setCurrentItem(TAB_SNATCH,true);
+			viewPager.setCurrentItem(TAB_SNATCH,false);
 			break;
 		case R.id.main_tab_me:
-			viewPager.setCurrentItem(TAB_ME, true);
+			viewPager.setCurrentItem(TAB_ME, false);
 			break;
 		case R.id.main_tab_more:
-			viewPager.setCurrentItem(TAB_MORE, true);
+			viewPager.setCurrentItem(TAB_MORE, false);
 			break;
 		default:
 			break;
@@ -475,7 +530,7 @@ public class MainActivity extends BaseFragmentActivity implements
 	/**
 	 * @author alan.xie
 	 * @date 2014-11-25 下午6:16:52
-	 * @Description: 判断锁屏是否已经启动
+	 * @Description: 判断夺宝是否已经启动
 	 * @param @return
 	 * @return boolean
 	 */
@@ -501,7 +556,7 @@ public class MainActivity extends BaseFragmentActivity implements
 	/**
 	 * @author alan.xie
 	 * @date 2014-12-1 下午5:13:22
-	 * @Description: 判断锁屏服务是否运行
+	 * @Description: 判断夺宝服务是否运行
 	 * @param @param mContext
 	 * @param @param serviceName
 	 * @param @return
@@ -544,7 +599,7 @@ public class MainActivity extends BaseFragmentActivity implements
 					@Override
 					public void onClick(View view) {
 						depthDialog.dismiss();
-						viewPager.setCurrentItem(TAB_EARN, true);
+						viewPager.setCurrentItem(TAB_EARN, false);
 						main_tab_earn.setChecked(true);
 						main_tab_home.setChecked(false);
 					}
@@ -661,21 +716,9 @@ public class MainActivity extends BaseFragmentActivity implements
 	 * @return void
 	 */
 	public void recommenedTask(View v){
-		viewPager.setCurrentItem(TAB_EARN, true);
+		viewPager.setCurrentItem(TAB_EARN, false);
 		main_tab_earn.setChecked(true);
 		main_tab_home.setChecked(false);
-	}
-	
-	/**
-	 * @author alan.xie
-	 * @date 2015-3-26 下午5:01:41 
-	 * @Description: 大头鸟积分墙
-	 * @param v
-	 * @return void
-	 * @throws
-	 */ 
-	public void datouniao(View v){
-		appConnectInstance.ShowAdsOffers();
 	}
 }
 

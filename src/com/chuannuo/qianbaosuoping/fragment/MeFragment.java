@@ -165,8 +165,11 @@ public class MeFragment extends Fragment implements OnClickListener{
 					if(!response.getString("code").equals("0")){
 						JSONObject obj = response.getJSONObject("data");
 						if(obj != null){
-							int integral = obj.getInt("indiana_money");//可用积分
-							tv_duobao_yuer.setText(integral+"元");
+							double integral = obj.getDouble("indiana_money");//可用积分
+							DecimalFormat df = new DecimalFormat("0.00");//格式化小数
+							df.setRoundingMode(RoundingMode.DOWN);
+							String money = df.format(integral/1.0).replaceAll("0+?$", "").replaceAll("[.]$", "");
+							tv_duobao_yuer.setText("（余额："+money+"元）");
 						}
 					}
 				} catch (JSONException e) {

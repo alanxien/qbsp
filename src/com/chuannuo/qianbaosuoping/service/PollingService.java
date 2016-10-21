@@ -136,7 +136,7 @@ public class PollingService extends Service {
 								String h5Url = obj.getString("h5_big_url");
 
 								if (!fileUrl.contains("http")) {
-									fileUrl = Constant.ROOT_URL + fileUrl;
+									fileUrl = Constant.DOWN_URL + fileUrl;
 								}
 								if (!iconUrl.contains("http")) {
 									iconUrl = Constant.ROOT_URL + iconUrl;
@@ -196,13 +196,13 @@ public class PollingService extends Service {
 //					aInfo.getResource_id(), intent,
 //					PendingIntent.FLAG_UPDATE_CURRENT);
 //
-//			builder.setContentTitle("钱包锁屏-" + aInfo.getTitle())
+//			builder.setContentTitle("钱包夺宝-" + aInfo.getTitle())
 //					.setContentText(
 //							"你的好友向您推荐任务-" + aInfo.getTitle() + "，马上做任务赚取更多！")
 //					// 设置通知栏标题
 //					.setContentIntent(pendingIntent)
 //					// 设置通知栏点击意图
-//					.setTicker("钱包锁屏任务提醒")
+//					.setTicker("钱包夺宝任务提醒")
 //					// 通知首次出现在通知栏，
 //					.setWhen(System.currentTimeMillis())
 //					// 通知产生的时间，会在通知信息里显示，一般是系统获取到的时间

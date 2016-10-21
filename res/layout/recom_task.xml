@@ -62,7 +62,7 @@
         android:id="@+id/tv_sign_tips" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="打开软件玩2分钟即完成一次签到，每次签到即可获得10000积分"
+        android:text="打开软件玩2分钟即完成一次签到，每次签到即可获得0.1元"
         android:padding="10dp"
         android:textSize="15sp"
         android:textColor="#E18165"

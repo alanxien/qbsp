@@ -8,7 +8,8 @@ package com.chuannuo.qianbaosuoping.common;
 public interface Constant {
 	
 	String PACKAGE_NAME = "com.chuannuo.qianbaosuoping";
-	String DOWNLOAD_DIR = "app/download/";
+	String DOWNLOAD_DIR = "qbsp/download/";
+	String IMG_DIR = "qbsp/images/";
 	
 	/*
 	 * sharedPreferenced 常量
@@ -39,13 +40,11 @@ public interface Constant {
     
     String R_ACCOUNT = "rememberAccount";//记住账号
     String R_PASSWORD = "rememberPassword";//记住密码
-    String IS_LOCK_SCREEN = "isLockScreen";//是否开启锁屏
+    String IS_LOCK_SCREEN = "isLockScreen";//是否开启夺宝
     
     String DL_TOTAL_SCORE = "dlTotalScore"; //记录点乐总积分
     String DM_TOTAL_SCORE = "dmTotalScore"; //记录多盟总积分
-    String ZM_TOTAL_SCORE = "zmTotalScore"; //记录指盟总积分
-    String YY_TOTAL_SCORE = "yyTotalScore"; //记录鹰眼总积分
-    String MD_TOTAL_SCORE = "mdToatalScore";//记录米迪总积分
+    String YM_TOTAL_SCORE = "ymTotalScore"; //记录有米总积分
     
     
     String TASK_SIGN = "taskSign";//每日签到
@@ -66,7 +65,7 @@ public interface Constant {
     String LATEST_SCROE = "latestScore";//上次摇一摇时候的积分，判断是否可以进行下次摇一摇抽奖，
     String SCORE = "score";       //当前积分
     
-    String DOWNLOAD_TIMES = "downLoadTimes"; //每天能下载多少次钱包锁屏app
+    String DOWNLOAD_TIMES = "downLoadTimes"; //每天能下载多少次钱包夺宝app
     String DOWN_TIME = "downLoadTime";//记录下载时间，超过一天可重新下载
     
     /*
@@ -80,9 +79,10 @@ public interface Constant {
 	 */
     String ROOT_URL = "http://112.74.88.252";	//http://www.jiequbao.com/							//服务器
 	String BASE_URL = "http://112.74.88.252/index.php?r=zhuanMi";
+	String DOWN_URL = "http://qbsp.jiequbao.com";//下载URL
 	//String ROOT_URL = "http://192.168.1.57/zhuanmi2/www";						//本地
 	//String BASE_URL = "http://192.168.1.57/zhuanmi2/www/index.php?r=zhuanMi";
-	
+	String SCREEN_SHOT_RUL = "http://m.baidu.com/s?word=";
 	
 	String LOGIN_URL = BASE_URL+"/login";     					//登陆（绑定手机号）
 	String USER_INFO_URL = BASE_URL+"/userInfo";				//用户详细信息
@@ -128,9 +128,10 @@ public interface Constant {
 	 */
 	String DOWNLOAD_URL = BASE_URL+"/getResourceListHtml"; //截图任务接口
 	String EXCHANGE_INDIANA = BASE_URL +"/exchangeIndiana";//兑换夺宝币
-	String UPLOADS_PHOTO = BASE_URL +"/uploadsPhoto";//上传图片
-	String UPLOADS_PHOTO_H5 = BASE_URL +"/uploadsPhotoHtml";//上传图片
-	//String GET_USER_AD_ALERT = BASE_URL+"/getUserAdAlert";//上传图片成功，积分提示
+	String UPLOADS_PHOTO = BASE_URL +"/uploadsPhotoHtmls";//上传图片
+	String GET_USER_AD_ALERT = BASE_URL+"/getUserAdAlert";//上传图片成功，积分提示
+	String MODIFY_USER_ADALERT = BASE_URL + "/modifyUserAdAlert";//截图修改上报，
+	String ADDCUSTOM = BASE_URL +"/addCustom";
 	
 	int PAGER0 = 0;//游戏任务
 	int PAGER1 = 1;//推荐任务
@@ -166,7 +167,7 @@ public interface Constant {
 	 * 夺宝接口
 	 */
 	String DB_BASE = "http://www.jiequbao.com/index.php?r=apiIndiana/";
-	String DB_GOODSLIST_URL = DB_BASE+"goodList"; //获取夺宝资源列表
+	String DB_GOODSLIST_URL = DB_BASE+"goodListNew"; //获取夺宝资源列表
 	String DB_GOODSDETAIL_URL = DB_BASE+"getTastInfo"; //获取当前夺宝任务详细信息
 	String DB_INDIANAT_URL = DB_BASE+"indianatList"; //所有参与者
 	String DB_CART_LIST_URL = DB_BASE+"cartList";//购物车列表

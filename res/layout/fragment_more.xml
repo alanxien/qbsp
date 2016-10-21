@@ -225,7 +225,8 @@
                 android:id="@+id/rl_lock_screen"
                 android:layout_width="fill_parent"
                 android:layout_height="40.0dip"
-                android:background="@drawable/btn_save" >
+                android:background="@drawable/btn_save" 
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="30.0dip"

@@ -14,7 +14,10 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="5dp"
-        android:text="iPhone6s 64G 颜色随机"
+        android:maxLines="2"
+        android:minLines="2"
+        android:ellipsize="end"
+        android:text="iPhone6s 64G 颜色随机 "
         android:textColor="@color/grey" />
 
     <ProgressBar
@@ -46,6 +49,17 @@
             android:text="开奖进度12%"
             android:textColor="@color/graythem1"
             android:textSize="12sp" />
+        
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_schedule"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:textColor="@color/RedTheme"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_cart"
@@ -58,7 +72,7 @@
             android:background="@drawable/btn_blue"
             android:clickable="true"
             android:gravity="center"
-            android:padding="3dp"
+            android:padding="2dp"
             android:text="加入清单"
             android:textColor="@color/white1"
             android:textSize="13sp" />

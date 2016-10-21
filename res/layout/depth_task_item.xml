@@ -63,8 +63,7 @@
                 android:maxLines="2"
                 android:text="任务未完成，签到完成任务" 
                 android:textColor="#E18165"
-        		android:background="@color/YellowDackThem"
-        		android:visibility="gone"/>
+        		android:background="@color/YellowDackThem"/>
         
     </LinearLayout>
 

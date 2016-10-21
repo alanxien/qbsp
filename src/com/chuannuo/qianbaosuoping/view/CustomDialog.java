@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CustomDialog extends Dialog implements OnClickListener{
-	
+public class CustomDialog extends Dialog implements OnClickListener {
+
 	Context context;
 	private Button btn_left;
 	private Button btn_right;
@@ -24,7 +24,7 @@ public class CustomDialog extends Dialog implements OnClickListener{
 	private TextView tv_msg;
 	private TextView tv_title;
 	private ImageView iv_image;
-	
+
 	private CustomDialogListener listener;
 	private String content;
 	private String btnStr;
@@ -32,18 +32,25 @@ public class CustomDialog extends Dialog implements OnClickListener{
 	private String btnRightStr;
 	private String title;
 	private Bitmap image;
-	
+
 	private ImageView picker_minus;
 	private ImageView picker_add;
 	private TextView tv_cart;
 	private EditText et_num;
-	
+
 	private LinearLayout ll_share_wx;
 	private LinearLayout ll_share_wx_friends;
 	private LinearLayout ll_share_qq;
 	private LinearLayout ll_qr_code;
-	
-	private int tag; //1表示确认框(只有确认按钮)，2表示选择框(确认和取消)，3表示分享弹出框，0表示二维码显示框
+
+	private TextView tvCustom1;
+	private TextView tvCustom2;
+	public EditText etCustom1;
+	public EditText etCustom2;
+	private String custom1;
+	private String custom2;
+
+	private int tag; // 1表示确认框(只有确认按钮)，2表示选择框(确认和取消)，3表示分享弹出框，0表示二维码显示框
 
 	public interface CustomDialogListener {
 		public void onClick(View view);
@@ -53,52 +60,53 @@ public class CustomDialog extends Dialog implements OnClickListener{
 		super(context);
 		this.context = context;
 	}
-	
-	public CustomDialog(Context context, int theme,CustomDialogListener listener,int tag) {
+
+	public CustomDialog(Context context, int theme,
+			CustomDialogListener listener, int tag) {
 		super(context, theme);
 		this.context = context;
 		this.listener = listener;
 		this.tag = tag;
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		switch (this.tag) {
-		case 0: //二维码
+		case 0: // 二维码
 			this.setContentView(R.layout.confirm_dialog);
 			tv_msg = (TextView) findViewById(R.id.tv_msg);
 			tv_title = (TextView) findViewById(R.id.tv_title);
 			iv_image = (ImageView) findViewById(R.id.iv_image);
 			button = (Button) findViewById(R.id.btn_confirm);
 			button.setOnClickListener(this);
-			
+
 			iv_image.setImageBitmap(image);
 			button.setText(btnStr);
 			tv_title.setText(title);
 			tv_msg.setVisibility(View.GONE);
 			iv_image.setVisibility(View.VISIBLE);
 			break;
-		case 1://确认框
+		case 1:// 确认框
 			this.setContentView(R.layout.confirm_dialog);
 			tv_msg = (TextView) findViewById(R.id.tv_msg);
 			tv_title = (TextView) findViewById(R.id.tv_title);
 			iv_image = (ImageView) findViewById(R.id.iv_image);
 			button = (Button) findViewById(R.id.btn_confirm);
 			button.setOnClickListener(this);
-			
+
 			tv_msg.setText(content);
 			button.setText(btnStr);
 			tv_title.setText(title);
 			tv_msg.setVisibility(View.VISIBLE);
 			iv_image.setVisibility(View.GONE);
 			break;
-		case 2: //确认,取消框
+		case 2: // 确认,取消框
 			this.setContentView(R.layout.dialog);
 			tv_msg = (TextView) findViewById(R.id.tv_msg);
 			tv_title = (TextView) findViewById(R.id.tv_title);
-			
+
 			btn_left = (Button) findViewById(R.id.btn_left);
 			btn_right = (Button) findViewById(R.id.btn_right);
 			btn_left.setOnClickListener(this);
@@ -108,52 +116,71 @@ public class CustomDialog extends Dialog implements OnClickListener{
 			btn_right.setText(btnRightStr);
 			tv_title.setText(title);
 			break;
-		case 3: //综合分享
+		case 3: // 综合分享
 			this.setContentView(R.layout.share_dialog);
-			
+
 			ll_share_wx = (LinearLayout) findViewById(R.id.ll_share_wx);
 			ll_share_wx_friends = (LinearLayout) findViewById(R.id.ll_share_wx_friends);
 			ll_share_qq = (LinearLayout) findViewById(R.id.ll_share_qq);
 			ll_qr_code = (LinearLayout) findViewById(R.id.ll_qr_code);
-			
+
 			ll_share_wx.setOnClickListener(this);
 			ll_share_wx_friends.setOnClickListener(this);
 			ll_share_qq.setOnClickListener(this);
 			ll_qr_code.setOnClickListener(this);
 			break;
-		case 4: //空间和朋友圈分享
+		case 4: // 空间和朋友圈分享
 			this.setContentView(R.layout.convert_share_dialog);
-			
+
 			ll_share_wx = (LinearLayout) findViewById(R.id.ll_share_wx);
 			ll_share_qq = (LinearLayout) findViewById(R.id.ll_share_qq);
-			
+
 			ll_share_wx.setOnClickListener(this);
 			ll_share_qq.setOnClickListener(this);
 			break;
-		case 5://清单
+		case 5:// 清单
 			this.setContentView(R.layout.db_dialog_cart);
-			
+
 			picker_minus = (ImageView) findViewById(R.id.picker_minus);
 			picker_add = (ImageView) findViewById(R.id.picker_add);
 			tv_cart = (TextView) findViewById(R.id.tv_picker);
 			et_num = (EditText) findViewById(R.id.et_num);
-			
+
 			tv_cart.setOnClickListener(this);
 			picker_add.setOnClickListener(this);
 			picker_minus.setOnClickListener(this);
 			et_num.addTextChangedListener(textWatcher);
-		case 6://上传图片
-			this.setContentView(R.layout.dialog);
-			tv_msg = (TextView) findViewById(R.id.tv_msg);
+			break;
+		case 6:// 上传图片
+			this.setContentView(R.layout.upload_img_dialog);
 			tv_title = (TextView) findViewById(R.id.tv_title);
 			iv_image = (ImageView) findViewById(R.id.iv_upload_img);
+			LinearLayout llCustom1 = (LinearLayout) findViewById(R.id.ll_custom1);
+			LinearLayout llCustom2 = (LinearLayout) findViewById(R.id.ll_custom2);
+
+			tvCustom1 = (TextView) findViewById(R.id.tv_custom1);
+			tvCustom2 = (TextView) findViewById(R.id.tv_custom2);
+			etCustom1 = (EditText) findViewById(R.id.et_custom1);
+			etCustom2 = (EditText) findViewById(R.id.et_custom2);
 			
+			if(custom1.isEmpty()){
+				llCustom1.setVisibility(View.GONE);
+			}else{
+				tvCustom1.setText(custom1);
+				llCustom1.setVisibility(View.VISIBLE);
+			}
+			if(custom2.isEmpty()){
+				llCustom2.setVisibility(View.GONE);
+			}else{
+				llCustom2.setVisibility(View.VISIBLE);
+				tvCustom2.setText(custom2);
+			}
+
 			btn_left = (Button) findViewById(R.id.btn_left);
 			btn_right = (Button) findViewById(R.id.btn_right);
 			btn_left.setOnClickListener(this);
 			btn_right.setOnClickListener(this);
-			
-			tv_msg.setVisibility(View.GONE);
+
 			btn_left.setText(btnLeftStr);
 			btn_right.setText(btnRightStr);
 			tv_title.setText(title);
@@ -163,27 +190,27 @@ public class CustomDialog extends Dialog implements OnClickListener{
 		default:
 			break;
 		}
-		
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		listener.onClick(v);
 	}
-	
-	public void setPickNum(int num){
-		et_num.setText(num+"");
+
+	public void setPickNum(int num) {
+		et_num.setText(num + "");
 	}
-	
-	public int getPickNum(){
-		if(et_num.getText().toString().equals("")){
+
+	public int getPickNum() {
+		if (et_num.getText().toString().equals("")) {
 			return 0;
-		}else{
+		} else {
 			return Integer.parseInt(et_num.getText().toString());
 		}
-		
+
 	}
-	
+
 	public String getContent() {
 		return content;
 	}
@@ -232,29 +259,45 @@ public class CustomDialog extends Dialog implements OnClickListener{
 		this.image = image;
 	}
 
-	private TextWatcher textWatcher = new TextWatcher() {  
-        
-        @Override    
-        public void afterTextChanged(Editable s) {     
-        	 int len = s.toString().length(); 
-        	 String t = s.toString();
-        	 if (len == 1 && t.equals("0")) { 
-        		 s.clear(); 
-        		 s.append("1");
-        	 }
-        }   
-          
-        @Override 
-        public void beforeTextChanged(CharSequence s, int start, int count,  
-                int after) {  
-            // TODO Auto-generated method stub  
-        }  
- 
-         @Override    
-        public void onTextChanged(CharSequence s, int start, int before,     
-                int count) {     
-                              
-        }                    
-    };
+	public String getCustom1() {
+		return custom1;
+	}
+
+	public void setCustom1(String custom1) {
+		this.custom1 = custom1;
+	}
+
+	public String getCustom2() {
+		return custom2;
+	}
+
+	public void setCustom2(String custom2) {
+		this.custom2 = custom2;
+	}
+
+	private TextWatcher textWatcher = new TextWatcher() {
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			int len = s.toString().length();
+			String t = s.toString();
+			if (len == 1 && t.equals("0")) {
+				s.clear();
+				s.append("1");
+			}
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+
+		}
+	};
 
 }

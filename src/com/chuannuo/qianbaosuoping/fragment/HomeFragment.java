@@ -200,7 +200,7 @@ public class HomeFragment extends Fragment implements  OnClickListener{
 							tv_sign_times.setText(response.getString("sign_cont"));
 							recordNum = response.getInt("task_cont");
 							
-							if (HomeFragment.this.getActivity().isTaskRoot() && isShowDialog() && flag && !dialogNewTask.isShowing()) {
+							if (HomeFragment.this != null && HomeFragment.this.getActivity().isTaskRoot() && isShowDialog() && flag && !dialogNewTask.isShowing()) {
 								dialogNewTask.show();
 							}
 						}

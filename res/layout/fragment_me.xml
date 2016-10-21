@@ -249,7 +249,7 @@
             android:id="@+id/rl_me_cart"
             android:layout_width="fill_parent"
             android:layout_height="50.0dip"
-            android:background="@drawable/btn_save_top"
+            android:background="@drawable/btn_save"
             android:clickable="true" >
 
             <TextView

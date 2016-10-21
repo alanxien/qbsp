@@ -79,7 +79,7 @@
                         android:id="@+id/tv_app_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="钱包锁屏"
+                        android:text="钱包夺宝"
                         android:textColor="@color/grey"
                         android:textSize="18sp" />
 
@@ -154,6 +154,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="+30000积分"
+                        android:textColor="@color/GreenThem"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_screen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="不知道截图？"
                         android:textColor="@color/GreenThem"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -256,10 +265,10 @@
                         android:id="@+id/rl_example"
                         android:layout_width="0dp"
                         android:layout_height="150dp"
-                        android:layout_weight="1" 
-                        android:background="#FF7464"
                         android:layout_marginRight="10dp"
-                        android:clickable="true">
+                        android:layout_weight="1"
+                        android:background="#FF7464"
+                        android:clickable="true" >
 
                         <ImageView
                             android:id="@+id/iv_example"
@@ -276,18 +285,17 @@
                             android:textColor="@color/redLight1"
                             android:textSize="20sp"
                             android:textStyle="bold|italic" />
-
                     </RelativeLayout>
 
                     <ImageView
                         android:id="@+id/iv_upload"
                         android:layout_width="0dp"
                         android:layout_height="150dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/upload" 
-                        android:background="#FF7464"
                         android:layout_marginLeft="10dp"
-                        android:clickable="true"/>
+                        android:layout_weight="1"
+                        android:background="#FF7464"
+                        android:clickable="true"
+                        android:src="@drawable/upload" />
                 </LinearLayout>
             </LinearLayout>
 

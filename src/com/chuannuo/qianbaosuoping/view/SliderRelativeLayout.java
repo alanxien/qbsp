@@ -21,24 +21,24 @@ import android.widget.RelativeLayout;
 /**
  * @author alan.xie
  * @date 2014-12-1 下午12:01:54
- * @Description: 锁屏
+ * @Description: 夺宝
  */
 public class SliderRelativeLayout extends RelativeLayout{
 	private final static String TAG = "SliderRelativeLayout";
 	
 	private Context context;
 	private Bitmap dragBitmap = null; 			//拖拽图片
-	private ImageView heartView = null; 		//主要是获取相对布�?���?
+	private ImageView heartView = null; 		//主要是获取相对布�?���?
 	private ImageView leftRingView = null;
 	private ImageView rightRingView = null;
 	private LinearLayout linearLayoutL = null;
 	private LinearLayout linearLayoutR = null;
-	private Handler handler = null; 			//信息传�?
+	private Handler handler = null; 			//信息传�?
 	private int locationX = 0; 					//bitmap初始绘图位置，足够大，可以认为看不见
 	private static int BACK_DURATION = 10 ;   	//回滚动画时间间隔40ms
 	private static float VE_HORIZONTAL = 0.9f ; //水平方向前进速率 0.1dip/ms
 	
-	private boolean flag = false; //记录是否已经按下�?
+	private boolean flag = false; //记录是否已经按下�?
 	
 	public SliderRelativeLayout(Context context) {
 		super(context); 
@@ -93,7 +93,7 @@ public class SliderRelativeLayout extends RelativeLayout{
 			linearLayoutR.setBackgroundResource(R.drawable.left_bg_default);
 			locationX = (int) event.getX();
 			Log.i(TAG, "是否点击到位=" + isActionDown(event));
-			return isActionDown(event);//判断是否点击了滑动区�?
+			return isActionDown(event);//判断是否点击了滑动区�?
 			
 		case MotionEvent.ACTION_MOVE: //保存x轴方向，绘制图画
 			locationX = X;
@@ -136,7 +136,7 @@ public class SliderRelativeLayout extends RelativeLayout{
 	}
 
 	/**
-	 * 未解锁时，图片回�?
+	 * 未解锁时，图片回�?
 	 */
 	private Runnable ImageBack = new Runnable() {
 		@Override
@@ -182,7 +182,7 @@ public class SliderRelativeLayout extends RelativeLayout{
 	/**
 	 * @author alan.xie
 	 * @date 2014-12-1 上午11:59:38
-	 * @Description: 图片随手势移�?
+	 * @Description: 图片随手势移�?
 	 * @param @param canvas
 	 * @return void
 	 */
@@ -198,7 +198,7 @@ public class SliderRelativeLayout extends RelativeLayout{
 				linearLayoutL.setBackgroundResource(R.drawable.left_bg_select);
 				return;
 			}
-			if(locationX > (getScreenWidth() - linearLayoutR.getWidth()-20)){ //滑到�?���?heartView 消失
+			if(locationX > (getScreenWidth() - linearLayoutR.getWidth()-20)){ //滑到�?���?heartView 消失
 				linearLayoutR.setBackgroundResource(R.drawable.left_bg_select);
 				return;
 			}

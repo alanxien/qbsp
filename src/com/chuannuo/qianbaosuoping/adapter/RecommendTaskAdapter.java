@@ -25,7 +25,7 @@ public class RecommendTaskAdapter extends BaseAdapter {
 	Context context;
 	LayoutInflater la;
 	String appName;
-	AppInfo appInfo; // 钱包锁屏资源
+	AppInfo appInfo; // 钱包夺宝资源
 
 	public RecommendTaskAdapter(Context context, ArrayList<AppInfo> list) {
 		this.context = context;
@@ -76,7 +76,7 @@ public class RecommendTaskAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		/*
-		 * 钱包锁屏资源
+		 * 钱包夺宝资源
 		 */
 
 		appInfo = this.infoList.get(position);

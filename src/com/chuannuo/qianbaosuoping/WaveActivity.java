@@ -69,7 +69,7 @@ public class WaveActivity extends BaseActivity{
 	
 	private AppDao appDao;
 	private AppInfo appInfo;
-	private int flag = 0; //判断钱包锁屏广告是否已经没有了，没有了就跳转到推荐任务页面
+	private int flag = 0; //判断钱包夺宝广告是否已经没有了，没有了就跳转到推荐任务页面
 	private boolean isShake = true;
     
 

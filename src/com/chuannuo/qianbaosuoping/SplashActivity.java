@@ -1,22 +1,6 @@
 package com.chuannuo.qianbaosuoping;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.chuannuo.qianbaosuoping.R;
-import com.chuannuo.qianbaosuoping.common.Constant;
-import com.chuannuo.qianbaosuoping.common.HttpUtil;
-import com.chuannuo.qianbaosuoping.common.NetWorkManager;
-import com.chuannuo.qianbaosuoping.view.CustomDialog;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
@@ -27,9 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+
+import com.chuannuo.qianbaosuoping.common.Constant;
+import com.chuannuo.qianbaosuoping.common.NetWorkManager;
+import com.chuannuo.qianbaosuoping.view.CustomDialog;
 
 /**
  * @author alan.xie

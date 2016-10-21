@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chuannuo.qianbaosuoping"
-    android:versionCode="15"
-    android:versionName="1.15" >
+    android:versionCode="29"
+    android:versionName="2.9" >
 
     <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="23" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
     
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.SET_DEBUG_APP" />
@@ -207,7 +207,14 @@
             android:name="com.chuannuo.qianbaosuoping.duobao.MyNumberActivity"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
         
-        <!-- 锁屏 -->
+        <activity 
+            android:name="com.chuannuo.qianbaosuoping.duobao.JSXQActivity"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+        <activity 
+            android:name="com.chuannuo.qianbaosuoping.duobao.PayWeixinActivity"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+        
+        <!-- 夺宝 -->
         <activity 
             android:name="com.chuannuo.qianbaosuoping.LockScreenActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -220,16 +227,7 @@
             android:name="com.chuannuo.qianbaosuoping.service.LockScreenService">
             <intent-filter android:priority="1000"></intent-filter>
         </service>
-        
-            
-        <!-- 百度积分墙 -->
-           <meta-data android:name="BaiduMobAd_APP_ID" android:value="be0ed209" /> 
-		<activity android:name="com.baidu.mobads.appoffers.OffersActivity" 
-		    android:configChanges="keyboard|keyboardHidden|orientation" />
-		
-        
-        
-        
+    
         <!-- 下载service -->
         <service android:name="com.chuannuo.qianbaosuoping.service.DownloadService"></service>
         
@@ -264,21 +262,37 @@
         <!-- CHANNEL001 - CHANNEL015 -->
 
 	    <!--点乐 添加广告墙显示 -->
-       <activity android:name="com.dlnetwork.DianleGoogleActivity"
+       <activity android:name="com.chuannuoq.DevNativeActivity"
                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
                  android:configChanges="keyboardHidden|orientation"/>
-       <service android:name="com.dlnetwork.DianleGoogleService" />
+       <service android:name="com.dlnetwork.DevNativeService" />
        <meta-data
-            android:name="com.dlnetwork.cid"
+            android:name="com.chuannuoq.cid"
             android:value="b3400d657800e5914b2d3c65b55660ae" />
        
        <!-- 多盟 积分墙 -->
        <activity
-			android:name="cn.dm.android.DMOfferActivity"
-			android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-			android:theme="@android:style/Theme.NoTitleBar"/>
-		<service
-			android:name="cn.dm.android.DMService"/>
+            android:name="cn.dow.android.DActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name="cn.dow.android.DService" />
+        <meta-data
+            android:name="D_PPID"
+            android:value="96ZJ1uSAzeWcHwTDiJ" />
+        <!-- 糖果积分墙 -->
+        <activity 
+            android:name="com.chuannuo.tangguo.TangGuoActivity"
+            android:theme="@android:style/Theme.NoTitleBar">
+        </activity>
+        
+        <!-- 下载service -->
+        <service android:name="com.chuannuo.tangguo.DownloadService"></service>
+        <meta-data
+            android:name="TANGGUO_APPKEY"
+            android:value="909" />
+        <meta-data
+            android:name="TANGGUO_APPID"
+            android:value="dgbp9v" />
 		
 		<!-- 有米 积分墙-->
 		<activity
@@ -310,23 +324,6 @@
 		    </intent-filter>
 		</receiver>
 		
-		<!-- 触控（畅思）积分墙 -->
-		<meta-data 
-		    android:name="chance_publisherid"
-			android:value="895799188-9461B4-4560-6AB8-EF930E0D9"/>
-		<service android:name="com.chance.engine.AdService"
-            android:process="com.chance.AdService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.chance.service"/>
-            </intent-filter>
-		</service>
-		
-		<!-- 行云 积分墙 -->
-		<activity
-            android:name="com.adwalker.wall.platform.layout.AdShowActivity"
-            android:configChanges="keyboardHidden|orientation"
-            />
 		<!-- 注册详情 Activity -->
         <activity
             android:name="com.adwalker.wall.platform.layout.AdDetailActivity"
@@ -335,70 +332,6 @@
         <activity
             android:name="com.adwalker.wall.platform.layout.AdShowWebActivity"
             android:configChanges="keyboardHidden|orientation" />
-        
-        <!-- 指盟 积分墙 -->
-        <activity
-			android:name="com.ZMAD.score.ScoreActivity">
-        </activity >
-		<activity
-			android:name="com.ZMAD.score.PopDetailActivity"
-			android:screenOrientation="portrait"> 
-		</activity >
-		<activity
-			android:name="com.ZMAD.score.SoftDetailActivity"
-			android:screenOrientation="portrait"> 
-		</activity >
-		<service
-    		android:name="com.ZMAD.conne.PackageInstallService"> 
-		</service>
-		
-		<!-- 椰果 积分墙 -->
-        <activity
-            android:name="cn.yeeguo.YeeguoOffersActivity"
-            android:configChanges="keyboardHidden|orientation" />
-        
-        <!-- 鹰眼 积分墙 -->
-        <activity
-			android:name="com.ad.android.sdk.api.AdWallActivity"
-			android:launchMode="singleTop"
-			android:configChanges="orientation|keyboardHidden">
-		</activity>
-		<activity
-			android:name="com.ad.android.sdk.api.AppDetailActivity"
-			android:launchMode="singleTop"
-			android:configChanges="orientation|keyboardHidden">
-		</activity>
-		<service
-			android:name="com.ad.android.sdk.api.AdDownloadService">
-		</service>
-		
-		<!-- 大头鸟积分墙-->
-		<service 
-		    android:name ="com.datouniao.AdPublisher.service.AdsService"
-             android:exported="false">
-        </service> 
-        
-        <receiver
-		    android:name="com.datouniao.AdPublisher.service.AppReceiver" >
-		    <intent-filter>
-		        <action android:name="android.intent.action.PACKAGE_ADDED" />
-		        <action android:name="android.intent.action.PACKAGE_REMOVED" />
-		        <action android:name="com.datouniao.AdPublisher.service.check"/>
-		        <data android:scheme="package" />
-		    </intent-filter>
-		</receiver>
-		
-        <activity android:name="com.datouniao.AdPublisher.AdsOffersWebView" android:configChanges="keyboardHidden|orientation" />
-		
-		<meta-data android:name="DTN_APP_ID" android:value="18575a56-8176-4bf7-806a-6803a8676fdd" />
-		<meta-data android:name="DTN_SECRET_KEY" android:value="ohdumasepdje" />
-		<!--大头鸟渠道标识-->
-		<meta-data android:name="DTN_PLACE_ID" android:value="DTN" />
-		<!-- 米迪渠道标识 -->
-		<meta-data android:name="miidi_channelid" android:value="MIDI" />
-		<!--显示米迪积分墙 -->
-        <activity android:name="net.midi.wall.sdk.MyWallActivity" android:configChanges="keyboardHidden|orientation" />
-		
 		<!-- 分享 -->
 		<!-- 微信 -->
 		<activity    
@@ -423,7 +356,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        
+	
     </application>
 
 

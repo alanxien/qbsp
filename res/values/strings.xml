@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">钱包锁屏</string>
+    <string name="app_name">钱包夺宝</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="t_wave">每日摇一摇</string>
@@ -39,7 +39,7 @@
     <string name="need_exchange">需要兑换的积分</string>
     
     <!-- dialog 对话框-->
-    <string name="dg_new_title">欢迎加入钱包锁屏</string>
+    <string name="dg_new_title">欢迎加入钱包夺宝</string>
     <string name="dg_new_confirm">去做新任务</string>
     <string name="dg_new_cancel">不用了我会玩</string>
     <string name="dg_new_msg">花费5分钟完成新手任务即可兑换！兑换后一分钟立即到账！</string>
@@ -52,7 +52,7 @@
     <string name="dg_wave">马上摇一摇</string>
     <string name="dg_wave_notice">摇一摇通知</string>
     <string name="dg_rightNow">马上去做任务</string>
-    <string name="dg_invitation_tips">请先邀请好友注册钱包锁屏，才能分享任务一起赚，一个用户即可获得该任务返利 %1$s积分，一起快钱包锁屏钱，好友越多，赚钱越快。</string>
+    <string name="dg_invitation_tips">请先邀请好友注册钱包夺宝，才能分享任务一起赚，一个用户即可获得该任务返利 %1$s积分，一起快钱包夺宝钱，好友越多，赚钱越快。</string>
     <string name="dg_share_success">分享成功</string>
     <string name="dg_share_success_tips">您所有符合条件的赚友都会收到任务邀请！共 %1$s个赚友，预计收益 %2$s积分。</string>
     <string name="dg_invitationNow">马上邀请好友</string>
@@ -74,7 +74,7 @@
     <string name="dg_share_qq_zone">QQ空间</string>
 
     <!-- 新手任务 -->
-    <string name="task1">了解钱包锁屏</string>
+    <string name="task1">了解钱包夺宝</string>
     <string name="task1_reward">赚0.01元</string>
     <string name="task2">每日签到</string>
     <string name="task2_reward">赚0.05元</string>
@@ -216,34 +216,34 @@
     <string name="m_um_feedback">反馈</string>
     <string name="m_about_us">关于我们</string>
     <string name="m_qr_code">二维码</string>
-    <string name="m_lock_screen">锁屏</string>
+    <string name="m_lock_screen">夺宝</string>
     <string name="m_lock_screen_off">关闭</string>
     <string name="m_lock_screen_on">开启</string>
     <string name="m_enterprise_qq">客服QQ：3206629081</string>
     <string name="m_wx_gzhh">微信公众号：qianbaosuoping</string>
-    <string name="m_enterprise_qq_group">钱包锁屏QQ群：438905929</string>
+    <string name="m_enterprise_qq_group">钱包夺宝QQ群：438905929</string>
     
     <string name="winning_rules">抽奖说明：做任务赚积分，每做满2万积分任务就可以获得一次抽奖机会，一等奖：2万积分，二等奖：1万积分，三等奖：5000积分，四等奖：3000积分，五等奖：2000积分</string>
 
     <!-- 新手帮助 -->
-    <string name="help_1">什么是钱包锁屏？</string>
-    <string name="help_1_exp">钱包锁屏是一款让你在玩手机的同时还能赚钱的只能智能手机应用，你可以通过安装，试玩，娱乐，邀请，签到等获取积分，获赠的积分可以兑换Q币，手机话费，也可以通过支付宝或财付通提现。</string>
+    <string name="help_1">什么是钱包夺宝？</string>
+    <string name="help_1_exp">钱包夺宝是一款让你在玩手机的同时还能赚钱的只能智能手机应用，你可以通过安装，试玩，娱乐，邀请，签到等获取积分，获赠的积分可以兑换Q币，手机话费，也可以通过支付宝或财付通提现。</string>
     <string name="help_2">积分可以做什么？</string>
     <string name="help_2_exp">目前积分可以兑换的奖品由：Q币，手机话费，支付宝/财付通提现！</string>
-    <string name="help_3">钱包锁屏的原理和价值是什么？</string>
+    <string name="help_3">钱包夺宝的原理和价值是什么？</string>
     <string name="help_3_exp">
         1. 应用商家愿意付费请您和您的朋友安装，试玩和分享他们的应用，以便达到快速有效的推广效果。\n
         2. 您可以利用闲暇零碎时间，挣点零花钱，可以冲话费，提现金，Q币等。\n
         3. 最主要的是，通过这个赚钱体验的过程，您可以挖掘出真正好玩的应用，让你的手机存在的都是写最优秀的应用软件。</string>
-    <string name="help_4">钱包锁屏多少可以申请提现？</string>
+    <string name="help_4">钱包夺宝多少可以申请提现？</string>
     <string name="help_4_exp">
         三种方式：\n
         1. 当您的收入满1元的时候，你可以兑换一个Q币；\n
         2. 当您的收入满10元的时候，你可以兑换话费；\n
         3. 当您的收入满20元的时候，你可以通过支付宝或者财付通提现；
     </string>
-    <string name="help_5">钱包锁屏是否会泄露我的隐私？</string>
-    <string name="help_5_exp">钱包锁屏保护用户的隐私，除法律规定外，不会主动将您的个人隐私泄露给第三方。</string>
+    <string name="help_5">钱包夺宝是否会泄露我的隐私？</string>
+    <string name="help_5_exp">钱包夺宝保护用户的隐私，除法律规定外，不会主动将您的个人隐私泄露给第三方。</string>
     <string name="help_6">兑换成功的奖品什么时候可以到账？</string>
     <string name="help_6_exp">所有奖品在成功兑换后，均在24小时内进行发放，节假日适当顺延！</string>
     <string name="help_7">什么样的情况下兑换后不予发放？</string>
@@ -255,59 +255,45 @@
         2. 在任务下载后没有返回到主界面进行积分同步；\n
         3. 手机里拥有同款软件，请卸载后在进行安装！</string>
     <string name="help_9">遇到问题如何联系我们？</string>
-    <string name="help_9_exp">钱包锁屏客服：（QQ）3203746318，我们的Q群：368051854</string>
+    <string name="help_9_exp">钱包夺宝客服：（QQ）3203746318，我们的Q群：368051854</string>
     
     <!-- 关于我们 -->
     <string name="versions">版本：1.0</string>
-    <string name="desc_app">\t\t钱包锁屏是一款免费的APP,致力于将用户日常用的软件游戏集成到一起\n
-        					\t\t在这个物价飞涨的年代，能赚点是一点，手机党们，快快动起你的手指，还在等什么、</string>
+    <string name="desc_app">\t\t钱包夺宝是广州传诺网络科技有限公司旗下一款免费的APP,致力于将用户日常用的软件游戏集成到一起\n
+        					\t\t在这个物价飞涨的年代，能赚点是一点，赚取的钱可以用于夺宝消费，手机党们，快快动起你的手指，还在等什么、</string>
     
-    <string name="sys_starting">正在开启我的钱包锁屏&#8230;</string>					
+    <string name="sys_starting">正在开启我的钱包夺宝&#8230;</string>					
     <string name="sys_remind1">系统注册失败，请检查网络。</string>
     <string name="sys_remind2"></string>
     <string name="sys_remind3">网络错误</string>
-    <string name="add_score_success">钱包锁屏温馨提示，积分增加成功！</string>
+    <string name="add_score_success">钱包夺宝温馨提示，积分增加成功！</string>
     
     <string name="sys_lucky_draw">系统正在抽奖中&#8230;</string>
     
-    <!-- 退出钱包锁屏 -->
-    <string name="exit_zhuanmi"> 确定要退出钱包锁屏吗？</string>
-    <string name="exit_content">钱包锁屏稳定的兑换系统，还有更多的任务等你来挑战，无间断每日付款，节假日都不休息！</string>
+    <!-- 退出钱包夺宝 -->
+    <string name="exit_zhuanmi"> 确定要退出钱包夺宝吗？</string>
+    <string name="exit_content">钱包夺宝稳定的兑换系统，还有更多的任务等你来挑战，无间断每日付款，节假日都不休息！</string>
     <string name="exit_btn_left">继续退出</string>
     <string name="exit_btn_right">继续赚</string>
     
     <!-- 赚 -->
     <string name="dl_app">点乐积分墙</string>
-    <string name="yg_app">赢告积分墙</string>
     <string name="ym_app">有米积分墙</string>
     <string name="dm_app">多盟积分墙</string>
-    <string name="zm_app">指盟积分墙</string>
-    <string name="coco_app">触控积分墙</string>
-    <string name="yeeguo_app">椰果积分墙</string>
-    <string name="yiangyan_app">鹰眼积分墙</string>
+    <string name="tg_app">糖果积分墙</string>
     
-    <string name="more_task_coco">小思推荐赚钱渠道</string>
-    <string name="more_task_coco_tips">推荐指数★★★★★★★</string>
     <string name="more_task_dianjoy">小乐推荐赚钱渠道</string>
     <string name="more_task_dianjoy_tips">推荐指数★★★★★</string>
-    <string name="more_task_domob">小友推荐赚钱渠道</string>
+    <string name="more_task_domob">小盟推荐赚钱渠道</string>
     <string name="more_task_domob_tips">推荐指数★★★★★</string>
     <string name="more_task_youmi">小米推荐赚钱渠道</string>
     <string name="more_task_youmi_tips">推荐指数★★★★★</string>
-    <string name="more_task_yun">小云推荐赚钱渠道</string>
-    <string name="more_task_yun_tips">推荐指数★★★★★</string>
-    <string name="more_task_dtn">小鸟推荐赚钱渠道</string>
-    <string name="more_task_dtn_tips">推荐指数★★★★★</string>
-    <string name="more_task_yeeguo">小果推荐赚钱渠道</string>
-    <string name="more_task_yeeguo_tips">推荐指数★★★★★</string>
-    <string name="more_task_yingyan">小鹰推荐赚钱渠道</string>
-    <string name="more_task_yingyan_tips">推荐指数★★★★★</string>
-    <string name="more_task_midi">小迪推荐赚钱渠道</string>
-    <string name="more_task_midi_tips">推荐指数★★★★★</string>
+    <string name="more_task_tg">糖果推荐赚钱渠道</string>
+    <string name="more_task_tg_tips">推荐指数★★★★★★</string>
     
     <!-- 绑定手机 -->
     <string name="binding_phone_tips">请先绑定手机号，如果一分钟内没收到验证码，可以重新获取，10分钟内输入验证码有效！</string>
-    <string name="binding_password_tips">您好，感谢您使用钱包锁屏，您已绑定手机号码:%1$s,赶快登录体验吧！</string>
+    <string name="binding_password_tips">您好，感谢您使用钱包夺宝，您已绑定手机号码:%1$s,赶快登录体验吧！</string>
     <string name="quick_registration_tips">如果您是受人邀请，请填写邀请码。</string>
     
     <!-- 找回密码 -->
@@ -322,7 +308,7 @@
     <string name="daily_check">每日签到</string>
     <string name="daily_shake">每日一摇</string>
     
-    <string name="step_1">每次分享即可获得0.05元，每天最多奖励三次，隔2小时分享才有效（锁屏分享类似）。</string>
+    <string name="step_1">每次分享即可获得0.05元，每天最多奖励三次，隔2小时分享才有效（夺宝分享类似）。</string>
     <string name="step_2">每成功邀请一名真实好友，奖励2元，赠送规则:\n
        		1. 好友注册返0.2元，\n
        		2. 好友积分超过22万返0.3元，\n
@@ -334,8 +320,8 @@
     
     
     <!-- 夺宝 -->
-    <string name="snatch_title">一元夺宝</string>
-    <string name="schedule"><Data><![CDATA[开奖进度 <font color="#2dcc70">%1$s</font>]]></Data></string>
+    <string name="snatch_title">夺宝</string>
+    <string name="schedule"><Data><![CDATA[开奖进度<font color="#2dcc70">%1$s</font>]]></Data></string>
 	<string name="db_count"><Data><![CDATA[本期参与： <font color="#ef4136">%1$s</font>人次]]></Data></string>
 	<string name="r_money"><Data><![CDATA[剩余 <font color="#2dcc70">%1$s</font>人次]]></Data></string>
 	

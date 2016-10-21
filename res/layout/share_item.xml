@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
         		android:singleLine="true" 
-                android:text="描述:钱包锁屏是2015最赚钱的应用，2015赚不停" 
+                android:text="描述:钱包夺宝是2016最赚钱的应用，2016赚不停" 
                 android:textColor="@color/graythem1"
                 android:layout_marginTop="2dp"/>
         
