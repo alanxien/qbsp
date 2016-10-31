@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chuannuo.qianbaosuoping.MovieActivity;
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.RecordActivity;
 import com.chuannuo.qianbaosuoping.common.Constant;
@@ -45,6 +46,7 @@ public class MeFragment extends Fragment implements OnClickListener{
 	private RelativeLayout rl_cart;		//购物车
 	private RelativeLayout rl_db_list; //夺宝记录
 	private TextView tv_duobao_yuer;//夺宝余额
+	private RelativeLayout rl_more;
 	
 	private LinearLayout ll_my_profile;         //用户资料
 	private View view;
@@ -89,6 +91,7 @@ public class MeFragment extends Fragment implements OnClickListener{
 		tv_integral_usable = (TextView) view.findViewById(R.id.tv_integral_usable);
 		tv_cart_num = (TextView) view.findViewById(R.id.tv_cart_num);
 		tv_duobao_yuer = (TextView) view.findViewById(R.id.tv_duobao_yuer);
+		rl_more = (RelativeLayout) view.findViewById(R.id.rl_more);
 		
 		intent = new Intent();
 		
@@ -98,6 +101,7 @@ public class MeFragment extends Fragment implements OnClickListener{
 		rl_cart.setOnClickListener(this);
 		rl_db_list.setOnClickListener(this);
 		ll_my_profile.setOnClickListener(this);
+		rl_more.setOnClickListener(this);
 		
 	}
 	
@@ -204,6 +208,11 @@ public class MeFragment extends Fragment implements OnClickListener{
 			Intent intent1 = new Intent();
 			intent1.setClass(this.getActivity(), DuoBaoListActivity.class);
 			startActivity(intent1);
+			break;
+		case R.id.rl_more:
+			Intent intent2 = new Intent();
+			intent2.setClass(this.getActivity(), MovieActivity.class);
+			startActivity(intent2);
 			break;
 		default:
 			break;

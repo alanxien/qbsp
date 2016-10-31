@@ -77,7 +77,7 @@ public interface Constant {
 	/*
 	 * 服务器接口
 	 */
-    String ROOT_URL = "http://112.74.88.252";	//http://www.jiequbao.com/							//服务器
+    String ROOT_URL = "http://112.74.88.252";	//http://www.jiequbao.com/
 	String BASE_URL = "http://112.74.88.252/index.php?r=zhuanMi";
 	String DOWN_URL = "http://qbsp.jiequbao.com";//下载URL
 	//String ROOT_URL = "http://192.168.1.57/zhuanmi2/www";						//本地
@@ -122,6 +122,12 @@ public interface Constant {
 	String QUICK_LOGIN_URL = BASE_URL + "/getUserByImei";//吴手机号登陆
 	String BIND_MOBILE_URL = BASE_URL + "/bindMobile";   //绑定手机
 	String GET_RESOURCE_LIST_SDK = BASE_URL+"/getResourceListSDK";//游戏SDK列表
+	
+	/**
+	 * 电影接口
+	 */
+	String GET_MOVIE_LIST = "/movieList";
+	String GET_MOVIE_COMMENT_LIST = "/movieCommentList";
 	
 	/*
 	 * 上传截图接口
