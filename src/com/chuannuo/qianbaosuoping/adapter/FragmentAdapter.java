@@ -6,7 +6,7 @@ import com.chuannuo.qianbaosuoping.fragment.EarnFragment;
 import com.chuannuo.qianbaosuoping.fragment.ExchangeFragment;
 import com.chuannuo.qianbaosuoping.fragment.HomeFragment;
 import com.chuannuo.qianbaosuoping.fragment.MeFragment;
-import com.chuannuo.qianbaosuoping.fragment.MoreFragment;
+import com.chuannuo.qianbaosuoping.fragment.MovieFragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,7 +42,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
 			MeFragment meFragment = new MeFragment();
 			return meFragment;
 		case MainActivity.TAB_MORE:
-			MoreFragment moreeFragment = new MoreFragment();
+			MovieFragment moreeFragment = new MovieFragment();
 			return moreeFragment;
 		}
 		return null;

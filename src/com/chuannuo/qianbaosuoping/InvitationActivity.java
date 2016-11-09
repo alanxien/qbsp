@@ -2,7 +2,7 @@ package com.chuannuo.qianbaosuoping;
 
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.common.Constant;
-import com.chuannuo.qianbaosuoping.fragment.MoreFragment;
+import com.chuannuo.qianbaosuoping.fragment.MovieFragment;
 import com.chuannuo.qianbaosuoping.view.CustomDialog;
 
 import android.os.Bundle;

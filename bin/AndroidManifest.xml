@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chuannuo.qianbaosuoping"
+
     android:versionCode="29"
     android:versionName="2.9" >
 
@@ -77,6 +78,10 @@
         </activity>
         <activity
             android:name="com.chuannuo.qianbaosuoping.AppDownLoadActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.chuannuo.qianbaosuoping.MoreActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity 

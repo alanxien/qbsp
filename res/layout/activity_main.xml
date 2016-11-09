@@ -83,7 +83,7 @@
 	            style="@style/main_tab_bottom"
 	            android:drawableTop="@drawable/main_tab_more_selector"
 	            android:tag="radio_button5"
-                android:text="更多"
+                android:text="电影"
                 android:textSize="14sp"
                 android:textColor="@drawable/tab_textcolor_selector"/>
 		</RadioGroup>

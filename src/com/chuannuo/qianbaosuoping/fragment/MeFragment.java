@@ -24,7 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chuannuo.qianbaosuoping.MovieActivity;
+import com.chuannuo.qianbaosuoping.MoreActivity;
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.RecordActivity;
 import com.chuannuo.qianbaosuoping.common.Constant;
@@ -211,7 +211,7 @@ public class MeFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.rl_more:
 			Intent intent2 = new Intent();
-			intent2.setClass(this.getActivity(), MovieActivity.class);
+			intent2.setClass(this.getActivity(), MoreActivity.class);
 			startActivity(intent2);
 			break;
 		default:
