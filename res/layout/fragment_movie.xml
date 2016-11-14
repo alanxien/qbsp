@@ -28,6 +28,7 @@
             android:paddingBottom="3dp"
             android:paddingLeft="5dp"
             android:paddingTop="3dp"
+            android:textColor="@color/grey"
             android:singleLine="true" />
 
         <ImageButton
@@ -42,5 +43,36 @@
             android:src="@drawable/ease_search_clear"
             android:visibility="invisible" />
     </RelativeLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/mColumnHorizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="40.0dip"
+        android:layout_below="@+id/rl_title"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:id="@+id/mRadioGroup_content"
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip" />
+    </HorizontalScrollView>
+
+    <View
+        android:id="@+id/category_line"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_below="@+id/mColumnHorizontalScrollView"
+        android:background="#ffdddddd" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mViewPager"
+        android:layout_below="@+id/category_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
