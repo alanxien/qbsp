@@ -3,6 +3,7 @@ package com.chuannuo.qianbaosuoping.hScollView;
 import java.util.ArrayList;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,14 +47,14 @@ public class NewsFragment extends Fragment {
 	private Editor editor;
 	private GridView gridView;
 	private SwipeRefreshLayout swipeRefreshLayout;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = LayoutInflater.from(getActivity()).inflate(
 				R.layout.fragment_news, null);
-		
+
 		pref = this.getActivity().getSharedPreferences(Constant.STUDENTS_EARN,
 				FragmentActivity.MODE_PRIVATE);
 		editor = pref.edit();
@@ -65,30 +66,25 @@ public class NewsFragment extends Fragment {
 		gridView = (GridView) view.findViewById(R.id.gridview);
 		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
 
-		swipeRefreshLayout.setColorSchemeResources(android.R.color.black,
-				android.R.color.holo_orange_dark,
+		swipeRefreshLayout.setColorSchemeResources(
+				android.R.color.holo_red_light,
+				android.R.color.holo_green_light,
 				android.R.color.holo_red_dark, android.R.color.holo_green_dark);
 		swipeRefreshLayout
 				.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 					@Override
 					public void onRefresh() {
-						new Handler().postDelayed(new Runnable() {
-							@Override
-							public void run() {
-
-							}
-						}, 1000);
-
+						getMovieList();
 					}
 				});
 		swipeRefreshLayout.post(new Runnable() {
 
-            @Override
-            public void run() {
-                    swipeRefreshLayout.setRefreshing(true);
-                    getMovieList();
-            }
-        });
+			@Override
+			public void run() {
+				swipeRefreshLayout.setRefreshing(true);
+				getMovieList();
+			}
+		});
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -98,6 +94,9 @@ public class NewsFragment extends Fragment {
 
 			}
 		});
+
+		mAdapter = new NewsAdapter(getActivity(), newsList);
+		gridView.setAdapter(mAdapter);
 		return view;
 	}
 
@@ -136,9 +135,9 @@ public class NewsFragment extends Fragment {
 		super.setUserVisibleHint(isVisibleToUser);
 	}
 
-
 	private void getMovieList() {
 		RequestParams params = new RequestParams();
+		if(channelId == 1) title = "";
 		params.put("app_id", pref.getString(Constant.APPID, "0"));
 		params.put("type", title);
 		HttpUtil.get(Constant.GET_MOVIE_LIST, params,
@@ -149,9 +148,34 @@ public class NewsFragment extends Fragment {
 							JSONObject response) {
 						try {
 							if (response.getInt("code") == 1) {
-								
+								newsList.clear();
+								JSONArray jsonArry = response
+										.getJSONArray("data");
+								if (jsonArry != null && !jsonArry.equals("[]")) {
+									int size = jsonArry.length();
+									if (size > 0) {
+										JSONObject obj = null;
+										for (int i = 0; i < size; i++) {
+											obj = jsonArry.getJSONObject(i);
+											Movie m = new Movie();
+											m.setAlias(obj.getString("alias"));
+											m.setIcon(obj.getString("picture") != null
+													&& !obj.getString("picture")
+															.isEmpty() ? Constant.ROOT_URL
+													+ obj.getString("picture")
+													: "");
+											m.setId(obj.getInt("id"));
+
+											newsList.add(m);
+										}
+										if(mAdapter!=null){
+											
+											mAdapter.notifyDataSetChanged();
+										}
+									}
+								}
+
 							} else {
-								
 								Toast.makeText(NewsFragment.this.getActivity(),
 										response.getString("info"),
 										Toast.LENGTH_SHORT).show();

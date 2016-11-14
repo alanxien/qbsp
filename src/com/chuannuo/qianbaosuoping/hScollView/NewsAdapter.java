@@ -3,6 +3,7 @@ package com.chuannuo.qianbaosuoping.hScollView;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +12,18 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.duobao.model.Movie;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class NewsAdapter extends BaseAdapter{
 	ArrayList<Movie> newsList;
 	Activity activity;
 	LayoutInflater inflater = null;
-	ImageLoader imageLoader = ImageLoader.getInstance();
 	int mScreenWidth;
 	int mScreenHeight;
 	
@@ -64,7 +67,7 @@ public class NewsAdapter extends BaseAdapter{
 		if (view == null) {
 			view = inflater.inflate(R.layout.movie_item, null);
 			mHolder = new ViewHolder();
-			mHolder.ivLogo = (ImageView) view.findViewById(R.id.iv_pic);
+			mHolder.ivLogo = (ImageView) view.findViewById(R.id.mi_iv_logo);
 			mHolder.tvTitle = (TextView) view.findViewById(R.id.tv_title);
 			
 			view.setTag(mHolder);
@@ -72,14 +75,14 @@ public class NewsAdapter extends BaseAdapter{
 			mHolder = (ViewHolder) view.getTag();
 		}
 		Movie movie = newsList.get(position);
-		imageLoader.displayImage(movie.getIcon(),mHolder.ivLogo);
+		ImageLoader.getInstance().displayImage(movie.getIcon(),mHolder.ivLogo);
 		mHolder.tvTitle.setText(movie.getAlias());
 		
 		return view;
 	}
 
 	static class ViewHolder {
-		private ImageView ivLogo;
-		private TextView tvTitle;
+		public ImageView ivLogo;
+		public TextView tvTitle;
 	}
 }

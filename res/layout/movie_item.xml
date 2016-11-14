@@ -4,19 +4,21 @@
     android:background="@color/white1">
 
     <ImageView
-        android:id="@+id/iv_pic"
+        android:id="@+id/mi_iv_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tv_title"
+        android:paddingTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:scaleType="center"
         android:src="@drawable/picture_loading" />
     <TextView 
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text="电影"
         android:layout_alignParentBottom="true"
-        android:padding="10dp"
+        android:padding="5dp"
         android:singleLine="true"
-        android:gravity="center_horizontal"/>
+        android:gravity="center"/>
 
 </RelativeLayout>

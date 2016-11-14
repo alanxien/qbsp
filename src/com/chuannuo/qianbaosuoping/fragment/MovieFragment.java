@@ -199,7 +199,6 @@ public class MovieFragment extends Fragment implements OnClickListener{
 				        	  mViewPager.setCurrentItem(i);
 				          }
 			          }
-			          Toast.makeText(getActivity(), userChannelList.get(v.getId()).getName(), Toast.LENGTH_SHORT).show();
 				}
 			});
 			mRadioGroup_content.addView(columnTextView, i ,params);
