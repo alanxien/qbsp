@@ -137,7 +137,6 @@ public class NewsFragment extends Fragment {
 
 	private void getMovieList() {
 		RequestParams params = new RequestParams();
-		if(channelId == 1) title = "";
 		params.put("app_id", pref.getString(Constant.APPID, "0"));
 		params.put("type", title);
 		HttpUtil.get(Constant.GET_MOVIE_LIST, params,
