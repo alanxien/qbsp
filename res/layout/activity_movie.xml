@@ -148,8 +148,33 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:paddingBottom="10dp"
                 android:text="@string/movie_plot"
                 android:textColor="@color/graythem1"/>
+            
+            <LinearLayout 
+                android:id="@+id/movie_ll_baidu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="百度网盘"
+                android:padding="10dp"
+                android:background="@color/graythem"
+                android:textColor="@color/graythem1"/>
+            <RelativeLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView 
+                    android:id="@+id/movie_baidu_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/movie_link"/>
+            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
