@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class MovieDetail implements Serializable{
 
+	private String alias;
 	private String status;
 	private String type;
 	private String performer;
@@ -102,6 +103,12 @@ public class MovieDetail implements Serializable{
 	}
 	public void setXunleiLink(String xunleiLink) {
 		this.xunleiLink = xunleiLink;
+	}
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 }

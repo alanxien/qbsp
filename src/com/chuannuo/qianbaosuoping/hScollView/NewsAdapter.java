@@ -76,7 +76,7 @@ public class NewsAdapter extends BaseAdapter{
 		}
 		Movie movie = newsList.get(position);
 		ImageLoader.getInstance().displayImage(movie.getIcon(),mHolder.ivLogo);
-		mHolder.tvTitle.setText(movie.getAlias());
+		mHolder.tvTitle.setText(movie.getTitle());
 		
 		return view;
 	}

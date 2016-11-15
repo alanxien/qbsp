@@ -128,6 +128,8 @@ public interface Constant {
 	 */
 	String GET_MOVIE_LIST = BASE_URL+"/getMovieList";
 	String GET_MOVIE_COMMENT_LIST = BASE_URL+"/movieCommentList";
+	String POST_MOVIE_COMMENT = BASE_URL+"/movieComment";
+	String GET_MOVIE_INFO = BASE_URL+"/getMovieInfo";
 	
 	/*
 	 * 上传截图接口

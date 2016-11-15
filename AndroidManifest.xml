@@ -84,6 +84,11 @@
             android:name="com.chuannuo.qianbaosuoping.MoreActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.chuannuo.qianbaosuoping.movie.MovieActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        
         <activity 
             android:name="com.chuannuo.qianbaosuoping.PerfectInfoActivity"
             android:theme="@android:style/Theme.NoTitleBar" >

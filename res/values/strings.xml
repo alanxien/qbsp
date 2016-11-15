@@ -328,6 +328,16 @@
 	<string name="db_winner"><Data><![CDATA[获奖者： <font color="#2dcc70">%1$s</font>]]></Data></string>
 	<string name="db_win_num"><Data><![CDATA[幸运号码： <font color="#ef4136">%1$s</font>]]></Data></string>
 	<string name="db_my_num_tips"><Data><![CDATA[本期参与： <font color="#ef4136">%1$s</font>人次，以下是您的所有夺宝号码]]></Data></string>
+	
+	<!-- 电影 -->
+	<string name="movie_alias">别名：%1$s</string>
+	<string name="movie_type">类型：%1$s</string>
+	<string name="movie_director">导演：%1$s</string>
+	<string name="movie_performer">演员：%1$s</string>
+	<string name="movie_area">地区：%1$s</string>
+	<string name="movie_subtitles">字幕：%1$s</string>
+	<string name="movie_version">版本：%1$s</string>
+	<string name="movie_date">日期：%1$s</string>
 </resources>
 
 

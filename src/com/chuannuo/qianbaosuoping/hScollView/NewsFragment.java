@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.common.HttpUtil;
 import com.chuannuo.qianbaosuoping.duobao.model.Movie;
+import com.chuannuo.qianbaosuoping.movie.MovieActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -91,7 +93,10 @@ public class NewsFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
+				Movie m = newsList.get(position);
+				Intent intent = new Intent(getActivity(),MovieActivity.class);
+				intent.putExtra("movie", m);
+				startActivity(intent);
 			}
 		});
 
@@ -157,7 +162,12 @@ public class NewsFragment extends Fragment {
 										for (int i = 0; i < size; i++) {
 											obj = jsonArry.getJSONObject(i);
 											Movie m = new Movie();
-											m.setAlias(obj.getString("alias"));
+											String title = obj.getString("title");
+											String alias = obj.getString("alias");
+											if(title==null || title.isEmpty() || title.equals("null")){
+												title = alias;
+											}
+											m.setTitle(title);
 											m.setIcon(obj.getString("picture") != null
 													&& !obj.getString("picture")
 															.isEmpty() ? Constant.ROOT_URL

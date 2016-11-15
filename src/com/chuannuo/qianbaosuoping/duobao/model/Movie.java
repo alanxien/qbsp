@@ -5,15 +5,12 @@ import java.io.Serializable;
 public class Movie implements Serializable{
 
 	private int id;
-	private String alias;
+	private String title;
 	private String icon;
 	private MovieDetail movieDetail;
 	
 	public int getId() {
 		return id;
-	}
-	public String getAlias() {
-		return alias;
 	}
 	public String getIcon() {
 		return icon;
@@ -24,13 +21,16 @@ public class Movie implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
 	public void setMovieDetail(MovieDetail movieDetail) {
 		this.movieDetail = movieDetail;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

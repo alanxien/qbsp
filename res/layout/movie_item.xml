@@ -19,6 +19,7 @@
         android:layout_alignParentBottom="true"
         android:padding="5dp"
         android:singleLine="true"
+        android:textColor="@color/grey"
         android:gravity="center"/>
 
 </RelativeLayout>
