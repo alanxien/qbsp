@@ -336,8 +336,8 @@
 	<string name="movie_performer">演员：%1$s</string>
 	<string name="movie_area">地区：%1$s</string>
 	<string name="movie_subtitles">字幕：%1$s</string>
-	<string name="movie_version">版本：%1$s</string>
 	<string name="movie_date">日期：%1$s</string>
+	<string name="movie_plot">剧情：%1$s</string>
 </resources>
 
 
