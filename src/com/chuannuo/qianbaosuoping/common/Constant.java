@@ -131,6 +131,8 @@ public interface Constant {
 	String POST_MOVIE_COMMENT = BASE_URL+"/movieComment";
 	String GET_MOVIE_INFO = BASE_URL+"/getMovieInfo";
 	
+	String XUNLEI_APK_URL = "http://mobile.baidu.com/item?docid=10297146&source=aladdin@wise_app_13@button&ala=wise_app@strong@%E8%BF%85%E9%9B%B7&httpssampling=ctrl&from=1015530c";
+	
 	/*
 	 * 上传截图接口
 	 */

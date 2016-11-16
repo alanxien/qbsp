@@ -14,11 +14,9 @@ public class MovieDetail implements Serializable{
 	private String version;
 	private String create_date;
 	private String plot;
-	private String baiduTitle;
-	private String baiduLink;
-	private String baiduPassword;
-	private String xunleiTitle;
-	private String xunleiLink;
+	private BaiduModel baiduModel;
+	private AiqiyiModel aiqiyiModel;
+	private XunleiModel xunleiModel;
 	
 	public String getStatus() {
 		return status;
@@ -47,21 +45,7 @@ public class MovieDetail implements Serializable{
 	public String getPlot() {
 		return plot;
 	}
-	public String getBaiduTitle() {
-		return baiduTitle;
-	}
-	public String getBaiduLink() {
-		return baiduLink;
-	}
-	public String getBaiduPassword() {
-		return baiduPassword;
-	}
-	public String getXunleiTitle() {
-		return xunleiTitle;
-	}
-	public String getXunleiLink() {
-		return xunleiLink;
-	}
+	
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -89,26 +73,30 @@ public class MovieDetail implements Serializable{
 	public void setPlot(String plot) {
 		this.plot = plot;
 	}
-	public void setBaiduTitle(String baiduTitle) {
-		this.baiduTitle = baiduTitle;
-	}
-	public void setBaiduLink(String baiduLink) {
-		this.baiduLink = baiduLink;
-	}
-	public void setBaiduPassword(String baiduPassword) {
-		this.baiduPassword = baiduPassword;
-	}
-	public void setXunleiTitle(String xunleiTitle) {
-		this.xunleiTitle = xunleiTitle;
-	}
-	public void setXunleiLink(String xunleiLink) {
-		this.xunleiLink = xunleiLink;
-	}
+
 	public String getAlias() {
 		return alias;
 	}
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+	public BaiduModel getBaiduModel() {
+		return baiduModel;
+	}
+	public void setBaiduModel(BaiduModel baiduModel) {
+		this.baiduModel = baiduModel;
+	}
+	public AiqiyiModel getAiqiyiModel() {
+		return aiqiyiModel;
+	}
+	public void setAiqiyiModel(AiqiyiModel aiqiyiModel) {
+		this.aiqiyiModel = aiqiyiModel;
+	}
+	public XunleiModel getXunleiModel() {
+		return xunleiModel;
+	}
+	public void setXunleiModel(XunleiModel xunleiModel) {
+		this.xunleiModel = xunleiModel;
 	}
 
 }

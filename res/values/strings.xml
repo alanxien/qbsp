@@ -339,6 +339,8 @@
 	<string name="movie_date">日期：%1$s</string>
 	<string name="movie_plot">剧情：%1$s</string>
 	<string name="movie_link">链接：%1$s</string>
+	<string name="movie_password">密码：%1$s</string>
+	<string name="movie_open">打开</string>
 </resources>
 
 

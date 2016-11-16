@@ -22,7 +22,7 @@
             android:singleLine="true"
             android:text="电影"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -45,8 +45,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         android:singleLine="true"
                         android:text=""
                         android:textColor="@color/grey"
-                        android:textSize="16sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/movie_alias"
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:singleLine="true"
-                        android:text="@string/movie_alias"
+                        android:text="别名"
                         android:textColor="@color/graythem1" />
 
                     <TextView
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:singleLine="true"
-                        android:text="@string/movie_type"
+                        android:text="类型"
                         android:textColor="@color/graythem1" />
 
                     <TextView
@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:singleLine="true"
-                        android:text="@string/movie_director"
+                        android:text="导演"
                         android:textColor="@color/graythem1" />
 
                     <TextView
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:maxLines="2"
-                        android:text="@string/movie_performer"
+                        android:text="演员"
                         android:textColor="@color/graythem1" />
 
                     <TextView
@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:singleLine="true"
-                        android:text="@string/movie_area"
+                        android:text="地区"
                         android:textColor="@color/graythem1" />
 
                     <TextView
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:singleLine="true"
-                        android:text="@string/movie_subtitles"
+                        android:text="字幕"
                         android:textColor="@color/graythem1" />
 
                     <TextView
@@ -137,43 +137,149 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:singleLine="true"
-                        android:text="@string/movie_date"
+                        android:text="日期"
                         android:textColor="@color/graythem1" />
                 </LinearLayout>
             </RelativeLayout>
-            
-            <TextView 
+
+            <RelativeLayout
+                android:id="@+id/rl_plot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" 
+                android:tag="1"
+                android:background="@color/graythem">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="剧情"
+                    android:textColor="@color/grey" />
+                <ImageView
+                    android:id="@+id/iv_plot" 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/quickaction_arrow_down"/>
+            </RelativeLayout>
+
+            <TextView
                 android:id="@+id/movie_plot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:text="@string/movie_plot"
-                android:textColor="@color/graythem1"/>
-            
-            <LinearLayout 
+                android:maxLines="3"
+                android:padding="10dp"
+                android:text="剧情"
+                android:textColor="@color/graythem1" />
+
+            <LinearLayout
                 android:id="@+id/movie_ll_baidu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            <TextView 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="百度网盘"
-                android:padding="10dp"
-                android:background="@color/graythem"
-                android:textColor="@color/graythem1"/>
-            <RelativeLayout 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView 
-                    android:id="@+id/movie_baidu_link"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/graythem"
+                    android:padding="10dp"
+                    android:text="百度网盘"
+                    android:textColor="@color/grey" />
+
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="@string/movie_link"/>
-            </RelativeLayout>
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/movie_baidu_link"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/movie_baidu_password"
+                        android:autoLink="all"
+                        android:padding="5dp"
+                        android:textColor="#5C5CFF"
+                        android:text="链接" />
+
+                    <TextView
+                        android:id="@+id/movie_baidu_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:padding="5dp"
+                        android:text="密码"
+                        android:textIsSelectable="true" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/movie_ll_xunlei"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/graythem"
+                    android:padding="10dp"
+                    android:text="迅雷下载"
+                    android:textColor="@color/grey" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/movie_xunlei_link"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:autoLink="all"
+                        android:padding="5dp"
+                        android:textIsSelectable="true"
+                        android:textColor="#5C5CFF"
+                        android:text="链接" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/movie_ll_aiqiyi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/graythem"
+                    android:padding="10dp"
+                    android:text="爱奇艺"
+                    android:textColor="@color/grey" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/movie_aiqiyi_link"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:autoLink="all"
+                        android:maxLines="1"
+                        android:padding="5dp"
+                        android:textColor="#5C5CFF"
+                        android:text="链接" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
