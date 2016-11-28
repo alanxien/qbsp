@@ -1,12 +1,16 @@
 package com.chuannuo.qianbaosuoping.movie;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Comment;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -24,15 +28,19 @@ import android.os.Handler;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
+import com.chuannuo.qianbaosuoping.AccountSettingActivity;
 import com.chuannuo.qianbaosuoping.BaseActivity;
 import com.chuannuo.qianbaosuoping.R;
 import com.chuannuo.qianbaosuoping.common.Constant;
@@ -44,6 +52,7 @@ import com.chuannuo.qianbaosuoping.duobao.model.Movie;
 import com.chuannuo.qianbaosuoping.duobao.model.MovieDetail;
 import com.chuannuo.qianbaosuoping.duobao.model.XunleiModel;
 import com.chuannuo.qianbaosuoping.hScollView.NewsFragment;
+import com.chuannuo.qianbaosuoping.view.CustomDialog;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -78,6 +87,15 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 	private TextView tvAqyLink;
 	private TextView tvBdPasswrod;
 
+	private ListView listView;
+	private List<Comments> list;
+	private CommentsAdapter adapter;
+	
+	private TextView tvComment;
+	String comment;
+	private CustomDialog mDialog;
+	private View headView;
+
 	/** 屏幕宽度 */
 	private int mScreenWidth = 0;
 
@@ -100,22 +118,54 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 
 		initView();
 		initData();
+		
+		mDialog = new CustomDialog(MovieActivity.this, R.style.CustomDialog, new CustomDialog.CustomDialogListener() {
+			
+			@Override
+			public void onClick(View view) {
+				switch (view.getId()) {
+				case R.id.btn_left:
+					mDialog.getEtComment().setText("");
+					mDialog.dismiss();
+					break;
+				case R.id.btn_right:
+					String text = mDialog.getEtComment().getText().toString();
+					if(text.isEmpty()){
+						Toast.makeText(MovieActivity.this, "评论不能为空", Toast.LENGTH_SHORT).show();
+					}else{
+						comments(text);
+					}
+					break;
+				default:
+					break;
+				}
+				
+			}
+		}, 7);
 	}
 
 	private void initView() {
 		// TODO Auto-generated method stub
-		ivMovieLogo = (ImageView) findViewById(R.id.am_iv_logo);
-		tvMovieAlias = (TextView) findViewById(R.id.movie_alias);
-		tvMovieArea = (TextView) findViewById(R.id.movie_area);
-		tvMovieDate = (TextView) findViewById(R.id.movie_date);
-		tvMovieDirector = (TextView) findViewById(R.id.movie_director);
-		tvMoviePerformer = (TextView) findViewById(R.id.movie_performer);
-		tvMovieSubtitles = (TextView) findViewById(R.id.movie_subtitles);
-		tvMovieTitle = (TextView) findViewById(R.id.movie_title);
-		tvMovieType = (TextView) findViewById(R.id.movie_type);
-		tvMoviePlot = (TextView) findViewById(R.id.movie_plot);
-		rlPlot = (RelativeLayout) findViewById(R.id.rl_plot);
-		ivPlot = (ImageView) findViewById(R.id.iv_plot);
+		headView = getLayoutInflater().inflate(
+				R.layout.movie_head_view, null);
+		ivMovieLogo = (ImageView) headView.findViewById(R.id.am_iv_logo);
+		tvMovieAlias = (TextView) headView.findViewById(R.id.movie_alias);
+		tvMovieArea = (TextView) headView.findViewById(R.id.movie_area);
+		tvMovieDate = (TextView) headView.findViewById(R.id.movie_date);
+		tvMovieDirector = (TextView) headView.findViewById(R.id.movie_director);
+		tvMoviePerformer = (TextView) headView.findViewById(R.id.movie_performer);
+		tvMovieSubtitles = (TextView) headView.findViewById(R.id.movie_subtitles);
+		tvMovieTitle = (TextView) headView.findViewById(R.id.movie_title);
+		tvMovieType = (TextView) headView.findViewById(R.id.movie_type);
+		tvMoviePlot = (TextView) headView.findViewById(R.id.movie_plot);
+		rlPlot = (RelativeLayout) headView.findViewById(R.id.rl_plot);
+		ivPlot = (ImageView) headView.findViewById(R.id.iv_plot);
+		
+		
+		listView = (ListView) findViewById(R.id.lv_comments);
+		tvComment = (TextView) findViewById(R.id.tv_comment);
+		
+		listView.addHeaderView(headView);
 
 		llBaidu = (LinearLayout) findViewById(R.id.movie_ll_baidu);
 		llAiqiyi = (LinearLayout) findViewById(R.id.movie_ll_aiqiyi);
@@ -128,7 +178,12 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 
 		rlPlot.setOnClickListener(this);
 		tvBdLink.setOnClickListener(this);
+		tvComment.setOnClickListener(this);
+		headView.findViewById(R.id.movie_baidu_link).setOnClickListener(this);
 
+		list = new ArrayList<Comments>();
+		adapter = new CommentsAdapter(this, list);
+		listView.setAdapter(adapter);
 	}
 
 	private void initData() {
@@ -142,6 +197,7 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 		tvMovieTitle.setText(movie.getTitle());
 
 		getMovieInfo();
+		getCommentsList();
 	}
 
 	private void getMovieInfo() {
@@ -235,6 +291,108 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 				});
 	}
 
+	private void getCommentsList() {
+		// TODO Auto-generated method stub
+		RequestParams params = new RequestParams();
+		params.put("m_id", movie.getId());
+		HttpUtil.get(Constant.GET_MOVIE_COMMENT_LIST, params,
+				new JsonHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						try {
+							if (response.getInt("code") == 1) {
+								JSONArray jsonArry = response
+										.getJSONArray("data");
+								if (jsonArry != null && !jsonArry.equals("[]")) {
+									int size = jsonArry.length();
+									if (size > 0) {
+										JSONObject obj = null;
+										for (int i = 0; i < size; i++) {
+											obj = jsonArry.getJSONObject(i);
+											Comments c = new Comments();
+											c.setAppId(obj.getString("app_id"));
+											c.setComment(obj
+													.getString("comment"));
+											c.setCreateDate(obj
+													.getString("create_date"));
+											c.setId(obj.getInt("id"));
+
+											list.add(c);
+										}
+										adapter.notifyDataSetChanged();
+									}
+								}
+							} else {
+								Toast.makeText(MovieActivity.this,
+										response.getString("info"),
+										Toast.LENGTH_SHORT).show();
+							}
+							super.onSuccess(statusCode, headers, response);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						super.onFailure(statusCode, headers, throwable,
+								errorResponse);
+					}
+				});
+	}
+
+	private void comments(final String comment) {
+		// TODO Auto-generated method stub
+		RequestParams params = new RequestParams();
+		params.put("m_id", movie.getId());
+		params.put("app_id", pref.getString(Constant.APPID, "0"));
+		params.put("comment", comment);
+		HttpUtil.get(Constant.POST_MOVIE_COMMENT, params,
+				new JsonHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						try {
+							if (response.getInt("code") == 1) {
+								if(mDialog!=null) mDialog.dismiss();
+								Toast.makeText(MovieActivity.this, "评论成功",
+										Toast.LENGTH_SHORT).show();
+
+								Comments c = new Comments();
+								c.setAppId(pref.getString(Constant.APPID, "0"));
+								c.setComment(comment);
+								c.setCreateDate(getNowDate());
+								c.setId(movie.getId());
+
+								list.add(c);
+								adapter.notifyDataSetChanged();
+							} else {
+								Toast.makeText(MovieActivity.this, "评论失败",
+										Toast.LENGTH_SHORT).show();
+							}
+							super.onSuccess(statusCode, headers, response);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						super.onFailure(statusCode, headers, throwable,
+								errorResponse);
+					}
+				});
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -251,9 +409,12 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 			}
 			break;
 		case R.id.movie_baidu_link:
+			copy(movie.getMovieDetail().getBaiduModel().getPassword(), this);
+			break;
+		case R.id.movie_xunlei_link:
 			String packageName = "com.xunlei.downloadprovider";
 			if (isAppInstalled(MovieActivity.this, packageName)) {
-				copy(movie.getMovieDetail().getBaiduModel().getLink(),this);
+				copy(movie.getMovieDetail().getXunleiModel().getLink(), this);
 				doStartApplicationWithPackageName(packageName);
 			} else {
 				Intent intent = new Intent(Intent.ACTION_VIEW,
@@ -262,6 +423,18 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 				startActivity(intent);
 			}
 
+			break;
+		case R.id.tv_comment:
+			if(mDialog!=null){
+				mDialog.show();
+				WindowManager windowManager = getWindowManager();
+				Display display = windowManager.getDefaultDisplay();
+				WindowManager.LayoutParams lp = mDialog.getWindow()
+						.getAttributes();
+				lp.width = (int) (display.getWidth() * 0.9); // 设置宽度
+				mDialog.getWindow().setAttributes(lp);
+			}
+			
 			break;
 		default:
 			break;
@@ -400,10 +573,20 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	public static void copy(String content, Context context) 
-	{ 
-	// 得到剪贴板管理器 
-		ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(CLIPBOARD_SERVICE);
-	    ClipData clipData = ClipData.newPlainText("label", content); //文本型数据 clipData 的构造方法。    
-	    clipboardManager.setPrimaryClip(clipData); // 将 字符串 str 保存 到剪贴板
-	}}
+	public static void copy(String content, Context context) {
+		// 得到剪贴板管理器
+		ClipboardManager clipboardManager = (ClipboardManager) context
+				.getSystemService(CLIPBOARD_SERVICE);
+		ClipData clipData = ClipData.newPlainText("label", content); // 文本型数据
+																		// clipData
+																		// 的构造方法。
+		clipboardManager.setPrimaryClip(clipData); // 将 字符串 str 保存 到剪贴板
+	}
+
+	public String getNowDate() {
+		Date currentTime = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateString = formatter.format(currentTime);;
+		return dateString;
+	}
+}

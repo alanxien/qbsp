@@ -49,6 +49,15 @@ public class CustomDialog extends Dialog implements OnClickListener {
 	public EditText etCustom2;
 	private String custom1;
 	private String custom2;
+	
+	private EditText etComment;
+	public EditText getEtComment() {
+		return etComment;
+	}
+
+	public void setEtComment(EditText etComment) {
+		this.etComment = etComment;
+	}
 
 	private int tag; // 1表示确认框(只有确认按钮)，2表示选择框(确认和取消)，3表示分享弹出框，0表示二维码显示框
 
@@ -187,11 +196,22 @@ public class CustomDialog extends Dialog implements OnClickListener {
 			iv_image.setImageBitmap(image);
 			iv_image.setVisibility(View.VISIBLE);
 			break;
+			
+		case 7:
+			this.setContentView(R.layout.comment_dialog);
+			btn_left = (Button) findViewById(R.id.btn_left);
+			btn_right= (Button) findViewById(R.id.btn_right);
+			etComment = (EditText) findViewById(R.id.et_comment);
+			
+			btn_left.setOnClickListener(this);
+			btn_right.setOnClickListener(this);
+			break;
 		default:
 			break;
 		}
 
 	}
+
 
 	@Override
 	public void onClick(View v) {

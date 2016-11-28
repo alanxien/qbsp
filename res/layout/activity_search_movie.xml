@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/graythem" >
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/RedTheme"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" 
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        
+        <ImageView
+	        android:id="@+id/iv_back"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_centerVertical="true"
+            android:paddingRight="20dp"
+	        android:background="@drawable/btn_back_yellow"
+	        android:clickable="true"
+	        android:onClick="back"
+	        android:src="@drawable/back_selected" />
+
+        <EditText
+            android:id="@+id/query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_back"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/ease_seabar_input"
+            android:drawableLeft="@drawable/ease_search_bar_icon_normal"
+            android:hint="搜索"
+            android:paddingBottom="3dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/grey"
+            android:singleLine="true" />
+
+        <ImageButton
+            android:id="@+id/search_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:background="@android:color/transparent"
+            android:padding="6dp"
+            android:src="@drawable/ease_search_clear"
+            android:visibility="invisible" />
+    </RelativeLayout>
+    
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/rl_title"
+        android:layout_height="match_parent">
+
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="55dp"
+            android:background="@color/white"
+            android:drawSelectorOnTop="true"
+            android:footerDividersEnabled="false"
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:verticalSpacing="5dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

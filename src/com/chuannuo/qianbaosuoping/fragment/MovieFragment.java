@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -24,8 +25,10 @@ import android.text.style.AbsoluteSizeSpan;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -44,6 +47,7 @@ import com.chuannuo.qianbaosuoping.hScollView.ChannelItem;
 import com.chuannuo.qianbaosuoping.hScollView.ColumnHorizontalScrollView;
 import com.chuannuo.qianbaosuoping.hScollView.NewsFragment;
 import com.chuannuo.qianbaosuoping.hScollView.NewsFragmentPagerAdapter;
+import com.chuannuo.qianbaosuoping.movie.SearchMovieActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -76,6 +80,7 @@ public class MovieFragment extends Fragment implements OnClickListener{
 	private int mItemWidth = 0;
 	private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 	LinearLayout mRadioGroup_content;
+	private int  touch_flag  = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -92,7 +97,6 @@ public class MovieFragment extends Fragment implements OnClickListener{
 		
 		initView(view);
 		setChangelView();
-		initData();
 		return view;
 	}
 	
@@ -106,7 +110,30 @@ public class MovieFragment extends Fragment implements OnClickListener{
         mRadioGroup_content = (LinearLayout) view.findViewById(R.id.mRadioGroup_content);
         
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-      
+        query.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				touch_flag++;
+				if(touch_flag==1){
+					Intent intent = new Intent(getActivity(),SearchMovieActivity.class);
+					startActivity(intent);
+					return true;
+				}else{
+					return false;
+				}
+				
+			}
+		});
+	}
+	
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onResume()
+	 */
+	@Override
+	public void onResume() {
+		touch_flag=0;
+		super.onResume();
 	}
 	
 	protected void setHint(EditText editText, String hint) {
@@ -269,48 +296,11 @@ public class MovieFragment extends Fragment implements OnClickListener{
 		}
 	}
 	
-	private void initData(){
-		
-		query.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            	
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void afterTextChanged(Editable s) {
-            	//conversationListView.filter(s);
-                if (s.length() > 0) {
-                    clearSearch.setVisibility(View.VISIBLE);
-                } else {
-                    clearSearch.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-        clearSearch.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                query.getText().clear();
-                hideSoftKeyboard();
-            }
-        });
-	}
-	
-	protected void hideSoftKeyboard() {
-        if (getActivity().getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
-            if (getActivity().getCurrentFocus() != null)
-                inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
-                        InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-	
 	/* (non-Javadoc)
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		
 	}
 }

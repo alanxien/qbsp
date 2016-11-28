@@ -1,0 +1,250 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/am_iv_logo"
+            android:layout_width="140dp"
+            android:layout_height="200dp"
+            android:src="@drawable/picture_loading" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/am_iv_logo"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/grey"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/movie_alias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:singleLine="true"
+                android:text="别名"
+                android:textColor="@color/graythem1" />
+
+            <TextView
+                android:id="@+id/movie_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:singleLine="true"
+                android:text="类型"
+                android:textColor="@color/graythem1" />
+
+            <TextView
+                android:id="@+id/movie_director"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:singleLine="true"
+                android:text="导演"
+                android:textColor="@color/graythem1" />
+
+            <TextView
+                android:id="@+id/movie_performer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:maxLines="2"
+                android:text="演员"
+                android:textColor="@color/graythem1" />
+
+            <TextView
+                android:id="@+id/movie_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:singleLine="true"
+                android:text="地区"
+                android:textColor="@color/graythem1" />
+
+            <TextView
+                android:id="@+id/movie_subtitles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:singleLine="true"
+                android:text="字幕"
+                android:textColor="@color/graythem1" />
+
+            <TextView
+                android:id="@+id/movie_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:singleLine="true"
+                android:text="日期"
+                android:textColor="@color/graythem1" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_plot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/graythem"
+        android:tag="1" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="剧情"
+            android:textColor="@color/grey" />
+
+        <ImageView
+            android:id="@+id/iv_plot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/quickaction_arrow_down" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/movie_plot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:padding="10dp"
+        android:text="剧情"
+        android:textColor="@color/graythem1" />
+
+    <LinearLayout
+        android:id="@+id/movie_ll_baidu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/graythem"
+            android:padding="10dp"
+            android:text="百度网盘"
+            android:textColor="@color/grey" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/movie_baidu_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/movie_baidu_password"
+                android:autoLink="all"
+                android:padding="5dp"
+                android:text="链接"
+                android:textColor="#5C5CFF" />
+
+            <TextView
+                android:id="@+id/movie_baidu_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:text="密码"
+                android:textIsSelectable="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/movie_ll_xunlei"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/graythem"
+            android:padding="10dp"
+            android:text="迅雷下载"
+            android:textColor="@color/grey" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/movie_xunlei_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:autoLink="all"
+                android:padding="5dp"
+                android:text="链接"
+                android:textColor="#5C5CFF"
+                android:textIsSelectable="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/movie_ll_aiqiyi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/graythem"
+            android:padding="10dp"
+            android:text="爱奇艺"
+            android:textColor="@color/grey" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/movie_aiqiyi_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:autoLink="all"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="链接"
+                android:textColor="#5C5CFF" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/graythem"
+        android:padding="10dp"
+        android:text="评论"
+        android:textColor="@color/grey" />
+
+</LinearLayout>
