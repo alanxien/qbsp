@@ -122,6 +122,7 @@ public interface Constant {
 	String QUICK_LOGIN_URL = BASE_URL + "/getUserByImei";//吴手机号登陆
 	String BIND_MOBILE_URL = BASE_URL + "/bindMobile";   //绑定手机
 	String GET_RESOURCE_LIST_SDK = BASE_URL+"/getResourceListSDK";//游戏SDK列表
+	String APPEAL = BASE_URL + "appeal";//申诉
 	
 	/**
 	 * 电影接口

@@ -256,47 +256,25 @@
                         android:textSize="16sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp" >
-
-                    <RelativeLayout
-                        android:id="@+id/rl_example"
-                        android:layout_width="0dp"
-                        android:layout_height="150dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="#FF7464"
-                        android:clickable="true" >
-
-                        <ImageView
-                            android:id="@+id/iv_example"
-                            android:layout_width="fill_parent"
-                            android:layout_height="150dp"
-                            android:src="@drawable/ic_launcher" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:text="示例图"
-                            android:textColor="@color/redLight1"
-                            android:textSize="20sp"
-                            android:textStyle="bold|italic" />
-                    </RelativeLayout>
-
                     <ImageView
                         android:id="@+id/iv_upload"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:background="#FF7464"
                         android:clickable="true"
                         android:src="@drawable/upload" />
-                </LinearLayout>
+            </LinearLayout>
+            
+            <LinearLayout 
+                android:id="@+id/ll_image_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="vertical">
+                
             </LinearLayout>
 
             <TextView

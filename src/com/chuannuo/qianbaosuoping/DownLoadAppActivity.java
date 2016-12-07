@@ -7,12 +7,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -27,8 +31,12 @@ import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,6 +50,8 @@ import com.chuannuo.qianbaosuoping.model.AppInfo;
 import com.chuannuo.qianbaosuoping.service.DownloadService;
 import com.chuannuo.qianbaosuoping.view.CustomADImageDialog;
 import com.chuannuo.qianbaosuoping.view.CustomDialog;
+import com.chuannuo.tangguo.TangGuoActivity;
+import com.chuannuo.tangguo.listener.ResponseStateListener;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -71,8 +81,6 @@ public class DownLoadAppActivity extends BaseActivity implements
 	private LinearLayout ll_how_do;
 	private LinearLayout ll_game;
 	private TextView tv_breif;
-	private ImageView iv_example;
-	private RelativeLayout rl_example;
 	private ImageView iv_upload;
 	private Bitmap imgBitmap;
 	private CustomADImageDialog uDialog;
@@ -91,6 +99,12 @@ public class DownLoadAppActivity extends BaseActivity implements
 	private CustomDialog mDialog;
 	private CustomDialog sDialog;
 	public final int RESULT = 9998;
+
+	private HorizontalScrollView imgsScrollView;
+	private HorizontalScrollView imgsScrollView2;// 用户上传图片\
+	private LinearLayout llImageUpload;
+	public LinearLayout linearLayout11;
+	private AlertDialog aDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -175,11 +189,32 @@ public class DownLoadAppActivity extends BaseActivity implements
 		tv_screen = (TextView) findViewById(R.id.tv_screen);
 		ll_game = (LinearLayout) findViewById(R.id.ll_game);
 		tv_breif = (TextView) findViewById(R.id.tv_breif);
-		iv_example = (ImageView) findViewById(R.id.iv_example);
 		iv_upload = (ImageView) findViewById(R.id.iv_upload);
-		rl_example = (RelativeLayout) findViewById(R.id.rl_example);
+		llImageUpload = (LinearLayout) findViewById(R.id.ll_image_upload);
 
 		tv_downLoad.setVisibility(View.GONE);
+
+		imgsScrollView = new HorizontalScrollView(this);
+		LinearLayout.LayoutParams lpHv = new LinearLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, 600);
+		lpHv.setMargins(20, 20, 20, 20);
+		imgsScrollView.setLayoutParams(lpHv);
+		imgsScrollView.setHorizontalScrollBarEnabled(false);
+
+		imgsScrollView2 = new HorizontalScrollView(this);
+		imgsScrollView2.setLayoutParams(lpHv);
+		imgsScrollView2.setHorizontalScrollBarEnabled(false);
+		imgsScrollView2.setVisibility(View.GONE);
+
+		linearLayout11 = new LinearLayout(this);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		linearLayout11.setLayoutParams(lp);
+		linearLayout11.setVisibility(View.GONE);
+
+		llImageUpload.addView(imgsScrollView);
+		llImageUpload.addView(linearLayout11);
+		llImageUpload.addView(imgsScrollView2);
 	}
 
 	private void initData() {
@@ -234,10 +269,24 @@ public class DownLoadAppActivity extends BaseActivity implements
 			tv_tips2.setText("打开上面连接，按提示完成操作。");
 			tv_tips3.setText("按下面示例图截图上传即可获得 " + money2
 					+ " 元，（注意只有一次上传机会，请严格按照要求上传）");
-			rl_example.setVisibility(View.VISIBLE);
-			iv_upload.setVisibility(View.VISIBLE);
+			
+			if (appInfo.getPhoto_status() == 2
+					|| appInfo.getPhoto_status() == 3
+					|| appInfo.getPhoto_status() == 4) {
+				iv_upload.setVisibility(View.GONE);
+			}  else if (appInfo.getPhoto_status() == 1) {
+				if (appInfo.getCurr_upload_photo() == appInfo
+						.getUpload_photo()) {
+					iv_upload.setVisibility(View.GONE);
+				} else {
+					iv_upload.setVisibility(View.VISIBLE);
+				}
+			} else {
+				iv_upload.setVisibility(View.VISIBLE);
+			}
 			tv_screen.setVisibility(View.VISIBLE);
-			loadImage();
+
+			mutiImageLoad1();
 		} else if (appInfo.getClicktype() == 8) {
 			tv_downLoad.setVisibility(View.VISIBLE);
 			String str = "";
@@ -249,28 +298,750 @@ public class DownLoadAppActivity extends BaseActivity implements
 			if (appInfo.getIs_photo() == 1 || appInfo.isSign()) {
 				tv_tips1.setText(str + "请到未完成任务列表中,按下面示例图截图上传即可获得 " + money2
 						+ " 元，（注意只有一次上传机会，请严格按照要求上传）");
-				rl_example.setVisibility(View.VISIBLE);
 				if (appInfo.isSign()) {
-					iv_upload.setVisibility(View.VISIBLE);
+					if (appInfo.getPhoto_status() == 2
+							|| appInfo.getPhoto_status() == 3
+							|| appInfo.getPhoto_status() == 4) {
+						iv_upload.setVisibility(View.GONE);
+					} else if (appInfo.getPhoto_status() == 1) {
+						if (appInfo.getCurr_upload_photo() == appInfo
+								.getUpload_photo()) {
+							iv_upload.setVisibility(View.GONE);
+						} else {
+							iv_upload.setVisibility(View.VISIBLE);
+						}
+					} else {
+						iv_upload.setVisibility(View.VISIBLE);
+					}
 				} else {
 					iv_upload.setVisibility(View.GONE);
 				}
 				tv_screen.setVisibility(View.VISIBLE);
-				loadImage();
+				
+				mutiImageLoad8();
 			} else {
 				tv_tips1.setText(str);
-				rl_example.setVisibility(View.GONE);
 				iv_upload.setVisibility(View.GONE);
 				tv_screen.setVisibility(View.GONE);
+				imgsScrollView.setVisibility(View.GONE);
 			}
 			tv_tips2.setText("安装完成后，请到未完成任务列表中，继续签到，每次签到即可获得0.1元。");
 			tv_tips3.setText("每隔" + appInfo.getSign_rules() + ""
 					+ "天可以签到 一次，签到" + appInfo.getNeedSign_times() + "次，任务完成");
 		}
 
-		rl_example.setOnClickListener(this);
 		iv_upload.setOnClickListener(this);
 		downLoad();
+	}
+	
+	private void mutiImageLoad8(){
+		if (appInfo.getImgsList() != null
+				&& appInfo.getImgsList().size() > 0) {
+			List<String> imgsList = appInfo.getImgsList();
+			int s = imgsList.size();
+			LinearLayout linearLayout = new LinearLayout(
+					DownLoadAppActivity.this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, 600);
+			linearLayout.setLayoutParams(lp);
+
+			TextView textView = new TextView(DownLoadAppActivity.this);
+			textView.setText("示例图：");
+			textView.setTextSize(20);
+			textView.setPadding(40, 20, 0, 20);
+			linearLayout.addView(textView);
+
+			for (int i = 0; i < s; i++) {
+				final String url = imgsList.get(i);
+				ImageView imageView = new ImageView(
+						DownLoadAppActivity.this);
+				imageView.setId(i);
+				lp.setMargins(20, 20, 20, 20);
+				imageView.setLayoutParams(lp);
+				loadImage(url, imageView);
+				linearLayout.addView(imageView);
+				// 查看大图
+				imageView
+						.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								CustomADImageDialog
+								.createDialog(DownLoadAppActivity.this, 2)
+								.setBigImage(imgBitmap).show();
+							}
+						});
+			}
+			imgsScrollView.addView(linearLayout);
+		} else {
+			LinearLayout linearLayout = new LinearLayout(
+					DownLoadAppActivity.this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, 600);
+			linearLayout.setLayoutParams(lp);
+
+			TextView textView = new TextView(DownLoadAppActivity.this);
+			textView.setText("示例图：");
+			textView.setTextSize(20);
+			textView.setPadding(40, 20, 0, 20);
+			linearLayout.addView(textView);
+
+			ImageView imageView = new ImageView(DownLoadAppActivity.this);
+			imageView.setLayoutParams(lp);
+			loadImage(appInfo.getH5_big_url(), imageView);
+			linearLayout.addView(imageView);
+			// 查看大图
+			imageView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					CustomADImageDialog
+					.createDialog(DownLoadAppActivity.this, 2)
+					.setBigImage(imgBitmap).show();
+				}
+			});
+			imgsScrollView.addView(linearLayout);
+		}
+
+		if (appInfo.getUpImgList() != null
+				&& appInfo.getUpImgList().size() > 0) {
+			imgsScrollView2.setVisibility(View.VISIBLE);
+			List<String> imgsList = appInfo.getUpImgList();
+			int s = imgsList.size();
+			LinearLayout linearLayout = new LinearLayout(
+					DownLoadAppActivity.this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, 600);
+			linearLayout.setLayoutParams(lp);
+
+			linearLayout11.setVisibility(View.VISIBLE);
+			TextView textView = new TextView(DownLoadAppActivity.this);
+			textView.setText("已经上传图片：");
+			textView.setTextColor(Color
+					.parseColor("#ff58616d"));
+			textView.setTextSize(20);
+			textView.setPadding(40, 20, 0, 20);
+
+			linearLayout11.addView(textView);
+
+			int appeal = appInfo.getAppeal();
+			int status = appInfo.getPhoto_status();
+			String strAppeal = "";
+			String strStatus = "";
+			switch (appeal) {
+			case 1:
+				strAppeal = "申诉";
+				break;
+			case 2:
+				strAppeal = "";
+				break;
+			case 3:
+				strAppeal = "申诉成功，等待审核";
+				break;
+			default:
+				break;
+			}
+
+			switch (status) {
+			case 0:
+				strStatus = "未上传";
+				break;
+			case 1:
+				strStatus = "审核中...";
+				break;
+			case 2:
+				strStatus = "任务完成";
+				break;
+			case 3:
+				strStatus = "任务失败" + appInfo.getCheck_remarks();
+				break;
+			default:
+				break;
+			}
+
+			int u = appInfo.getUpload_photo()
+					- appInfo.getCurr_upload_photo();
+			if (u > 0) {
+				TextView textView2 = new TextView(DownLoadAppActivity.this);
+				textView2.setText("再上传 " + u + " 张图片完成任务");
+				textView2
+						.setTextColor(Color
+								.parseColor("#ffff5252"));
+				textView2.setTextSize(15);
+				textView2.setPadding(0, 20, 0, 20);
+				linearLayout11.addView(textView2);
+			} else {
+				TextView textView2 = new TextView(DownLoadAppActivity.this);
+				textView2.setText(strStatus);
+				textView2.setMaxLines(3);
+				textView2.setTextSize(15);
+				textView2
+						.setTextColor(Color
+								.parseColor("#ffff5252"));
+				textView2.setPadding(0, 20, 0, 20);
+				linearLayout11.addView(textView2);
+			}
+
+			TextView textView3 = new TextView(DownLoadAppActivity.this);
+			if (appeal == 1) {
+				textView3.setText(strAppeal);
+				textView3
+						.setBackgroundColor(Color
+								.parseColor("#ffef4136"));
+				textView3
+						.setTextColor(Color
+								.parseColor("#ffffff"));
+				textView3.setTextSize(15);
+				textView3.setPadding(40, 20, 40, 40);
+				textView3
+						.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								appeal();
+							}
+						});
+			} else if (appeal == 3) {
+				textView3.setText(strAppeal);
+				textView3
+						.setTextColor(Color
+								.parseColor("#ffff5252"));
+				textView3.setTextSize(15);
+				textView3.setPadding(20, 20, 0, 20);
+			}
+
+			linearLayout11.addView(textView3);
+
+			for (int i = 0; i < s; i++) {
+				final String url = imgsList.get(i);
+				ImageView imageView = new ImageView(
+						DownLoadAppActivity.this);
+				imageView.setId(i);
+				lp.setMargins(20, 20, 20, 20);
+				imageView.setLayoutParams(lp);
+				loadImage(url, imageView);
+				linearLayout.addView(imageView);
+				// 查看大图
+				imageView
+						.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								CustomADImageDialog
+								.createDialog(DownLoadAppActivity.this, 2)
+								.setBigImage(imgBitmap).show();
+							}
+						});
+			}
+			imgsScrollView2.addView(linearLayout);
+		} else if (appInfo.getPhoto() != null
+				&& !appInfo.getPhoto().isEmpty()) {
+			imgsScrollView2.setVisibility(View.VISIBLE);
+			LinearLayout linearLayout = new LinearLayout(
+					DownLoadAppActivity.this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, 600);
+			linearLayout.setLayoutParams(lp);
+
+			linearLayout11.setVisibility(View.VISIBLE);
+			TextView textView = new TextView(DownLoadAppActivity.this);
+			textView.setText("已经上传图片：");
+			textView.setTextColor(Color
+					.parseColor("#ff58616d"));
+			textView.setTextSize(20);
+			textView.setPadding(40, 20, 0, 20);
+
+			linearLayout11.addView(textView);
+
+			int appeal = appInfo.getAppeal();
+			int status = appInfo.getPhoto_status();
+			String strAppeal = "";
+			String strStatus = "";
+			switch (appeal) {
+			case 1:
+				strAppeal = "申诉";
+				break;
+			case 2:
+				strAppeal = "";
+				break;
+			case 3:
+				strAppeal = "申诉成功，等待审核";
+				break;
+			default:
+				break;
+			}
+
+			switch (status) {
+			case 0:
+				strStatus = "未上传";
+				break;
+			case 1:
+				strStatus = "审核中...";
+				break;
+			case 2:
+				strStatus = "任务完成";
+				break;
+			case 3:
+				strStatus = "任务失败" + appInfo.getCheck_remarks();
+				break;
+			default:
+				break;
+			}
+
+			int u = appInfo.getUpload_photo()
+					- appInfo.getCurr_upload_photo();
+			if (u > 0) {
+				TextView textView2 = new TextView(DownLoadAppActivity.this);
+				textView2.setText("再上传 " + u + " 张图片完成任务");
+				textView2
+						.setTextColor(Color
+								.parseColor("#ffff5252"));
+				textView2.setTextSize(15);
+				textView2.setPadding(0, 20, 0, 20);
+				linearLayout11.addView(textView2);
+			} else {
+				TextView textView2 = new TextView(DownLoadAppActivity.this);
+				textView2.setText(strStatus);
+				textView2.setMaxLines(3);
+				textView2.setTextSize(15);
+				textView2
+						.setTextColor(Color
+								.parseColor("#ffff5252"));
+				textView2.setPadding(0, 20, 0, 20);
+				linearLayout11.addView(textView2);
+			}
+
+			TextView textView3 = new TextView(DownLoadAppActivity.this);
+			if (appeal == 1) {
+				textView3.setText(strAppeal);
+				textView3
+						.setBackgroundColor(Color
+								.parseColor("#ffef4136"));
+				textView3
+						.setTextColor(Color
+								.parseColor("#ffffff"));
+				textView3.setTextSize(15);
+				textView3.setPadding(40, 20, 40, 40);
+				textView3
+						.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								appeal();
+							}
+						});
+			} else if (appeal == 3) {
+				textView3.setText(strAppeal);
+				textView3
+						.setTextColor(Color
+								.parseColor("#ffff5252"));
+				textView3.setTextSize(15);
+				textView3.setPadding(20, 20, 0, 20);
+			}
+
+			linearLayout11.addView(textView3);
+
+			ImageView imageView = new ImageView(this);
+			imageView.setLayoutParams(lp);
+			loadImage(appInfo.getPhoto(), imageView);
+			linearLayout.addView(imageView);
+			// 查看大图
+			imageView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					CustomADImageDialog
+					.createDialog(DownLoadAppActivity.this, 2)
+					.setBigImage(imgBitmap).show();
+				}
+			});
+			imgsScrollView2.addView(linearLayout);
+		}
+	}
+
+	private void mutiImageLoad1() {
+		imgsScrollView.setVisibility(View.VISIBLE);
+
+		if (appInfo.getImgsList() != null && appInfo.getImgsList().size() > 0) {
+			List<String> imgsList = appInfo.getImgsList();
+			int s = imgsList.size();
+			LinearLayout linearLayout = new LinearLayout(this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, 600);
+			linearLayout.setLayoutParams(lp);
+
+			TextView textView = new TextView(this);
+			textView.setText("示例图：");
+			textView.setTextSize(20);
+			textView.setPadding(40, 20, 0, 20);
+			linearLayout.addView(textView);
+
+			for (int i = 0; i < s; i++) {
+				final String url = imgsList.get(i);
+				ImageView imageView = new ImageView(this);
+				imageView.setId(i);
+				lp.setMargins(20, 20, 20, 20);
+				imageView.setLayoutParams(lp);
+				loadImage(url,imageView);
+				linearLayout.addView(imageView);
+				// 查看大图
+				imageView.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						CustomADImageDialog
+								.createDialog(DownLoadAppActivity.this, 2)
+								.setBigImage(imgBitmap).show();
+					}
+				});
+			}
+			imgsScrollView.addView(linearLayout);
+		} else {
+			LinearLayout linearLayout = new LinearLayout(this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, 600);
+			linearLayout.setLayoutParams(lp);
+
+			TextView textView = new TextView(this);
+			textView.setText("示例图：");
+			textView.setTextSize(20);
+			textView.setPadding(40, 20, 0, 20);
+			linearLayout.addView(textView);
+
+			ImageView imageView = new ImageView(this);
+			imageView.setLayoutParams(lp);
+			loadImage(appInfo.getH5_big_url(),imageView);
+			linearLayout.addView(imageView);
+			// 查看大图
+			imageView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					CustomADImageDialog
+							.createDialog(DownLoadAppActivity.this, 2)
+							.setBigImage(imgBitmap).show();
+				}
+			});
+			imgsScrollView.addView(linearLayout);
+		}
+
+		if (appInfo.getUpImgList() != null && appInfo.getUpImgList().size() > 0) {
+			imgsScrollView2.setVisibility(View.VISIBLE);
+			List<String> imgsList = appInfo.getUpImgList();
+			int s = imgsList.size();
+			LinearLayout linearLayout = new LinearLayout(this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, 600);
+			linearLayout.setLayoutParams(lp);
+
+			linearLayout11.setVisibility(View.VISIBLE);
+			TextView textView = new TextView(this);
+			textView.setText("已经上传图片：");
+			textView.setTextColor(Color.parseColor("#ff58616d"));
+			textView.setTextSize(20);
+			textView.setPadding(40, 20, 0, 20);
+
+			linearLayout11.addView(textView);
+
+			int appeal = appInfo.getAppeal();
+			int status = appInfo.getPhoto_status();
+			String strAppeal = "";
+			String strStatus = "";
+			switch (appeal) {
+			case 1:
+				strAppeal = "申诉";
+				break;
+			case 2:
+				strAppeal = "";
+				break;
+			case 3:
+				strAppeal = "申诉成功，等待审核";
+				break;
+			default:
+				break;
+			}
+
+			switch (status) {
+			case 0:
+				strStatus = "未上传";
+				break;
+			case 1:
+				strStatus = "审核中...";
+				break;
+			case 2:
+				strStatus = "任务完成";
+				break;
+			case 3:
+				strStatus = "任务失败-" + appInfo.getCheck_remarks();
+				break;
+			default:
+				break;
+			}
+
+			int u = appInfo.getUpload_photo() - appInfo.getCurr_upload_photo();
+			if (u > 0) {
+				TextView textView2 = new TextView(this);
+				textView2.setText("再上传 " + u + " 张图片完成任务");
+				textView2.setTextColor(Color.parseColor("#ffff5252"));
+				textView2.setTextSize(15);
+				textView2.setPadding(0, 20, 0, 20);
+				linearLayout11.addView(textView2);
+			} else {
+				TextView textView2 = new TextView(this);
+				textView2.setText(strStatus);
+				textView2.setMaxLines(3);
+				textView2.setTextSize(15);
+				textView2.setTextColor(Color.parseColor("#ffff5252"));
+				textView2.setPadding(0, 20, 0, 20);
+				linearLayout11.addView(textView2);
+			}
+
+			TextView textView3 = new TextView(this);
+			if (appeal == 1) {
+				textView3.setText(strAppeal);
+				textView3.setBackgroundColor(Color.parseColor("#ffef4136"));
+				textView3.setTextColor(Color.parseColor("#ffffffff"));
+				textView3.setTextSize(15);
+				textView3.setPadding(40, 20, 40, 40);
+				textView3.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						appeal();
+					}
+				});
+			} else if (appeal == 3) {
+				textView3.setText(strAppeal);
+				textView3.setTextColor(Color.parseColor("#ffff5252"));
+				textView3.setTextSize(15);
+				textView3.setPadding(20, 20, 0, 20);
+			}
+
+			linearLayout11.addView(textView3);
+
+			for (int i = 0; i < s; i++) {
+				final String url = imgsList.get(i);
+				ImageView imageView = new ImageView(this);
+				imageView.setId(i);
+				lp.setMargins(20, 20, 20, 20);
+				imageView.setLayoutParams(lp);
+				loadImage(url,imageView);
+				linearLayout.addView(imageView);
+				// 查看大图
+				imageView.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						CustomADImageDialog
+								.createDialog(DownLoadAppActivity.this, 2)
+								.setBigImage(imgBitmap).show();
+					}
+				});
+			}
+			imgsScrollView2.addView(linearLayout);
+		} else if (appInfo.getPhoto() != null && !appInfo.getPhoto().isEmpty()) {
+			imgsScrollView2.setVisibility(View.VISIBLE);
+			LinearLayout linearLayout = new LinearLayout(this);
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, 600);
+			linearLayout.setLayoutParams(lp);
+
+			linearLayout11.setVisibility(View.VISIBLE);
+			TextView textView = new TextView(this);
+			textView.setText("已经上传图片：");
+			textView.setTextColor(Color.parseColor("#ff58616d"));
+			textView.setTextSize(20);
+			textView.setPadding(40, 20, 0, 20);
+
+			linearLayout11.addView(textView);
+
+			int appeal = appInfo.getAppeal();
+			int status = appInfo.getPhoto_status();
+			String strAppeal = "";
+			String strStatus = "";
+			switch (appeal) {
+			case 1:
+				strAppeal = "申诉";
+				break;
+			case 2:
+				strAppeal = "";
+				break;
+			case 3:
+				strAppeal = "申诉成功，等待审核";
+				break;
+			default:
+				break;
+			}
+
+			switch (status) {
+			case 0:
+				strStatus = "未上传";
+				break;
+			case 1:
+				strStatus = "审核中...";
+				break;
+			case 2:
+				strStatus = "任务完成";
+				break;
+			case 3:
+				strStatus = "任务失败" + appInfo.getCheck_remarks();
+				break;
+			default:
+				break;
+			}
+
+			int u = appInfo.getUpload_photo() - appInfo.getCurr_upload_photo();
+			if (u > 0) {
+				TextView textView2 = new TextView(this);
+				textView2.setText("再上传 " + u + " 张图片完成任务");
+				textView2.setTextColor(Color.parseColor("#ffff5252"));
+				textView2.setTextSize(15);
+				textView2.setPadding(0, 20, 0, 20);
+				linearLayout11.addView(textView2);
+			} else {
+				TextView textView2 = new TextView(this);
+				textView2.setText(strStatus);
+				textView2.setMaxLines(3);
+				textView2.setTextSize(15);
+				textView2.setTextColor(Color.parseColor("#ffff5252"));
+				textView2.setPadding(0, 20, 0, 20);
+				linearLayout11.addView(textView2);
+			}
+
+			TextView textView3 = new TextView(this);
+			if (appeal == 1) {
+				textView3.setText(strAppeal);
+				textView3.setBackgroundColor(Color.parseColor("#ffef4136"));
+				textView3.setTextColor(Color.parseColor("#ffffff"));
+				textView3.setTextSize(15);
+				textView3.setPadding(40, 20, 40, 40);
+				textView3.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						appeal();
+					}
+				});
+			} else if (appeal == 3) {
+				textView3.setText(strAppeal);
+				textView3.setTextColor(Color.parseColor("#ffff5252"));
+				textView3.setTextSize(15);
+				textView3.setPadding(20, 20, 0, 20);
+			}
+
+			linearLayout11.addView(textView3);
+
+			ImageView imageView = new ImageView(this);
+			imageView.setLayoutParams(lp);
+			loadImage(appInfo.getH5_big_url(),imageView);
+			linearLayout.addView(imageView);
+			// 查看大图
+			imageView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					CustomADImageDialog
+							.createDialog(DownLoadAppActivity.this, 2)
+							.setBigImage(imgBitmap).show();
+				}
+			});
+			imgsScrollView2.addView(linearLayout);
+		}
+	}
+
+	/**
+	 * @Title: appeal
+	 * @Description: 申诉
+	 * @author xie.xin
+	 * @param
+	 * @return void
+	 * @throws
+	 */
+	private void appeal() {
+		final EditText editText = new EditText(DownLoadAppActivity.this);
+		editText.setMinLines(3);
+		editText.setMaxLines(5);
+		editText.setGravity(Gravity.TOP | Gravity.LEFT);
+		aDialog = new AlertDialog.Builder(DownLoadAppActivity.this)
+				.setTitle("申诉")
+				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// 点击“确认”后的上传图片
+						String str = editText.getText().toString();
+						if (!str.isEmpty()) {
+							postAppeal(str);
+						} else {
+							Toast.makeText(DownLoadAppActivity.this,
+									"申诉理由不能为空", Toast.LENGTH_SHORT).show();
+						}
+					}
+				})
+				.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// 点击“返回”
+						aDialog.dismiss();
+					}
+				}).setView(editText).show();
+	}
+
+	private void postAppeal(String str) {
+		if (progressDialog != null) {
+			progressDialog.dismiss();
+		}
+
+		RequestParams params = new RequestParams();
+		params.put("app_id", pref.getString(Constant.APPID, "0"));
+		params.put("ad_install_id", appInfo.getInstall_id() + "");
+		params.put("appeal_reason", str);
+		HttpUtil.get(Constant.DOWNLOAD_URL, params,
+				new JsonHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						// TODO Auto-generated method stub
+						super.onSuccess(statusCode, headers, response);
+
+						String code = "";
+						try {
+							code = response.getString("code");
+							if (code.equals("1")) {
+								Toast.makeText(DownLoadAppActivity.this,
+										"申诉成功", Toast.LENGTH_SHORT).show();
+							} else {
+								if (progressDialog != null) {
+									progressDialog.dismiss();
+								}
+								Toast.makeText(DownLoadAppActivity.this,
+										"申诉失败", Toast.LENGTH_SHORT).show();
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} finally {
+							if (progressDialog != null) {
+								progressDialog.dismiss();
+							}
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						// TODO Auto-generated method stub
+						super.onFailure(statusCode, headers, throwable,
+								errorResponse);
+						if (progressDialog != null) {
+							progressDialog.dismiss();
+						}
+						Toast.makeText(DownLoadAppActivity.this, "申诉失败",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
 	}
 
 	/**
@@ -409,12 +1180,6 @@ public class DownLoadAppActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.rl_example:
-			if (imgBitmap != null) {
-				CustomADImageDialog.createDialog(this, 2)
-						.setBigImage(imgBitmap).show();
-			}
-			break;
 		case R.id.iv_upload:
 			Intent intent = new Intent(
 					Intent.ACTION_PICK,
@@ -454,11 +1219,11 @@ public class DownLoadAppActivity extends BaseActivity implements
 								dialog.dismiss();
 								break;
 							case R.id.btn_right:
-								if (custom1==null || custom1.isEmpty()) {
+								if (custom1 == null || custom1.isEmpty()) {
 									custom1 = dialog.etCustom1.getText()
 											.toString();
 								}
-								if (custom2==null || custom2.isEmpty()) {
+								if (custom2 == null || custom2.isEmpty()) {
 									custom2 = dialog.etCustom2.getText()
 											.toString();
 								}
@@ -509,8 +1274,10 @@ public class DownLoadAppActivity extends BaseActivity implements
 						}
 					}, 6);
 			if (appInfo.getIsCustom() != 0 && isFirst) {
-				dialog.setCustom1(appInfo.getCustomField1()==null?"":appInfo.getCustomField1());
-				dialog.setCustom2(appInfo.getCustomField2()==null?"":appInfo.getCustomField2());
+				dialog.setCustom1(appInfo.getCustomField1() == null ? ""
+						: appInfo.getCustomField1());
+				dialog.setCustom2(appInfo.getCustomField2() == null ? ""
+						: appInfo.getCustomField2());
 			} else {
 				dialog.setCustom1("");
 				dialog.setCustom2("");
@@ -557,21 +1324,14 @@ public class DownLoadAppActivity extends BaseActivity implements
 		params.put("code", pref.getString(Constant.CODE, "0"));
 		params.put("ad_id", appInfo.getAdId());
 		params.put("resource_id", appInfo.getResource_id());
-		params.put("custom1", custom1==null?"":custom1);
-		params.put("custom2", custom2==null?"":custom2);
+		params.put("custom1", custom1 == null ? "" : custom1);
+		params.put("custom2", custom2 == null ? "" : custom2);
 
 		upLoading(Constant.UPLOADS_PHOTO, params);
 
 	}
 
-	/**
-	 * @Title: upLoading
-	 * @Description: TODO
-	 * @author xie.xin
-	 * @param
-	 * @return void
-	 * @throws
-	 */
+	
 	private void upLoading(String url, RequestParams params) {
 		// TODO Auto-generated method stub
 		if (!uDialog.isShowing()) {
@@ -627,34 +1387,31 @@ public class DownLoadAppActivity extends BaseActivity implements
 
 		});
 	}
+	
+	private void loadImage(String url,final ImageView imageView) {
+		ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
 
-	private void loadImage() {
-		ImageLoader.getInstance().loadImage(appInfo.getH5_big_url(),
-				new ImageLoadingListener() {
+			@Override
+			public void onLoadingStarted(String arg0, View arg1) {
+				Log.i(TAG, "start");
+			}
 
-					@Override
-					public void onLoadingStarted(String arg0, View arg1) {
-						Log.i(TAG, "start");
-					}
+			@Override
+			public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+				Log.i(TAG, "failed");
+			}
 
-					@Override
-					public void onLoadingFailed(String arg0, View arg1,
-							FailReason arg2) {
-						Log.i(TAG, "failed");
-					}
+			@Override
+			public void onLoadingComplete(String arg0, View arg1, Bitmap bitmap) {
+				imageView.setImageBitmap(bitmap);
+				imgBitmap = bitmap;
+			}
 
-					@Override
-					public void onLoadingComplete(String arg0, View arg1,
-							Bitmap bitmap) {
-						iv_example.setImageBitmap(bitmap);
-						imgBitmap = bitmap;
-					}
-
-					@Override
-					public void onLoadingCancelled(String arg0, View arg1) {
-						Log.i(TAG, "cancel");
-					}
-				});
+			@Override
+			public void onLoadingCancelled(String arg0, View arg1) {
+				Log.i(TAG, "cancel");
+			}
+		});
 	}
 
 	/**

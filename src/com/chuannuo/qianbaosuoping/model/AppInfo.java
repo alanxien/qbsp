@@ -1,6 +1,7 @@
 package com.chuannuo.qianbaosuoping.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import android.graphics.Bitmap;
 
@@ -43,6 +44,13 @@ public class AppInfo implements Serializable {
 	private int customStatus;
 	private String customField1;
 	private String customField2;
+	
+	private List<String> imgsList;
+	private List<String> upImgList;
+	private int upload_photo; //需要上传多少张
+	private int curr_upload_photo;//已经上传多少张
+	private int appeal;//申诉
+	private String check_remarks;//审核失败原因
 
 	private boolean isSign = false; // 是否是签到任务
 	private String photo_remarks;
@@ -350,6 +358,54 @@ public class AppInfo implements Serializable {
 
 	public void setCustomStatus(int customStatus) {
 		this.customStatus = customStatus;
+	}
+
+	public List<String> getImgsList() {
+		return imgsList;
+	}
+
+	public void setImgsList(List<String> imgsList) {
+		this.imgsList = imgsList;
+	}
+
+	public List<String> getUpImgList() {
+		return upImgList;
+	}
+
+	public void setUpImgList(List<String> upImgList) {
+		this.upImgList = upImgList;
+	}
+
+	public int getUpload_photo() {
+		return upload_photo;
+	}
+
+	public void setUpload_photo(int upload_photo) {
+		this.upload_photo = upload_photo;
+	}
+
+	public int getCurr_upload_photo() {
+		return curr_upload_photo;
+	}
+
+	public void setCurr_upload_photo(int curr_upload_photo) {
+		this.curr_upload_photo = curr_upload_photo;
+	}
+
+	public int getAppeal() {
+		return appeal;
+	}
+
+	public void setAppeal(int appeal) {
+		this.appeal = appeal;
+	}
+
+	public String getCheck_remarks() {
+		return check_remarks;
+	}
+
+	public void setCheck_remarks(String check_remarks) {
+		this.check_remarks = check_remarks;
 	}
 
 }

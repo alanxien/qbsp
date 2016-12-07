@@ -79,20 +79,20 @@ public class EarnFragment extends Fragment implements OnClickListener{
 	private List<View> lists = new ArrayList<View>();
 	private MyPagerAdapter myPagerAdapter;
 
-	private ListView lv_game; // 游戏任务
+	//private ListView lv_game; // 游戏任务
 	private ListView appListView; // 推荐任务
 	private ListView depthListView; // 深度任务
-	private ListView shareListView; // 分享任务
+	//private ListView shareListView; // 分享任务
 
-	private ArrayList<AppInfo> gameList; // 游戏任务
-	private ArrayList<ShareApp> shareAppList; // 分享任务列表
+	//private ArrayList<AppInfo> gameList; // 游戏任务
+	//private ArrayList<ShareApp> shareAppList; // 分享任务列表
 	private ArrayList<AppInfo> infoList; // 推荐任务列表
 	private ArrayList<AppInfo> depthAppList; // 深度任务列表
 
-	private GameTaskAdapter gAdapter; // 游戏任务列表适配器
+	//private GameTaskAdapter gAdapter; // 游戏任务列表适配器
 	private RecommendTaskAdapter rAdapter; // 推荐任务列表适配器
 	private DepthTaskAdapter dAdapter; // 深度任务列表适配器
-	private ShareTaskAdapter sAdapter; // 分享任务列表适配器
+	//private ShareTaskAdapter sAdapter; // 分享任务列表适配器
 	// private Wpers oActivity;
 	private int lastItem;
 	private int count = 0;
@@ -100,10 +100,10 @@ public class EarnFragment extends Fragment implements OnClickListener{
 	private LinearLayout ll_share_progressBar; // 分享任务 加载条
 	private boolean isScroll = false;
 
-	private TextView tv_game_task; // 游戏任务
+	//private TextView tv_game_task; // 游戏任务
 	private TextView tv_recommended; // 推荐任务
 	private TextView tv_more_task; // 更多任务
-	private TextView tv_share_task; // 分享任务
+	//private TextView tv_share_task; // 分享任务
 
 	private TextView tv_app_list; // 任务列表
 	private TextView tv_depth_task; // 未完成任务
@@ -121,8 +121,8 @@ public class EarnFragment extends Fragment implements OnClickListener{
 	private MyApplication myApplication;
 	public CustomProgressDialog progressDialog;
 	private View pager0;
-	private View pager1;
-	private View pager2;
+	//private View pager1;
+	//private View pager2;
 	private View pager3;
 	static public Context context;
 
@@ -133,14 +133,14 @@ public class EarnFragment extends Fragment implements OnClickListener{
 		View view = inflater.inflate(R.layout.fragment_earn, container, false);
 		context = EarnFragment.this.getActivity();
 		pager0 = inflater.inflate(R.layout.recom_task, null);// 推荐任务
-		pager1 = inflater.inflate(R.layout.game_task, null);// 游戏任务
-		pager2 = inflater.inflate(R.layout.share_task, null);// 分享任务
+		//pager1 = inflater.inflate(R.layout.game_task, null);// 游戏任务
+		//pager2 = inflater.inflate(R.layout.share_task, null);// 分享任务
 		pager3 = inflater.inflate(R.layout.more_task, null);// 更多任务
 
 		tv_recommended = (TextView) view.findViewById(R.id.tv_recommended);
 		tv_more_task = (TextView) view.findViewById(R.id.tv_more_task);
-		tv_share_task = (TextView) view.findViewById(R.id.tv_share_task);
-		tv_game_task = (TextView) view.findViewById(R.id.tv_game_task);
+		//tv_share_task = (TextView) view.findViewById(R.id.tv_share_task);
+		//tv_game_task = (TextView) view.findViewById(R.id.tv_game_task);
 
 		mViewPager = (CustomViewPager) view.findViewById(R.id.viewpager);
 
@@ -153,8 +153,8 @@ public class EarnFragment extends Fragment implements OnClickListener{
 
 		tv_recommended.setOnClickListener(this);
 		tv_more_task.setOnClickListener(this);
-		tv_share_task.setOnClickListener(this);
-		tv_game_task.setOnClickListener(this);
+		//tv_share_task.setOnClickListener(this);
+		//tv_game_task.setOnClickListener(this);
 
 		rl_dianjoy.setOnClickListener(this);
 		rl_domob.setOnClickListener(this);
@@ -162,8 +162,8 @@ public class EarnFragment extends Fragment implements OnClickListener{
 		//rl_tg.setOnClickListener(this);
 
 		lists.add(pager0);
-		lists.add(pager1);
-		lists.add(pager2);
+		//lists.add(pager1);
+		//lists.add(pager2);
 		lists.add(pager3);
 
 		/*
@@ -262,15 +262,9 @@ public class EarnFragment extends Fragment implements OnClickListener{
 						initPager0(pager0);
 					}
 
-					tv_game_task.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_game_task.setBackgroundResource(R.color.white1);
 					tv_recommended.setTextColor(getResources().getColor(
 							R.color.white1));
 					tv_recommended.setBackgroundResource(R.color.RedTheme);
-					tv_share_task.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_share_task.setBackgroundResource(R.color.white1);
 					tv_more_task.setTextColor(getResources().getColor(
 							R.color.RedTheme));
 					tv_more_task
@@ -278,56 +272,10 @@ public class EarnFragment extends Fragment implements OnClickListener{
 					myApplication.setType(0);
 					break;
 				case 1:
-					if (null == gameList || gameList.size() == 0) {
-						initPager1(pager1);
-					}
-					tv_game_task.setTextColor(getResources().getColor(
-							R.color.white1));
-					tv_game_task.setBackgroundResource(R.color.RedTheme);
 					tv_recommended.setTextColor(getResources().getColor(
 							R.color.RedTheme));
 					tv_recommended
 							.setBackgroundResource(R.drawable.corner_left_white1);
-					tv_share_task.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_share_task.setBackgroundResource(R.color.white1);
-					tv_more_task.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_more_task
-							.setBackgroundResource(R.drawable.corner_right_white1);
-					myApplication.setType(1);
-					break;
-				case 2:
-					if (null == shareAppList || shareAppList.size() == 0) {
-						initPager2(pager2);
-					}
-					tv_game_task.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_game_task.setBackgroundResource(R.color.white1);
-					tv_recommended.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_recommended
-							.setBackgroundResource(R.drawable.corner_left_white1);
-					tv_share_task.setTextColor(getResources().getColor(
-							R.color.white1));
-					tv_share_task.setBackgroundResource(R.color.RedTheme);
-					tv_more_task.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_more_task
-							.setBackgroundResource(R.drawable.corner_right_white1);
-					myApplication.setType(2);
-					break;
-				case 3:
-					tv_game_task.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_game_task.setBackgroundResource(R.color.white1);
-					tv_recommended.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_recommended
-							.setBackgroundResource(R.drawable.corner_left_white1);
-					tv_share_task.setTextColor(getResources().getColor(
-							R.color.RedTheme));
-					tv_share_task.setBackgroundResource(R.color.white1);
 					tv_more_task.setTextColor(getResources().getColor(
 							R.color.white1));
 					tv_more_task
@@ -390,22 +338,6 @@ public class EarnFragment extends Fragment implements OnClickListener{
 
 		}
 
-		if (shareAppList != null && shareAppList.size() > 0) {
-			String[] str = myApplication.getTarget().split("_");
-			ShareApp app = new ShareApp();
-			for (int i = shareAppList.size() - 1; i >= 0; i--) {
-				app = shareAppList.get(i);
-				if (str[0].equals(app.getId() + "")) {
-					((ShareApp) shareAppList.get(i))
-							.setShare_count(myApplication.getShare_count());
-				}
-			}
-			myApplication.setTarget("0_0");
-			if (sAdapter != null) {
-				sAdapter.notifyDataSetChanged();
-			}
-		}
-
 		super.onResume();
 	}
 
@@ -456,7 +388,7 @@ public class EarnFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.tv_app_list:
 			if (depthListView == null) {
-				depthListView = (ListView) pager1
+				depthListView = (ListView) pager0
 						.findViewById(R.id.lv_depth_task);
 			}
 			tv_sign_tips.setVisibility(View.GONE);
@@ -489,165 +421,6 @@ public class EarnFragment extends Fragment implements OnClickListener{
 		}
 	}
 
-	/**
-	 * @Title: initPager0
-	 * @Description: 初始化游戏任务
-	 * @author alan.xie
-	 * @param @param pager
-	 * @return void
-	 * @throws
-	 */
-	public void initPager1(View pager) {
-		lv_game = (ListView) pager.findViewById(R.id.lv_game);
-		ll_progressBar = (LinearLayout) pager.findViewById(R.id.ll_progressBar);
-
-		if(gameList == null){
-			gameList = new ArrayList<AppInfo>();
-		}
-		
-		lv_game.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				if (gameList == null || gameList.size() == 0) {
-					Toast.makeText(getActivity(), "数据异常，请检查网络",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					Intent intent = new Intent();
-					Bundle bundle = new Bundle();
-					bundle.putSerializable(Constant.ITEM,
-							(AppInfo) gameList.get(position));
-					intent.putExtras(bundle);
-					intent.putExtra("game", "game");
-					intent.setClass(EarnFragment.this.getActivity(),
-							DownLoadAppActivity.class);
-					startActivity(intent);
-				}
-			}
-		});
-
-		RequestParams params = new RequestParams();
-		params.put("app_id", pref.getString(Constant.APPID, "0"));
-		params.put("limit", 10);
-		HttpUtil.get(Constant.GET_RESOURCE_LIST_SDK, params,
-				new JsonHttpResponseHandler() {
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						try {
-							if (response.getInt("code") == 1) {
-
-								JSONArray jArray = response
-										.getJSONArray("data");
-
-								if (null != jArray && jArray.length() > 0) {
-									Message msg = mHandler.obtainMessage();
-									JSONArray installed = myApplication
-											.getjArry();
-									JSONArray jarrayN = null;
-									if (installed != null
-											&& installed.length() > 0) {
-										gameList.clear();
-										jarrayN = new JSONArray();
-										for (int i = 0; i < installed.length(); i++) {
-											for (int j = 0; j < jArray.length(); j++) {
-												if (!jArray
-														.getJSONObject(j)
-														.getString(
-																"package_name")
-														.equals(installed
-																.get(i))) {
-													jarrayN.put(j, jArray
-															.getJSONObject(j));
-												}
-											}
-										}
-									}
-
-									if (null != jarrayN) {
-										jArray = jarrayN;
-									}
-									for (int i = 0; i < jArray.length(); i++) {
-										JSONObject obj = jArray
-												.getJSONObject(i);
-										if (null != obj) {
-											AppInfo appInfo = new AppInfo();
-
-											appInfo.setResource_id(obj
-													.getInt("id"));
-											appInfo.setAdId(obj.getInt("ad_id"));
-											appInfo.setTitle(obj
-													.getString("title"));
-											appInfo.setName(obj
-													.getString("name"));
-											appInfo.setDescription(obj
-													.getString("description"));
-											appInfo.setPackage_name(obj
-													.getString("package_name"));
-											appInfo.setBrief(obj
-													.getString("brief"));
-											appInfo.setResource_size(obj
-													.getString("resource_size"));
-
-											String fileUrl = obj
-													.getString("file");
-											String iconUrl = obj
-													.getString("icon");
-											String h5Url = obj
-													.getString("h5_big_url");
-
-											if (!fileUrl.contains("http")) {
-												fileUrl = Constant.DOWN_URL
-														+ fileUrl;
-											}
-											if (!iconUrl.contains("http")) {
-												iconUrl = Constant.ROOT_URL
-														+ iconUrl;
-											}
-											if (!h5Url.contains("http")) {
-												h5Url = Constant.ROOT_URL
-														+ h5Url;
-											}
-
-											appInfo.setFile(fileUrl);
-											appInfo.setH5_big_url(h5Url);
-											appInfo.setIcon(iconUrl);
-
-											gameList.add(appInfo);
-										}
-
-									}
-									msg.what = 7;
-									mHandler.sendMessage(msg);
-								}
-
-							} else {
-								Toast.makeText(EarnFragment.this.getActivity(),
-										response.getString("info"),
-										Toast.LENGTH_SHORT).show();
-							}
-							super.onSuccess(statusCode, headers, response);
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} finally {
-							ll_progressBar.setVisibility(View.GONE);
-						}
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						if(ll_progressBar != null){
-							ll_progressBar.setVisibility(View.GONE);
-						}
-						super.onFailure(statusCode, headers, throwable,
-								errorResponse);
-					}
-				});
-	}
 
 	/**
 	 * @author alan.xie
@@ -721,6 +494,7 @@ public class EarnFragment extends Fragment implements OnClickListener{
 							} else {
 								JSONArray jArray = response
 										.getJSONArray("data");
+								Log.i("EarnFragment", jArray.toString());
 								if (null != jArray && jArray.length() > 0) {
 									depthAppList = new ArrayList<AppInfo>();
 									for (int i = 0; i < jArray.length(); i++) {
@@ -765,7 +539,65 @@ public class EarnFragment extends Fragment implements OnClickListener{
 												appInfo.setPhoto_integral(obj.getInt("photo_integral"));
 												appInfo.setPhoto_status(obj.getInt("photo_status"));
 												appInfo.setIs_photo_task(obj.getInt("is_photo_task"));
-												appInfo.setPhoto_remarks(childObj.getString("photo_remarks"));
+
+												appInfo.setUpload_photo(obj
+														.getInt("photo_upload_number"));
+												appInfo.setCurr_upload_photo(obj
+														.getInt("upload_photo_number"));
+												appInfo.setPhoto_remarks(childObj
+														.getString("photo_remarks"));
+												appInfo.setCheck_remarks(obj
+														.getString("photo_remarks"));
+												appInfo.setAppeal(obj
+														.getInt("appeal"));
+												
+												JSONArray plJson = childObj
+														.getJSONArray("picture_list");
+												if (plJson != null
+														&& plJson.length() > 0) {
+													List<String> l = new ArrayList<String>();
+													for (int j = 0; j < plJson
+															.length(); j++) {
+														String url = plJson
+																.getString(j);
+														if (!url.contains("http")) {
+															url = Constant.ROOT_URL
+																	+ url;
+														}
+														l.add(url);
+													}
+													appInfo.setImgsList(l);
+												}
+
+												if (appInfo
+														.getCurr_upload_photo() > 0) {
+													JSONArray ulJson = obj
+															.getJSONArray("upload_picture_list");
+													if (plJson != null
+															&& ulJson.length() > 0) {
+														List<String> l = new ArrayList<String>();
+														for (int j = 0; j < ulJson
+																.length(); j++) {
+															String url = ulJson
+																	.getString(j);
+															if (!url.contains("http")) {
+																url = Constant.ROOT_URL
+																		+ url;
+															}
+															l.add(url);
+														}
+														appInfo.setUpImgList(l);
+													}
+												}
+												
+												String photo = obj
+														.getString("photo");
+												if (!photo.isEmpty()
+														&& !photo
+																.contains("http")) {
+													photo = Constant.ROOT_URL
+															+ photo;
+												}
 
 												String fileUrl = childObj
 														.getString("file");
@@ -863,125 +695,6 @@ public class EarnFragment extends Fragment implements OnClickListener{
 		return false;
 	}
 
-	/**
-	 * @author alan.xie
-	 * @date 2015-1-23 下午5:32:00
-	 * @Description: 初始化分享任务界面
-	 * @param @param pager
-	 * @return void
-	 */
-	private void initPager2(View pager) {
-		shareListView = (ListView) pager.findViewById(R.id.lv_share_task);
-		ll_share_progressBar = (LinearLayout) pager
-				.findViewById(R.id.ll_share_progressBar);
-
-		ll_share_progressBar.setVisibility(View.VISIBLE);
-
-		loadShareAPP();
-		final Intent intent = new Intent();
-		final Bundle bundle = new Bundle();
-		shareListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				if (shareAppList == null || shareAppList.size() == 0) {
-					Toast.makeText(getActivity(), "数据异常，请检查网络",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					bundle.putSerializable(Constant.ITEM,
-							shareAppList.get(position));
-					intent.putExtras(bundle);
-					intent.setClass(EarnFragment.this.getActivity(),
-							ShareDetailActivity.class);
-					startActivity(intent);
-				}
-			}
-		});
-	}
-
-	/**
-	 * @author alan.xie
-	 * @date 2015-1-27 上午11:37:08
-	 * @Description: 下载服务器数据
-	 * @param
-	 * @return void
-	 */
-	public void loadShareAPP() {
-		RequestParams params = new RequestParams();
-		params.put("app_id", pref.getString(Constant.APPID, "0"));
-		params.put("limit", 10);
-		HttpUtil.get(Constant.SHARE_TASK_URL, params,
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onSuccess(int statusCode, Header[] headers,
-							JSONObject response) {
-						try {
-							if (response.getInt("code") != 1) {
-								Toast.makeText(EarnFragment.this.getActivity(),
-										response.getString("info"),
-										Toast.LENGTH_SHORT).show();
-							} else {
-								JSONArray jArray = response
-										.getJSONArray("data");
-								if (null != jArray && jArray.length() > 0) {
-									shareAppList = new ArrayList<ShareApp>();
-									for (int i = 0; i < jArray.length(); i++) {
-										JSONObject obj = jArray
-												.getJSONObject(i);
-										ShareApp app = new ShareApp();
-										app.setId(obj.getInt("id"));
-										app.setTitle(obj.getString("title"));
-										app.setDesc(obj
-												.getString("description"));
-										app.setPromoteUrl(obj
-												.getString("promote_url"));
-										app.setShare_count(obj
-												.getInt("share_count"));
-										app.setShare_integral(obj
-												.getInt("share_integral"));
-										app.setLimit_share_count(obj
-												.getInt("limit_share_count"));
-
-										String iconUrl = obj.getString("icon");
-
-										if (!iconUrl.contains("http")) {
-											iconUrl = Constant.ROOT_URL
-													+ iconUrl;
-										}
-
-										app.setIcon(iconUrl);
-										shareAppList.add(app);
-									}
-
-									Message msg = mHandler.obtainMessage();
-									msg.what = 5;
-									mHandler.sendMessage(msg);
-								}
-							}
-
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} finally {
-							ll_share_progressBar.setVisibility(View.GONE);
-						}
-						super.onSuccess(statusCode, headers, response);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							Throwable throwable, JSONObject errorResponse) {
-						if(ll_share_progressBar != null){
-							ll_share_progressBar.setVisibility(View.GONE);
-						}
-						super.onFailure(statusCode, headers, throwable,
-								errorResponse);
-					}
-				});
-
-	}
-
 	/** 
 	* @Title: getResourceList 
 	* @Description: 资源列表
@@ -1004,6 +717,7 @@ public class EarnFragment extends Fragment implements OnClickListener{
 
 								JSONArray jArray = response
 										.getJSONArray("data");
+								Log.i("EarnFragment", jArray.toString());
 								int l1 = jArray.length();
 								if (null != jArray && l1 > 0) {
 									Message msg = mHandler.obtainMessage();
@@ -1106,6 +820,21 @@ public class EarnFragment extends Fragment implements OnClickListener{
 											appInfo.setFile(fileUrl);
 											appInfo.setH5_big_url(h5Url);
 											appInfo.setIcon(iconUrl);
+											
+											JSONArray imgArray = obj.getJSONArray("picture_list");
+											if(imgArray!=null && imgArray.length()>0){
+												int len = imgArray.length();
+												List<String> imgs = new ArrayList<String>();
+												for(int k=0; k<len; k++){
+													String url = imgArray.getString(k);
+													if (!url.contains("http")) {
+														url = Constant.ROOT_URL
+																+ url;
+													}
+													imgs.add(url);
+												}
+												appInfo.setImgsList(imgs);
+											}
 
 											infoList.add(appInfo);
 										}
@@ -1184,13 +913,6 @@ public class EarnFragment extends Fragment implements OnClickListener{
 				dAdapter = new DepthTaskAdapter(getActivity(), depthAppList);
 				depthListView.setAdapter(dAdapter);
 				break;
-			case 5:
-				editor.putInt(Constant.SHARE_SIZE, shareAppList.size());
-				editor.commit();
-				sAdapter = new ShareTaskAdapter(
-						EarnFragment.this.getActivity(), shareAppList);
-				shareListView.setAdapter(sAdapter);
-				break;
 			case 6:
 				if (null == rAdapter) {
 					appListView.setVisibility(View.VISIBLE);
@@ -1204,10 +926,6 @@ public class EarnFragment extends Fragment implements OnClickListener{
 					appListView.setSelection(count / 9 * 5);
 					rAdapter.notifyDataSetChanged();
 				}
-				break;
-			case 7:
-				gAdapter = new GameTaskAdapter(getActivity(), gameList);
-				lv_game.setAdapter(gAdapter);
 				break;
 			default:
 				progressDialog.dismiss();
