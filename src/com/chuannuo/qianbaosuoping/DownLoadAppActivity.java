@@ -82,7 +82,6 @@ public class DownLoadAppActivity extends BaseActivity implements
 	private LinearLayout ll_game;
 	private TextView tv_breif;
 	private ImageView iv_upload;
-	private Bitmap imgBitmap;
 	private CustomADImageDialog uDialog;
 	private CustomDialog dialog;
 	private File imgeDir = null;
@@ -168,9 +167,6 @@ public class DownLoadAppActivity extends BaseActivity implements
 	protected void onDestroy() {
 		editor.putInt(Constant.SLIDED, 0);
 		editor.commit();
-		if (imgBitmap != null) {
-			imgBitmap.recycle();
-		}
 		super.onDestroy();
 	}
 
@@ -196,14 +192,12 @@ public class DownLoadAppActivity extends BaseActivity implements
 
 		imgsScrollView = new HorizontalScrollView(this);
 		LinearLayout.LayoutParams lpHv = new LinearLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT, 600);
+				LayoutParams.WRAP_CONTENT, 500);
 		lpHv.setMargins(20, 20, 20, 20);
 		imgsScrollView.setLayoutParams(lpHv);
-		imgsScrollView.setHorizontalScrollBarEnabled(false);
 
 		imgsScrollView2 = new HorizontalScrollView(this);
 		imgsScrollView2.setLayoutParams(lpHv);
-		imgsScrollView2.setHorizontalScrollBarEnabled(false);
 		imgsScrollView2.setVisibility(View.GONE);
 
 		linearLayout11 = new LinearLayout(this);
@@ -342,7 +336,7 @@ public class DownLoadAppActivity extends BaseActivity implements
 			LinearLayout linearLayout = new LinearLayout(
 					DownLoadAppActivity.this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, 600);
+					LayoutParams.WRAP_CONTENT, 500);
 			linearLayout.setLayoutParams(lp);
 
 			TextView textView = new TextView(DownLoadAppActivity.this);
@@ -356,28 +350,18 @@ public class DownLoadAppActivity extends BaseActivity implements
 				ImageView imageView = new ImageView(
 						DownLoadAppActivity.this);
 				imageView.setId(i);
-				lp.setMargins(20, 20, 20, 20);
-				imageView.setLayoutParams(lp);
+				LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(
+						300, 400);
+				imageView.setLayoutParams(lp1);
 				loadImage(url, imageView);
 				linearLayout.addView(imageView);
-				// 查看大图
-				imageView
-						.setOnClickListener(new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								CustomADImageDialog
-								.createDialog(DownLoadAppActivity.this, 2)
-								.setBigImage(imgBitmap).show();
-							}
-						});
 			}
 			imgsScrollView.addView(linearLayout);
 		} else {
 			LinearLayout linearLayout = new LinearLayout(
 					DownLoadAppActivity.this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, 600);
+					LayoutParams.WRAP_CONTENT, 500);
 			linearLayout.setLayoutParams(lp);
 
 			TextView textView = new TextView(DownLoadAppActivity.this);
@@ -390,16 +374,6 @@ public class DownLoadAppActivity extends BaseActivity implements
 			imageView.setLayoutParams(lp);
 			loadImage(appInfo.getH5_big_url(), imageView);
 			linearLayout.addView(imageView);
-			// 查看大图
-			imageView.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					CustomADImageDialog
-					.createDialog(DownLoadAppActivity.this, 2)
-					.setBigImage(imgBitmap).show();
-				}
-			});
 			imgsScrollView.addView(linearLayout);
 		}
 
@@ -411,7 +385,7 @@ public class DownLoadAppActivity extends BaseActivity implements
 			LinearLayout linearLayout = new LinearLayout(
 					DownLoadAppActivity.this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, 600);
+					LayoutParams.WRAP_CONTENT, 500);
 			linearLayout.setLayoutParams(lp);
 
 			linearLayout11.setVisibility(View.VISIBLE);
@@ -517,21 +491,11 @@ public class DownLoadAppActivity extends BaseActivity implements
 				ImageView imageView = new ImageView(
 						DownLoadAppActivity.this);
 				imageView.setId(i);
-				lp.setMargins(20, 20, 20, 20);
-				imageView.setLayoutParams(lp);
+				LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(
+						300, 400);
+				imageView.setLayoutParams(lp1);
 				loadImage(url, imageView);
 				linearLayout.addView(imageView);
-				// 查看大图
-				imageView
-						.setOnClickListener(new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								CustomADImageDialog
-								.createDialog(DownLoadAppActivity.this, 2)
-								.setBigImage(imgBitmap).show();
-							}
-						});
 			}
 			imgsScrollView2.addView(linearLayout);
 		} else if (appInfo.getPhoto() != null
@@ -540,7 +504,7 @@ public class DownLoadAppActivity extends BaseActivity implements
 			LinearLayout linearLayout = new LinearLayout(
 					DownLoadAppActivity.this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, 600);
+					LayoutParams.WRAP_CONTENT, 500);
 			linearLayout.setLayoutParams(lp);
 
 			linearLayout11.setVisibility(View.VISIBLE);
@@ -645,16 +609,6 @@ public class DownLoadAppActivity extends BaseActivity implements
 			imageView.setLayoutParams(lp);
 			loadImage(appInfo.getPhoto(), imageView);
 			linearLayout.addView(imageView);
-			// 查看大图
-			imageView.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					CustomADImageDialog
-					.createDialog(DownLoadAppActivity.this, 2)
-					.setBigImage(imgBitmap).show();
-				}
-			});
 			imgsScrollView2.addView(linearLayout);
 		}
 	}
@@ -667,7 +621,7 @@ public class DownLoadAppActivity extends BaseActivity implements
 			int s = imgsList.size();
 			LinearLayout linearLayout = new LinearLayout(this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, 600);
+					LayoutParams.WRAP_CONTENT, 500);
 			linearLayout.setLayoutParams(lp);
 
 			TextView textView = new TextView(this);
@@ -680,26 +634,17 @@ public class DownLoadAppActivity extends BaseActivity implements
 				final String url = imgsList.get(i);
 				ImageView imageView = new ImageView(this);
 				imageView.setId(i);
-				lp.setMargins(20, 20, 20, 20);
-				imageView.setLayoutParams(lp);
+				LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(
+						300, 400);
+				imageView.setLayoutParams(lp1);
 				loadImage(url,imageView);
 				linearLayout.addView(imageView);
-				// 查看大图
-				imageView.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						CustomADImageDialog
-								.createDialog(DownLoadAppActivity.this, 2)
-								.setBigImage(imgBitmap).show();
-					}
-				});
 			}
 			imgsScrollView.addView(linearLayout);
 		} else {
 			LinearLayout linearLayout = new LinearLayout(this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, 600);
+					LayoutParams.WRAP_CONTENT, 500);
 			linearLayout.setLayoutParams(lp);
 
 			TextView textView = new TextView(this);
@@ -712,16 +657,6 @@ public class DownLoadAppActivity extends BaseActivity implements
 			imageView.setLayoutParams(lp);
 			loadImage(appInfo.getH5_big_url(),imageView);
 			linearLayout.addView(imageView);
-			// 查看大图
-			imageView.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					CustomADImageDialog
-							.createDialog(DownLoadAppActivity.this, 2)
-							.setBigImage(imgBitmap).show();
-				}
-			});
 			imgsScrollView.addView(linearLayout);
 		}
 
@@ -731,7 +666,7 @@ public class DownLoadAppActivity extends BaseActivity implements
 			int s = imgsList.size();
 			LinearLayout linearLayout = new LinearLayout(this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, 600);
+					LayoutParams.WRAP_CONTENT, 500);
 			linearLayout.setLayoutParams(lp);
 
 			linearLayout11.setVisibility(View.VISIBLE);
@@ -823,27 +758,18 @@ public class DownLoadAppActivity extends BaseActivity implements
 				final String url = imgsList.get(i);
 				ImageView imageView = new ImageView(this);
 				imageView.setId(i);
-				lp.setMargins(20, 20, 20, 20);
-				imageView.setLayoutParams(lp);
+				LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(
+						300, 400);
+				imageView.setLayoutParams(lp1);
 				loadImage(url,imageView);
 				linearLayout.addView(imageView);
-				// 查看大图
-				imageView.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						CustomADImageDialog
-								.createDialog(DownLoadAppActivity.this, 2)
-								.setBigImage(imgBitmap).show();
-					}
-				});
 			}
 			imgsScrollView2.addView(linearLayout);
 		} else if (appInfo.getPhoto() != null && !appInfo.getPhoto().isEmpty()) {
 			imgsScrollView2.setVisibility(View.VISIBLE);
 			LinearLayout linearLayout = new LinearLayout(this);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, 600);
+					LayoutParams.WRAP_CONTENT, 500);
 			linearLayout.setLayoutParams(lp);
 
 			linearLayout11.setVisibility(View.VISIBLE);
@@ -935,16 +861,6 @@ public class DownLoadAppActivity extends BaseActivity implements
 			imageView.setLayoutParams(lp);
 			loadImage(appInfo.getH5_big_url(),imageView);
 			linearLayout.addView(imageView);
-			// 查看大图
-			imageView.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					CustomADImageDialog
-							.createDialog(DownLoadAppActivity.this, 2)
-							.setBigImage(imgBitmap).show();
-				}
-			});
 			imgsScrollView2.addView(linearLayout);
 		}
 	}
@@ -1337,35 +1253,69 @@ public class DownLoadAppActivity extends BaseActivity implements
 		if (!uDialog.isShowing()) {
 			uDialog.show();
 		}
-		// 上传文件
-		HttpUtil.post(url, params, new AsyncHttpResponseHandler() {
+		
+		HttpUtil.post(url, params, new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(int statusCode, Header[] headers,
-					byte[] responseBody) {
-				// 上传成功后要做的工作
-				Toast.makeText(DownLoadAppActivity.this, "图片上传成功",
-						Toast.LENGTH_LONG).show();
-				iv_upload.setVisibility(View.GONE);
-				if (appInfo.isSign()) {
-					myApplication.setSign(true);
-				}
-				isFirst = false;
-				uDialog.dismiss();
-				custom2 = "";
-				custom1 = "";
-			}
+					JSONObject obj) {
+				// TODO Auto-generated method stub
+				super.onSuccess(statusCode, headers, obj);
+				
+				JSONObject json = null;
+				try {
+					if (obj != null && obj.getInt("code") == 1) {
+						if (appInfo.isSign()) {
+							myApplication.setSign(true);
+						}
+						isFirst = false;
+						uDialog.dismiss();
+						custom2 = "";
+						custom1 = "";
 
+						Toast.makeText(DownLoadAppActivity.this, "图片上传成功",
+								Toast.LENGTH_LONG).show();
+
+						json = obj.getJSONObject("data");
+						if (json != null) {
+							int uploadNum = json.getInt("upload_photo_number");
+							int photoNum = json.getInt("photo_upload_number");
+							JSONArray jarr = json
+									.getJSONArray("upload_picture_list");
+							List<String> list = new ArrayList<String>();
+							if (jarr != null && jarr.length() > 0) {
+								int l = jarr.length();
+								for (int i = 0; i < l; i++) {
+									list.add(Constant.ROOT_URL
+											+ jarr.getString(i));
+								}
+							}
+							if (list.size() > 0) {
+								refreshUpView(list, uploadNum,
+										photoNum);
+							}
+						}
+
+					} else {
+						Toast.makeText(DownLoadAppActivity.this,
+								"图片上传失败！" + obj.getString("info"),
+								Toast.LENGTH_LONG).show();
+						uDialog.dismiss();
+					}
+				} catch (JSONException e) {
+					uDialog.dismiss();
+					Toast.makeText(DownLoadAppActivity.this, "图片上传失败！",
+							Toast.LENGTH_LONG).show();
+					e.printStackTrace();
+				}
+			}
+			
 			@Override
 			public void onFailure(int statusCode, Header[] headers,
-					byte[] responseBody, Throwable error) {
-				// 上传失败后要做到工作
-				Toast.makeText(DownLoadAppActivity.this, "图片上传失败",
-						Toast.LENGTH_LONG).show();
-				uDialog.dismiss();
-				custom2 = "";
-				custom1 = "";
+					Throwable throwable, JSONObject errorResponse) {
+				// TODO Auto-generated method stub
+				super.onFailure(statusCode, headers, throwable, errorResponse);
 			}
-
+			
 			@Override
 			public void onProgress(int bytesWritten, int totalSize) {
 				// TODO Auto-generated method stub
@@ -1377,15 +1327,60 @@ public class DownLoadAppActivity extends BaseActivity implements
 				// progress.setProgress(count);
 				Log.e("上传 Progress>>>>>", bytesWritten + " / " + totalSize);
 			}
-
-			@Override
-			public void onRetry(int retryNo) {
-				// TODO Auto-generated method stub
-				super.onRetry(retryNo);
-				// 返回重试次数
-			}
-
 		});
+		
+		
+		
+		
+//		// 上传文件
+//		HttpUtil.post(url, params, new AsyncHttpResponseHandler() {
+//			@Override
+//			public void onSuccess(int statusCode, Header[] headers,
+//					byte[] responseBody) {
+//				// 上传成功后要做的工作
+//				Toast.makeText(DownLoadAppActivity.this, "图片上传成功",
+//						Toast.LENGTH_LONG).show();
+//				iv_upload.setVisibility(View.GONE);
+//				if (appInfo.isSign()) {
+//					myApplication.setSign(true);
+//				}
+//				isFirst = false;
+//				uDialog.dismiss();
+//				custom2 = "";
+//				custom1 = "";
+//			}
+//
+//			@Override
+//			public void onFailure(int statusCode, Header[] headers,
+//					byte[] responseBody, Throwable error) {
+//				// 上传失败后要做到工作
+//				Toast.makeText(DownLoadAppActivity.this, "图片上传失败",
+//						Toast.LENGTH_LONG).show();
+//				uDialog.dismiss();
+//				custom2 = "";
+//				custom1 = "";
+//			}
+//
+//			@Override
+//			public void onProgress(int bytesWritten, int totalSize) {
+//				// TODO Auto-generated method stub
+//				super.onProgress(bytesWritten, totalSize);
+//				int count = (int) ((bytesWritten * 1.0 / totalSize) * 100);
+//				// 上传进度显示
+//				uDialog.setProgress(count);
+//				uDialog.setPer(count);
+//				// progress.setProgress(count);
+//				Log.e("上传 Progress>>>>>", bytesWritten + " / " + totalSize);
+//			}
+//
+//			@Override
+//			public void onRetry(int retryNo) {
+//				// TODO Auto-generated method stub
+//				super.onRetry(retryNo);
+//				// 返回重试次数
+//			}
+//
+//		});
 	}
 	
 	private void loadImage(String url,final ImageView imageView) {
@@ -1402,9 +1397,18 @@ public class DownLoadAppActivity extends BaseActivity implements
 			}
 
 			@Override
-			public void onLoadingComplete(String arg0, View arg1, Bitmap bitmap) {
+			public void onLoadingComplete(String arg0, View arg1, final Bitmap bitmap) {
 				imageView.setImageBitmap(bitmap);
-				imgBitmap = bitmap;
+				// 查看大图
+				imageView.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						CustomADImageDialog
+								.createDialog(DownLoadAppActivity.this, 2)
+								.setBigImage(bitmap).show();
+					}
+				});
 			}
 
 			@Override
@@ -1413,6 +1417,72 @@ public class DownLoadAppActivity extends BaseActivity implements
 			}
 		});
 	}
+	
+	/**
+	 * @Title: refreshUpView
+	 * @Description: TODO
+	 * @author xie.xin
+	 * @param @param imgsList
+	 * @param @param upload_photo_number 已经上传的图片
+	 * @param @param photo_upload_number 需要上传 的图片
+	 * @return void
+	 * @throws
+	 */
+	public void refreshUpView(List<String> imgsList, int upload_photo_number,
+			int photo_upload_number) {
+		imgsScrollView2.setVisibility(View.VISIBLE);
+		imgsScrollView2.removeAllViews();
+		linearLayout11.removeAllViews();
+
+		int s = imgsList.size();
+		LinearLayout linearLayout = new LinearLayout(DownLoadAppActivity.this);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, 500);
+		linearLayout.setLayoutParams(lp);
+
+		linearLayout11.setVisibility(View.VISIBLE);
+		TextView textView = new TextView(DownLoadAppActivity.this);
+		textView.setText("已经上传图片：");
+		textView.setTextColor(Color
+				.parseColor("#ff58616d"));
+		textView.setTextSize(20);
+		textView.setPadding(40, 20, 0, 20);
+
+		linearLayout11.addView(textView);
+
+		int u = photo_upload_number - upload_photo_number;
+		if (u > 0) {
+			TextView textView2 = new TextView(DownLoadAppActivity.this);
+			textView2.setText("再上传 " + u + " 张图片完成任务");
+			textView2.setTextColor(Color
+					.parseColor("#ffff5252"));
+			textView2.setTextSize(15);
+			textView2.setPadding(0, 20, 0, 20);
+			linearLayout11.addView(textView2);
+		} else {
+			iv_upload.setVisibility(View.GONE);
+			TextView textView2 = new TextView(DownLoadAppActivity.this);
+			textView2.setText("上传完成，等待审核");
+			textView2.setMaxLines(3);
+			textView2.setTextSize(15);
+			textView2.setTextColor(Color
+					.parseColor("#ffff5252"));
+			textView2.setPadding(0, 20, 0, 20);
+			linearLayout11.addView(textView2);
+		}
+
+		for (int i = 0; i < s; i++) {
+			final String url = imgsList.get(i);
+			ImageView imageView = new ImageView(DownLoadAppActivity.this);
+			imageView.setId(i);
+			lp.setMargins(20, 20, 20, 20);
+			imageView.setLayoutParams(lp);
+			loadImage(url,imageView);
+			linearLayout.addView(imageView);
+		}
+		imgsScrollView2.addView(linearLayout);
+	}
+
 
 	/**
 	 * @Title: compress

@@ -139,7 +139,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/new_task_selector"
-                android:clickable="true" >
+                android:clickable="true"
+                android:visibility="gone" >
 
                 <ImageView
                     android:id="@+id/iv_task3_img"
@@ -196,7 +197,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/new_task_selector"
-                android:clickable="true" >
+                android:clickable="true" 
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_task4_img"

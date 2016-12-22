@@ -21,6 +21,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -126,46 +127,91 @@ public class DepthTaskAdapter extends BaseAdapter implements Listener{
 			holder.app_sign_rule = (TextView) convertView.findViewById(R.id.tv_sign_rule);
 			holder.app_sign = (TextView) convertView.findViewById(R.id.tv_sign);
 			holder.app_sign_times = (TextView) convertView.findViewById(R.id.tv_sign_times);
-			holder.tv_is_add_ntegral = (TextView) convertView.findViewById(R.id.tv_is_add_ntegral);
+			holder.alert = (TextView) convertView.findViewById(R.id.tv_is_add_ntegral);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		holder.app_name.setText(this.infoList.get(position).getTitle());
-		ImageLoader.getInstance().displayImage(this.infoList.get(position).getIcon(),holder.app_icon);
-		holder.app_sign_rule.setText(context.getResources().getString(R.string.sign_rules,this.infoList.get(position).getSign_rules(),this.infoList.get(position).getNeedSign_times()));
-		holder.app_sign_times.setText(this.infoList.get(position).getSign_times()+"");
-//		if(infoList.get(position).getIs_photo_task()== 1 && infoList.get(position).getPhoto_status()==0){
-//			holder.app_sign.setText("上传截图");
-//			holder.tv_is_add_ntegral.setText("任务未完成，请上传截图");
-//		}else{
+//		holder.app_name.setText(this.infoList.get(position).getTitle());
+//		ImageLoader.getInstance().displayImage(this.infoList.get(position).getIcon(),holder.app_icon);
+//		holder.app_sign_rule.setText(context.getResources().getString(R.string.sign_rules,this.infoList.get(position).getSign_rules(),this.infoList.get(position).getNeedSign_times()));
+//		holder.app_sign_times.setText(this.infoList.get(position).getSign_times()+"");
+//		
+//		if ((this.infoList.get(position).getIsAddIntegral() == 0 && this.infoList.get(position).getScore() > 0)
+//				|| this.infoList.get(position).isSignTime()
+//				|| (this.infoList.get(position).getIs_photo_task() == 1 && this.infoList.get(position)
+//						.getPhoto_status() == 0)) {
+//			holder.app_sign.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.down_load_install_selector));
+//			if(this.infoList.get(position).getIs_photo_task() == 1 && this.infoList.get(position)
+//					.getPhoto_status() == 0){
+//				holder.tv_is_add_ntegral.setText("上传图片，完成任务");
+//				holder.app_sign.setText("上传");
+//			}else{
+//				holder.tv_is_add_ntegral.setText("继续签到，完成任务");
+//				holder.app_sign.setText("签到");
+//			}
+//			
+//		} else {
+//			holder.app_sign.setBackgroundColor(context.getResources().getColor(R.color.greythem));
+//			holder.tv_is_add_ntegral.setText("还没到签到时间");
 //			holder.app_sign.setText("签到");
-//			holder.tv_is_add_ntegral.setText("任务未完成，签到完成任务");
-//		}
-//		if(this.infoList.get(position).getIsAddIntegral() == 0){
-//			holder.tv_is_add_ntegral.setVisibility(View.VISIBLE);
-//		}else{
-//			holder.tv_is_add_ntegral.setVisibility(View.GONE);
 //		}
 		
-		if ((this.infoList.get(position).getIsAddIntegral() == 0 && this.infoList.get(position).getScore() > 0)
+		ImageLoader.getInstance().displayImage(this.infoList.get(position).getIcon(),holder.app_icon);
+		holder.app_name.setText(this.infoList.get(position).getTitle());
+		holder.app_sign_rule.setText("隔"
+				+ this.infoList.get(position).getSign_rules() + "天签一次到，签到"
+				+ this.infoList.get(position).getNeedSign_times() + "次完成任务");
+		holder.app_sign_times.setText("已签到："
+				+ this.infoList.get(position).getSign_times() + "");
+		String url = this.infoList.get(position).getIcon();
+		holder.app_icon.setTag(url);
+
+		if ((this.infoList.get(position).getIsAddIntegral() == 0 && (this.infoList.get(position).getScore() > 0 || 
+				this.infoList.get(position).getPhoto_integral()>0))
 				|| this.infoList.get(position).isSignTime()
 				|| (this.infoList.get(position).getIs_photo_task() == 1 && this.infoList.get(position)
 						.getPhoto_status() == 0)) {
-			holder.app_sign.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.down_load_install_selector));
-			if(this.infoList.get(position).getIs_photo_task() == 1 && this.infoList.get(position)
-					.getPhoto_status() == 0){
-				holder.tv_is_add_ntegral.setText("上传图片，完成任务");
-				holder.app_sign.setText("上传");
+			holder.app_sign.setBackgroundColor(Color
+					.parseColor("#ffef4136"));
+			if(this.infoList.get(position).getIs_photo_task() == 1){
+				if(this.infoList.get(position)
+						.getPhoto_status() == 0){
+					holder.alert.setText("上传图片，完成任务");
+					holder.app_sign.setText("上传");
+				}else{
+					if(this.infoList.get(position).getCurr_upload_photo() == this.infoList.get(position).getUpload_photo()){
+						if(this.infoList.get(position).getPhoto_status()==2){
+								holder.alert.setText("审核通过");
+						}else if(this.infoList.get(position).getPhoto_status()==4){
+							holder.alert.setText("审核通过,等待返回积分");
+						}else if(this.infoList.get(position).getPhoto_status()==3){
+							if(this.infoList.get(position).getAppeal() == 3){
+								holder.alert.setText("申诉成功，正在审核");
+							}else{
+								holder.alert.setText("审核失败");
+							}
+							
+						}else{
+							holder.alert.setText("上传完成，正在审核");
+						}
+						holder.app_sign.setText("查看");
+					}else{
+						holder.alert.setText("继续上传图片，完成任务");
+						holder.app_sign.setText("上传");
+					}
+				}
+				
 			}else{
-				holder.tv_is_add_ntegral.setText("继续签到，完成任务");
+				holder.alert.setText("继续签到，完成任务");
 				holder.app_sign.setText("签到");
 			}
 			
 		} else {
-			holder.app_sign.setBackgroundColor(context.getResources().getColor(R.color.greythem));
-			holder.tv_is_add_ntegral.setText("还没到签到时间");
+			holder.app_sign.setBackgroundColor(Color
+					.parseColor("#ffececec"));
+			holder.alert.setText("还没到签到时间");
 			holder.app_sign.setText("签到");
 		}
 		
@@ -173,15 +219,30 @@ public class DepthTaskAdapter extends BaseAdapter implements Listener{
 			
 			@Override
 			public void onClick(View v) {
-				
-				if(checkPackage(infoList.get(position).getPackage_name())){//如果 应用已经安装
-					if(infoList.get(position).getIs_photo_task()== 1 && infoList.get(position).getPhoto_status()==0){
+				if(infoList.get(position).getClicktype()==1){
+					Intent intent = new Intent(context,DownLoadAppActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable(Constant.ITEM, infoList.get(position));
+					intent.putExtras(bundle);
+					context.startActivity(intent);
+				}else if (checkPackage(infoList.get(position).getPackage_name())) {// 如果
+																				// 应用已经安装
+					if (infoList.get(position).getIs_photo_task() == 1){
 						Intent intent = new Intent(context,DownLoadAppActivity.class);
 						Bundle bundle = new Bundle();
 						bundle.putSerializable(Constant.ITEM, infoList.get(position));
 						intent.putExtras(bundle);
 						context.startActivity(intent);
-					}else{
+					} else {
+				
+//				if(checkPackage(infoList.get(position).getPackage_name())){//如果 应用已经安装
+//					if(infoList.get(position).getIs_photo_task()== 1 && infoList.get(position).getPhoto_status()==0){
+//						Intent intent = new Intent(context,DownLoadAppActivity.class);
+//						Bundle bundle = new Bundle();
+//						bundle.putSerializable(Constant.ITEM, infoList.get(position));
+//						intent.putExtras(bundle);
+//						context.startActivity(intent);
+//					}else{
 						DepthTaskAdapter.position = position;
 						doStartApplicationWithPackageName(infoList.get(position).getPackage_name());
 						
@@ -197,31 +258,6 @@ public class DepthTaskAdapter extends BaseAdapter implements Listener{
 										.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 							}
 						}, 10000, 30000);
-						
-//						timer.schedule(new TimerTask() {
-//							
-//							@Override
-//							public void run() {
-//								if(isTopActivity(infoList.get(position).getPackage_name())){
-//									if(moreThanTimes(System.currentTimeMillis(),2)){
-//										Log.i(TAG, "---运行超过2分钟，开始签到。。。---");
-//										timer.cancel();
-//										Message msg = mHandler.obtainMessage(1,infoList.get(position));
-//										msg.what = infoList.get(position).getInstall_id();
-//										msg.arg1 = infoList.get(position).getSign_rules();
-//										msg.arg2 = infoList.get(position).getIsAddIntegral();
-//										mHandler.sendMessage(msg);
-//									}else{
-//										Log.i(TAG, "---正在签到。。。---");
-//										editor.putInt(Constant.APP_SIGN_IS_SUCCESS, 1); //签到中
-//									}
-//								}else{
-//									Log.i(TAG, "---退出签到---");
-//									timer.cancel();
-//								}
-//								editor.commit();
-//							}
-//						}, 3000,60*1000);
 					}
 					
 				}else{
@@ -243,7 +279,7 @@ public class DepthTaskAdapter extends BaseAdapter implements Listener{
 		public TextView app_sign_rule;  //签到规则(隔几天才能签到，签到几次完成任务)
 		public TextView app_sign;       //签到按钮
 		public TextView app_sign_times; //签到次数
-		public TextView tv_is_add_ntegral;//提示是否已经获取下载积分
+		public TextView alert;//提示是否已经获取下载积分
 	}
 	
 	Handler mHandler = new Handler(){

@@ -1,5 +1,6 @@
 package com.chuannuo.qianbaosuoping.fragment;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -640,13 +641,27 @@ public class EarnFragment extends Fragment implements OnClickListener{
 												appInfo.setSignTime(true);
 											}
 											
-											if (appInfo.getIs_photo_task() != 1) {
+											if (appInfo.getPhoto_status() != 3) {
 												depthAppList.add(appInfo);
-											}else{
-												if(appInfo.getIs_photo() == 0 || appInfo.getPhoto_status() == 2){
+											} else {
+												String date = (null == obj
+														.getString("update_date") || obj
+														.getString(
+																"update_date")
+														.equals("null")) ? ""
+														: obj.getString("update_date");
+												if (canAppeal(date)) {
 													depthAppList.add(appInfo);
 												}
 											}
+											
+//											if (appInfo.getIs_photo_task() != 1) {
+//												depthAppList.add(appInfo);
+//											}else{
+//												if(appInfo.getIs_photo() == 0 || appInfo.getPhoto_status() == 2){
+//													depthAppList.add(appInfo);
+//												}
+//											}
 										}
 									}
 
@@ -668,6 +683,27 @@ public class EarnFragment extends Fragment implements OnClickListener{
 							Throwable throwable, JSONObject errorResponse) {
 						super.onFailure(statusCode, headers, throwable,
 								errorResponse);
+					}
+					
+					@SuppressLint("SimpleDateFormat")
+					private boolean canAppeal(String date) {
+						SimpleDateFormat df = new SimpleDateFormat(
+								"yyyy-MM-dd hh:mm:ss");
+						long time;
+						try {
+
+							time = df.parse(date).getTime();
+							if (time + 24 * 60 * 60 * 1000 > System
+									.currentTimeMillis()) {
+								return true;
+							}
+						} catch (ParseException e) {
+							// TODO Auto-generated catch
+							// block
+							e.printStackTrace();
+						}
+
+						return false;
 					}
 				});
 	}
