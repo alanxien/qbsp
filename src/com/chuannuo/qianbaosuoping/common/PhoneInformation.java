@@ -13,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -309,6 +311,26 @@ public class PhoneInformation {
         }
         return String.valueOf(total/1024);
     }
+	
+	/** 
+	 * @Title: getVersion 
+	 * @Description: TODO 
+	 * @param @param context
+	 * @param @return 
+	 * @return String
+	 * @throws 
+	 */
+	public static String getVersionName(Context context)//ªÒ»°∞Ê±æ∫≈  
+    {  
+        try {  
+            PackageInfo pi=context.getPackageManager().getPackageInfo(context.getPackageName(), 0);  
+            return pi.versionName;  
+        } catch (NameNotFoundException e) {  
+            // TODO Auto-generated catch block  
+            e.printStackTrace();  
+            return "1.0";  
+        }  
+    } 
 	
 }
 

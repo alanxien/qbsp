@@ -1,11 +1,15 @@
 package com.chuannuo.qianbaosuoping.common;
 
+import android.os.Environment;
+
 /**
  * @author alan.xie
  * @date 2014-10-13 下午2:41:55
  * @Description: 常量接口
  */
 public interface Constant {
+	
+	public static final String SDCARD = Environment.getExternalStorageDirectory().getPath();
 	
 	String PACKAGE_NAME = "com.chuannuo.qianbaosuoping";
 	String DOWNLOAD_DIR = "qbsp/download/";
@@ -122,7 +126,8 @@ public interface Constant {
 	String QUICK_LOGIN_URL = BASE_URL + "/getUserByImei";//吴手机号登陆
 	String BIND_MOBILE_URL = BASE_URL + "/bindMobile";   //绑定手机
 	String GET_RESOURCE_LIST_SDK = BASE_URL+"/getResourceListSDK";//游戏SDK列表
-	String APPEAL = BASE_URL + "appeal";//申诉
+	String APPEAL = BASE_URL + "/appeal";//申诉
+	String UPDATE = BASE_URL + "/update";//版本更新
 	
 	/**
 	 * 电影接口

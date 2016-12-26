@@ -57,6 +57,7 @@
             android:layout_margin="20.0dip"
             android:text="@string/dg_new_msg"
             android:textColor="@color/black1"
+            android:lineSpacingMultiplier="1.2"
             android:textSize="15.0sp"/>
         
         <ImageView 

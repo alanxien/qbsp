@@ -2,6 +2,7 @@ package com.chuannuo.qianbaosuoping;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,11 @@ import com.chuannuo.qianbaosuoping.adapter.FragmentAdapter;
 import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.common.HttpUtil;
 import com.chuannuo.qianbaosuoping.common.MyApplication;
+import com.chuannuo.qianbaosuoping.common.PhoneInformation;
+import com.chuannuo.qianbaosuoping.fragment.EarnFragment;
+import com.chuannuo.qianbaosuoping.fragment.MoreFragment;
+import com.chuannuo.qianbaosuoping.model.AppInfo;
+import com.chuannuo.qianbaosuoping.service.UpdateService;
 import com.chuannuo.qianbaosuoping.view.CustomDialog;
 import com.chuannuo.qianbaosuoping.view.CustomViewPager;
 import com.chuannuo.tangguo.TangGuoWall;
@@ -91,6 +97,7 @@ public class MainActivity extends BaseFragmentActivity implements
 	private int convertId;
 	private int convertScore;
 	static public Context context;
+	private CustomDialog updateDialog;
 	
 
 	@Override
@@ -135,47 +142,53 @@ public class MainActivity extends BaseFragmentActivity implements
 		
 		main_tab_home.setChecked(true);
 
+		checkVersions();
+	}
+	
+	private void checkVersions(){
+		String versionName = PhoneInformation.getVersionName(MainActivity.this);
+		
+		RequestParams params = new RequestParams();
+		params.put("updateapk_version_name", versionName);
+		HttpUtil.get(Constant.UPDATE, params,
+				new JsonHttpResponseHandler() {
+					@Override
+					public void onSuccess(int statusCode, Header[] headers,
+							JSONObject response) {
+						try {
+							int error = response.getInt("error");
+							if(error==1){
+								//有更新，下载
+								String updateVersion = response.getString("update_version");
+								String updateUrl = response.getString("update_url");
+								
+								Message msg = mHandler.obtainMessage();
+								msg.what = 2;
+								Bundle b = new Bundle();
+								b.putString("updateVersion", updateVersion);
+								b.putString("updateUrl", updateUrl);
+								msg.setData(b);
+								mHandler.sendMessage(msg);
+							}
+
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						super.onSuccess(statusCode, headers, response);
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							Throwable throwable, JSONObject errorResponse) {
+						super.onFailure(statusCode, headers, throwable,
+								errorResponse);
+					}
+					
+				});
 	}
 
 	private void initOfferWall() {
-		/*
-		 * 友盟更新
-		 */
-		UmengUpdateAgent.update(this);
-		MobclickAgent.updateOnlineConfig(this);
-		
-		//友盟更新回调接口
-		UmengUpdateAgent.setDialogListener(new UmengDialogButtonListener() {
-
-		    @Override
-		    public void onClick(int status) {
-		        switch (status) {
-		        case UpdateStatus.Update:
-		            break;
-		        case UpdateStatus.Ignore:
-		        case UpdateStatus.NotNow:
-		        	PackageManager manager;
-					PackageInfo info = null;
-					manager = MainActivity.this.getPackageManager();
-					try {
-
-						info = manager.getPackageInfo(MainActivity.this.getPackageName(), 0);
-
-						} catch (NameNotFoundException e) {
-
-						// TODO Auto-generated catch block
-
-						e.printStackTrace();
-
-						}
-					if(info.versionCode < 6){
-						MainActivity.this.finish();
-					}
-		            break;
-		        }
-		    }
-		});
-		agent.sync();
 		/*
 		 * 点乐积分墙
 		 */
@@ -405,6 +418,48 @@ public class MainActivity extends BaseFragmentActivity implements
 				if(msg.obj  != null){
 					modifyAdAlert(msg.obj);
 				}
+				break;
+			case 2:
+				final Bundle data = msg.getData();
+				
+				if(data!=null && !data.getString("updateVersion").isEmpty()
+						&& !data.getString("updateUrl").isEmpty()){
+					updateDialog = new CustomDialog(MainActivity.this, R.style.CustomDialog, new CustomDialog.CustomDialogListener() {
+						
+						@Override
+						public void onClick(View view) {
+							switch (view.getId()) {
+							case R.id.btn_left:
+								updateDialog.dismiss();
+								break;
+							case R.id.btn_right:
+								// 更新版本
+								Intent intent = new Intent(
+										MainActivity.this,
+										UpdateService.class);
+								intent.putExtra("packageUrl",
+										data.getString("updateUrl"));
+								intent.putExtra("updateVersion",
+										data.getString("updateVersion"));
+								startService(intent);
+								updateDialog.dismiss();
+								break;
+							default:
+								break;
+							}
+						}
+					}, 2);
+					updateDialog.setTitle("版本更新");
+					updateDialog.setBtnLeftStr("取消更新");
+					updateDialog.setBtnRightStr("立即更新");
+					updateDialog.setCancelable(false);
+					updateDialog.setCanceledOnTouchOutside(false);
+					updateDialog.setContent("检查到有新版本：V"+data.getString("updateVersion")+"\n"
+							+"1.更好的用户体验，bug修复。\n"
+							+"2.兑换审核加快，新增任务多。");
+					updateDialog.show();
+				}
+				
 				break;
 			default:
 				break;
