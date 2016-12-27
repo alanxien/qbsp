@@ -94,6 +94,7 @@ public class DownloadService extends Service implements Listener{
 
 	private Timer timer;
 	private boolean isRepeatDown;
+	private boolean isUpdate;
 	private List<AndroidAppProcess> aliList;
 	private int count = 0;
 
@@ -136,6 +137,8 @@ public class DownloadService extends Service implements Listener{
 		// 获取传值
 		appInfo = (AppInfo) intent.getSerializableExtra(Constant.ITEM);
 		isRepeatDown = intent.getBooleanExtra("isRepeatDown", false);
+		isUpdate = intent.getBooleanExtra("isUpdate", false);
+		
 		// 创建文件
 		if (android.os.Environment.MEDIA_MOUNTED.equals(android.os.Environment
 				.getExternalStorageState())) {
@@ -145,12 +148,16 @@ public class DownloadService extends Service implements Listener{
 					appInfo.getPackage_name() + ".apk");
 		}
 
-		// 注册 安装广播
-		IntentFilter appInstallFilter = new IntentFilter();
-		appInstallFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
-		appInstallFilter.addDataScheme("package");
-		getApplicationContext().registerReceiver(appInstallReceiver,
-				appInstallFilter);
+		if(!isUpdate){
+			// 注册 安装广播
+			IntentFilter appInstallFilter = new IntentFilter();
+			appInstallFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+			appInstallFilter.addDataScheme("package");
+			getApplicationContext().registerReceiver(appInstallReceiver,
+					appInstallFilter);
+		}
+		
+		
 		this.downloadNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		if (Build.VERSION.SDK_INT >= 16) {
 			builder = new Notification.Builder(this);

@@ -2,17 +2,12 @@ package com.chuannuo.qianbaosuoping;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.youmi.android.AdManager;
-import net.youmi.android.offers.EarnPointsOrderList;
 import net.youmi.android.offers.OffersManager;
-import net.youmi.android.offers.PointsChangeNotify;
-import net.youmi.android.offers.PointsEarnNotify;
-import net.youmi.android.offers.PointsManager;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -27,7 +22,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,7 +30,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
 import cn.dow.android.DOW;
 
 import com.chuannuo.qianbaosuoping.adapter.FragmentAdapter;
@@ -44,10 +37,8 @@ import com.chuannuo.qianbaosuoping.common.Constant;
 import com.chuannuo.qianbaosuoping.common.HttpUtil;
 import com.chuannuo.qianbaosuoping.common.MyApplication;
 import com.chuannuo.qianbaosuoping.common.PhoneInformation;
-import com.chuannuo.qianbaosuoping.fragment.EarnFragment;
-import com.chuannuo.qianbaosuoping.fragment.MoreFragment;
 import com.chuannuo.qianbaosuoping.model.AppInfo;
-import com.chuannuo.qianbaosuoping.service.UpdateService;
+import com.chuannuo.qianbaosuoping.service.DownloadService;
 import com.chuannuo.qianbaosuoping.view.CustomDialog;
 import com.chuannuo.qianbaosuoping.view.CustomViewPager;
 import com.chuannuo.tangguo.TangGuoWall;
@@ -55,11 +46,7 @@ import com.chuannuoq.DevInit;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.tencent.tauth.Tencent;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
-import com.umeng.update.UmengDialogButtonListener;
-import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UpdateStatus;
 /**
  * @author alan.xie
  * @date 2014-10-13 下午5:56:18
@@ -436,11 +423,17 @@ public class MainActivity extends BaseFragmentActivity implements
 								// 更新版本
 								Intent intent = new Intent(
 										MainActivity.this,
-										UpdateService.class);
-								intent.putExtra("packageUrl",
-										data.getString("updateUrl"));
-								intent.putExtra("updateVersion",
-										data.getString("updateVersion"));
+										DownloadService.class);
+								AppInfo app = new AppInfo();
+								app.setTitle("钱包夺宝_v"+data.getString("updateVersion"));
+								app.setPackage_name("com.chuannuo.qianbaosuoping");
+								app.setFile(data.getString("updateUrl"));
+								intent.putExtra(Constant.ITEM, app);
+								intent.putExtra("isUpdate", true);
+//								intent.putExtra("packageUrl",
+//										data.getString("updateUrl"));
+//								intent.putExtra("updateVersion",
+//										data.getString("updateVersion"));
 								startService(intent);
 								updateDialog.dismiss();
 								break;

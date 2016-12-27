@@ -241,8 +241,6 @@
             android:name="com.chuannuo.qianbaosuoping.service.LockScreenService">
             <intent-filter android:priority="1000"></intent-filter>
         </service>
-        <service android:name="com.chuannuo.qianbaosuoping.service.UpdateService"></service>
-    
         <!-- 下载service -->
         <service android:name="com.chuannuo.qianbaosuoping.service.DownloadService"></service>
         
