@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:singleLine="true"
-                android:text="别名"
+                android:text="别名：加载中，请稍后..."
                 android:textColor="@color/graythem1" />
 
             <TextView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:singleLine="true"
-                android:text="类型"
+                android:text="类型：加载中，请稍后..."
                 android:textColor="@color/graythem1" />
 
             <TextView
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:singleLine="true"
-                android:text="导演"
+                android:text="导演：加载中，请稍后..."
                 android:textColor="@color/graythem1" />
 
             <TextView
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:maxLines="2"
-                android:text="演员"
+                android:text="演员：加载中，请稍后..."
                 android:textColor="@color/graythem1" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:singleLine="true"
-                android:text="地区"
+                android:text="地区：加载中，请稍后..."
                 android:textColor="@color/graythem1" />
 
             <TextView
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:singleLine="true"
-                android:text="字幕"
+                android:text="字幕：加载中，请稍后..."
                 android:textColor="@color/graythem1" />
 
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:singleLine="true"
-                android:text="日期"
+                android:text="日期：加载中，请稍后..."
                 android:textColor="@color/graythem1" />
         </LinearLayout>
     </RelativeLayout>
@@ -140,39 +140,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/graythem"
-            android:padding="10dp"
-            android:text="百度网盘"
-            android:textColor="@color/grey" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="10dp" 
+            android:background="@color/graythem">
 
             <TextView
-                android:id="@+id/movie_baidu_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/movie_baidu_password"
-                android:autoLink="all"
-                android:padding="5dp"
-                android:text="链接"
-                android:textColor="#5C5CFF" />
+                android:text="百度网盘"
+                android:textColor="@color/grey" />
 
             <TextView
-                android:id="@+id/movie_baidu_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:padding="5dp"
                 android:text="密码"
-                android:textIsSelectable="true" />
+                android:textSize="12sp"
+                android:textColor="@color/grey" />
         </RelativeLayout>
+
+        <ListView 
+            android:id="@+id/lv_baidu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/graythem"
+        	android:dividerHeight="0.5dp">
+            
+        </ListView>
     </LinearLayout>
 
     <LinearLayout
@@ -181,30 +178,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/graythem"
-            android:padding="10dp"
-            android:text="迅雷下载"
-            android:textColor="@color/grey" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="10dp" 
+            android:background="@color/graythem">
 
             <TextView
-                android:id="@+id/movie_xunlei_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:autoLink="all"
-                android:padding="5dp"
-                android:text="链接"
-                android:textColor="#5C5CFF"
-                android:textIsSelectable="true" />
+                android:text="迅雷下载"
+                android:textColor="@color/grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="长按复制，用迅雷打开即可"
+                android:textSize="12sp"
+                android:textColor="@color/grey" />
         </RelativeLayout>
+
+        <ListView 
+            android:id="@+id/lv_xunlei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/graythem"
+        	android:dividerHeight="0.5dp">
+            
+        </ListView>
     </LinearLayout>
 
     <LinearLayout
@@ -221,22 +224,14 @@
             android:text="爱奇艺"
             android:textColor="@color/grey" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
+        <ListView 
+            android:id="@+id/lv_aiqiyi"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
-
-            <TextView
-                android:id="@+id/movie_aiqiyi_link"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:autoLink="all"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:text="链接"
-                android:textColor="#5C5CFF" />
-        </RelativeLayout>
+            android:divider="@color/graythem"
+        	android:dividerHeight="0.5dp">
+            
+        </ListView>
     </LinearLayout>
 
     <TextView
@@ -246,5 +241,13 @@
         android:padding="10dp"
         android:text="评论"
         android:textColor="@color/grey" />
+    
+    <ListView
+        android:id="@+id/lv_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/graythem"
+        android:dividerHeight="0.5dp" >
+    </ListView>
 
 </LinearLayout>

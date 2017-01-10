@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +71,10 @@ public class NewsAdapter extends BaseAdapter{
 			mHolder = new ViewHolder();
 			mHolder.ivLogo = (ImageView) view.findViewById(R.id.mi_iv_logo);
 			mHolder.tvTitle = (TextView) view.findViewById(R.id.tv_title);
+			
+			int x = (mScreenWidth-20)/3;
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(x,x+10);
+			mHolder.ivLogo.setLayoutParams(lp);
 			
 			view.setTag(mHolder);
 		} else {

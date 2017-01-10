@@ -54,14 +54,16 @@
             android:textColor="@color/white"
             android:textSize="15sp" />
     </RelativeLayout>
-
-    <ListView
-        android:id="@+id/lv_comments"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/graythem"
-        android:dividerHeight="0.5dp" >
-    </ListView>
     
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include 
+        		layout="@layout/movie_head_view"/>	
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
