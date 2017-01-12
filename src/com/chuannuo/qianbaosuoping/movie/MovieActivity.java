@@ -180,11 +180,7 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 
 		rlPlot.setOnClickListener(this);
 		tvComment.setOnClickListener(this);
-
 		list = new ArrayList<Comments>();
-		adapter = new CommentsAdapter(this, list);
-		listView.setAdapter(adapter);
-		fixListViewHeight(listView);
 	}
 
 	private void initData() {
@@ -357,7 +353,7 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 
 											list.add(c);
 										}
-										adapter.notifyDataSetChanged();
+										handler.sendEmptyMessage(2);
 									}
 								}
 							} else {
@@ -529,6 +525,11 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 				}
 
 				break;
+			case 2:
+				adapter = new CommentsAdapter(MovieActivity.this, list);
+				listView.setAdapter(adapter);
+				fixListViewHeight(listView);
+				break;
 
 			default:
 				break;
@@ -621,7 +622,7 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
             return;   
         }   
 
-        for (int i = 0, len = listAdapter.getCount(); i <= len; i++) {     
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {     
             View listViewItem = listAdapter.getView(i , null, listView);  
             // 计算子项View 的宽高   
             listViewItem.measure(0, 0);    
