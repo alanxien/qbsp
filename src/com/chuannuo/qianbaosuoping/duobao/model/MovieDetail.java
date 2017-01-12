@@ -1,6 +1,7 @@
 package com.chuannuo.qianbaosuoping.duobao.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class MovieDetail implements Serializable{
 
@@ -14,9 +15,9 @@ public class MovieDetail implements Serializable{
 	private String version;
 	private String create_date;
 	private String plot;
-	private BaiduModel baiduModel;
-	private AiqiyiModel aiqiyiModel;
-	private XunleiModel xunleiModel;
+	private List<BaiduModel> baiduModel;
+	private List<AiqiyiModel> aiqiyiModel;
+	private List<XunleiModel> xunleiModel;
 	
 	public String getStatus() {
 		return status;
@@ -80,22 +81,22 @@ public class MovieDetail implements Serializable{
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
-	public BaiduModel getBaiduModel() {
+	public List<BaiduModel> getBaiduModel() {
 		return baiduModel;
 	}
-	public void setBaiduModel(BaiduModel baiduModel) {
+	public void setBaiduModel(List<BaiduModel> baiduModel) {
 		this.baiduModel = baiduModel;
 	}
-	public AiqiyiModel getAiqiyiModel() {
+	public List<AiqiyiModel> getAiqiyiModel() {
 		return aiqiyiModel;
 	}
-	public void setAiqiyiModel(AiqiyiModel aiqiyiModel) {
+	public void setAiqiyiModel(List<AiqiyiModel> aiqiyiModel) {
 		this.aiqiyiModel = aiqiyiModel;
 	}
-	public XunleiModel getXunleiModel() {
+	public List<XunleiModel> getXunleiModel() {
 		return xunleiModel;
 	}
-	public void setXunleiModel(XunleiModel xunleiModel) {
+	public void setXunleiModel(List<XunleiModel> xunleiModel) {
 		this.xunleiModel = xunleiModel;
 	}
 

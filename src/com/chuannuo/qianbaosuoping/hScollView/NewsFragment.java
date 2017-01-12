@@ -20,9 +20,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,14 +52,25 @@ public class NewsFragment extends Fragment {
 	private Editor editor;
 	private GridView gridView;
 	private SwipeRefreshLayout swipeRefreshLayout;
+	
+	private int page = 1;
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
+	 */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = LayoutInflater.from(getActivity()).inflate(
 				R.layout.fragment_news, null);
-
+		
 		pref = this.getActivity().getSharedPreferences(Constant.STUDENTS_EARN,
 				FragmentActivity.MODE_PRIVATE);
 		editor = pref.edit();
@@ -67,7 +81,23 @@ public class NewsFragment extends Fragment {
 
 		gridView = (GridView) view.findViewById(R.id.gridview);
 		swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
-
+		gridView.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				if(view.getLastVisiblePosition() == (view.getCount() - 1) && view.getCount()>0){
+					page++;
+					getMovieList(page);
+				}
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				
+			}
+		});
+		
 		swipeRefreshLayout.setColorSchemeResources(
 				android.R.color.holo_red_light,
 				android.R.color.holo_green_light,
@@ -76,7 +106,7 @@ public class NewsFragment extends Fragment {
 				.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 					@Override
 					public void onRefresh() {
-						getMovieList();
+						getMovieList(1);
 					}
 				});
 		swipeRefreshLayout.post(new Runnable() {
@@ -84,7 +114,7 @@ public class NewsFragment extends Fragment {
 			@Override
 			public void run() {
 				swipeRefreshLayout.setRefreshing(true);
-				getMovieList();
+				getMovieList(1);
 			}
 		});
 
@@ -140,10 +170,11 @@ public class NewsFragment extends Fragment {
 		super.setUserVisibleHint(isVisibleToUser);
 	}
 
-	private void getMovieList() {
+	private void getMovieList(final int page) {
 		RequestParams params = new RequestParams();
 		params.put("app_id", pref.getString(Constant.APPID, "0"));
 		params.put("type", title);
+		params.put("page", page);
 		HttpUtil.get(Constant.GET_MOVIE_LIST, params,
 				new JsonHttpResponseHandler() {
 
@@ -152,7 +183,9 @@ public class NewsFragment extends Fragment {
 							JSONObject response) {
 						try {
 							if (response.getInt("code") == 1) {
-								newsList.clear();
+								if(page == 1){
+									newsList.clear();
+								}
 								JSONArray jsonArry = response
 										.getJSONArray("data");
 								if (jsonArry != null && !jsonArry.equals("[]")) {
@@ -177,8 +210,8 @@ public class NewsFragment extends Fragment {
 
 											newsList.add(m);
 										}
+										
 										if(mAdapter!=null){
-											
 											mAdapter.notifyDataSetChanged();
 										}
 									}

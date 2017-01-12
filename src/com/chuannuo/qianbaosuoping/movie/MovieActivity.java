@@ -30,10 +30,12 @@ import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -90,11 +92,16 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 	private ListView listView;
 	private List<Comments> list;
 	private CommentsAdapter adapter;
-	
-	private TextView tvComment;
 	String comment;
 	private CustomDialog mDialog;
-	private View headView;
+	private TextView tvComment;
+	
+	private ListView bListView;
+	private ListView xListView;
+	private ListView aListView;
+	private BaiduAdapter bLinksAdapter;
+	private XunleiAdapter xLinksAdapter;
+	private AiqiyiAdapter aLinksAdapter;
 
 	/** 屏幕宽度 */
 	private int mScreenWidth = 0;
@@ -146,44 +153,38 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 
 	private void initView() {
 		// TODO Auto-generated method stub
-		headView = getLayoutInflater().inflate(
-				R.layout.movie_head_view, null);
-		ivMovieLogo = (ImageView) headView.findViewById(R.id.am_iv_logo);
-		tvMovieAlias = (TextView) headView.findViewById(R.id.movie_alias);
-		tvMovieArea = (TextView) headView.findViewById(R.id.movie_area);
-		tvMovieDate = (TextView) headView.findViewById(R.id.movie_date);
-		tvMovieDirector = (TextView) headView.findViewById(R.id.movie_director);
-		tvMoviePerformer = (TextView) headView.findViewById(R.id.movie_performer);
-		tvMovieSubtitles = (TextView) headView.findViewById(R.id.movie_subtitles);
-		tvMovieTitle = (TextView) headView.findViewById(R.id.movie_title);
-		tvMovieType = (TextView) headView.findViewById(R.id.movie_type);
-		tvMoviePlot = (TextView) headView.findViewById(R.id.movie_plot);
-		rlPlot = (RelativeLayout) headView.findViewById(R.id.rl_plot);
-		ivPlot = (ImageView) headView.findViewById(R.id.iv_plot);
+		ivMovieLogo = (ImageView) findViewById(R.id.am_iv_logo);
+		tvMovieAlias = (TextView) findViewById(R.id.movie_alias);
+		tvMovieArea = (TextView) findViewById(R.id.movie_area);
+		tvMovieDate = (TextView) findViewById(R.id.movie_date);
+		tvMovieDirector = (TextView) findViewById(R.id.movie_director);
+		tvMoviePerformer = (TextView) findViewById(R.id.movie_performer);
+		tvMovieSubtitles = (TextView) findViewById(R.id.movie_subtitles);
+		tvMovieTitle = (TextView) findViewById(R.id.movie_title);
+		tvMovieType = (TextView) findViewById(R.id.movie_type);
+		tvMoviePlot = (TextView) findViewById(R.id.movie_plot);
+		rlPlot = (RelativeLayout) findViewById(R.id.rl_plot);
+		ivPlot = (ImageView) findViewById(R.id.iv_plot);
 		
 		
 		listView = (ListView) findViewById(R.id.lv_comments);
 		tvComment = (TextView) findViewById(R.id.tv_comment);
-		
-		listView.addHeaderView(headView);
 
 		llBaidu = (LinearLayout) findViewById(R.id.movie_ll_baidu);
 		llAiqiyi = (LinearLayout) findViewById(R.id.movie_ll_aiqiyi);
 		llXunlei = (LinearLayout) findViewById(R.id.movie_ll_xunlei);
 
-		tvAqyLink = (TextView) findViewById(R.id.movie_aiqiyi_link);
-		tvXlLink = (TextView) findViewById(R.id.movie_xunlei_link);
-		tvBdLink = (TextView) findViewById(R.id.movie_baidu_link);
-		tvBdPasswrod = (TextView) findViewById(R.id.movie_baidu_password);
+		bListView = (ListView) findViewById(R.id.lv_baidu);
+		xListView = (ListView) findViewById(R.id.lv_xunlei);
+		aListView = (ListView) findViewById(R.id.lv_aiqiyi);
 
 		rlPlot.setOnClickListener(this);
-		tvBdLink.setOnClickListener(this);
 		tvComment.setOnClickListener(this);
-		headView.findViewById(R.id.movie_baidu_link).setOnClickListener(this);
 
 		list = new ArrayList<Comments>();
 		adapter = new CommentsAdapter(this, list);
 		listView.setAdapter(adapter);
+		fixListViewHeight(listView);
 	}
 
 	private void initData() {
@@ -234,35 +235,70 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 											.getJSONArray("film_download_link_xunlei");
 									JSONArray jaAiqiyi = data
 											.getJSONArray("film_download_link_shiping");
-									if (jaBaidu != null && jaBaidu.length() > 0) {
-										JSONObject baidu = jaBaidu
-												.getJSONObject(0);
-										BaiduModel b = new BaiduModel();
-										b.setLink(baidu.getString("link"));
-										b.setTitle(baidu.getString("title"));
-										b.setPassword(baidu
-												.getString("password"));
-										md.setBaiduModel(b);
+									
+									int bSize = jaBaidu.length();
+									int xSize = jaXunlei.length();
+									int aSize = jaAiqiyi.length();
+									
+									if (jaBaidu != null &&  bSize> 0) {
+										List<BaiduModel> list = new ArrayList<BaiduModel>();
+										BaiduModel b ;
+										JSONObject baidu;
+										for(int i=0;i<bSize; i++){
+											baidu = jaBaidu
+													.getJSONObject(i);
+											if(baidu!=null){
+												b = new BaiduModel();
+												b.setType(1);
+												b.setLink(baidu.getString("link"));
+												b.setTitle(baidu.getString("title"));
+												b.setPassword(baidu.getString("password"));
+												list.add(b);
+											}
+										}
+										md.setBaiduModel(list);
 									}
 
 									if (jaXunlei != null
-											&& jaXunlei.length() > 0) {
-										JSONObject xunlei = jaXunlei
-												.getJSONObject(0);
-										XunleiModel x = new XunleiModel();
-										x.setLink(xunlei.getString("link"));
-										x.setTitle(xunlei.getString("title"));
-										md.setXunleiModel(x);
+											&& xSize > 0) {
+										
+										List<XunleiModel> list = new ArrayList<XunleiModel>();
+										XunleiModel x ;
+										JSONObject xunlei;
+										for(int i=0;i<xSize; i++){
+											xunlei = jaXunlei
+													.getJSONObject(i);
+											if(xunlei!=null){
+												x = new XunleiModel();
+												x.setType(2);
+												x.setLink(xunlei.getString("link"));
+												x.setTitle(xunlei.getString("title"));
+												x.setPassword("");
+												list.add(x);
+											}
+										}
+										md.setXunleiModel(list);
 									}
 
 									if (jaAiqiyi != null
-											&& jaAiqiyi.length() > 0) {
-										JSONObject aiqiyi = jaAiqiyi
-												.getJSONObject(0);
-										AiqiyiModel a = new AiqiyiModel();
-										a.setLink(aiqiyi.getString("link"));
-										a.setTitle(aiqiyi.getString("title"));
-										md.setAiqiyiModel(a);
+											&& aSize > 0) {
+										
+										List<AiqiyiModel> list = new ArrayList<AiqiyiModel>();
+										AiqiyiModel a;
+										JSONObject aiqiyi;
+										for(int i=0;i<aSize; i++){
+											aiqiyi = jaAiqiyi
+													.getJSONObject(i);
+											if(aiqiyi!=null){
+												a = new AiqiyiModel();
+												a.setType(3);
+												a.setLink(aiqiyi.getString("link"));
+												a.setTitle(aiqiyi.getString("title"));
+												a.setPassword("");
+												list.add(a);
+											}
+										}
+										md.setAiqiyiModel(list);
 									}
 
 									movie.setMovieDetail(md);
@@ -408,22 +444,6 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 				tvMoviePlot.setMaxLines(3);
 			}
 			break;
-		case R.id.movie_baidu_link:
-			copy(movie.getMovieDetail().getBaiduModel().getPassword(), this);
-			break;
-		case R.id.movie_xunlei_link:
-			String packageName = "com.xunlei.downloadprovider";
-			if (isAppInstalled(MovieActivity.this, packageName)) {
-				copy(movie.getMovieDetail().getXunleiModel().getLink(), this);
-				doStartApplicationWithPackageName(packageName);
-			} else {
-				Intent intent = new Intent(Intent.ACTION_VIEW,
-						Uri.parse(Constant.XUNLEI_APK_URL));
-				intent.addCategory("android.intent.category.DEFAULT");
-				startActivity(intent);
-			}
-
-			break;
 		case R.id.tv_comment:
 			if(mDialog!=null){
 				mDialog.show();
@@ -477,30 +497,33 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 					tvMoviePlot.setText(getResources().getString(
 							R.string.movie_plot, m.getPlot()));
 				}
-				BaiduModel bd = m.getBaiduModel();
-				AiqiyiModel aq = m.getAiqiyiModel();
-				XunleiModel xl = m.getXunleiModel();
+				List<BaiduModel> bdList = m.getBaiduModel();
+				List<AiqiyiModel> aqList = m.getAiqiyiModel();
+				List<XunleiModel> xlList = m.getXunleiModel();
 
-				if (bd != null) {
+				if (bdList != null && !bdList.isEmpty()) {
 					llBaidu.setVisibility(View.VISIBLE);
-					tvBdLink.setText(bd.getLink());
-					tvBdLink.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-					tvBdPasswrod.setText(getResources().getString(
-							R.string.movie_password, bd.getPassword()));
+					bLinksAdapter = new BaiduAdapter(MovieActivity.this, bdList);
+					bListView.setAdapter(bLinksAdapter);
+					fixListViewHeight(bListView);
 				} else {
 					llBaidu.setVisibility(View.GONE);
 				}
 
-				if (aq != null) {
+				if (aqList != null && !aqList.isEmpty()) {
 					llAiqiyi.setVisibility(View.VISIBLE);
-					tvAqyLink.setText(aq.getLink());
+					aLinksAdapter = new AiqiyiAdapter(MovieActivity.this, aqList);
+					aListView.setAdapter(aLinksAdapter);
+					fixListViewHeight(aListView);
 				} else {
 					llAiqiyi.setVisibility(View.GONE);
 				}
 
-				if (xl != null) {
+				if (xlList != null && !xlList.isEmpty()) {
 					llXunlei.setVisibility(View.VISIBLE);
-					tvXlLink.setText(xl.getLink());
+					xLinksAdapter = new XunleiAdapter(MovieActivity.this, xlList);
+					xListView.setAdapter(xLinksAdapter);
+					fixListViewHeight(xListView);
 				} else {
 					llXunlei.setVisibility(View.GONE);
 				}
@@ -589,4 +612,27 @@ public class MovieActivity extends BaseActivity implements OnClickListener {
 		String dateString = formatter.format(currentTime);;
 		return dateString;
 	}
+	
+	public void fixListViewHeight(ListView listView) {   
+        // 如果没有设置数据适配器，则ListView没有子项，返回。  
+        ListAdapter listAdapter = listView.getAdapter();  
+        int totalHeight = 0;   
+        if (listAdapter == null) {   
+            return;   
+        }   
+
+        for (int i = 0, len = listAdapter.getCount(); i <= len; i++) {     
+            View listViewItem = listAdapter.getView(i , null, listView);  
+            // 计算子项View 的宽高   
+            listViewItem.measure(0, 0);    
+            // 计算所有子项的高度和
+            totalHeight += listViewItem.getMeasuredHeight();    
+        }   
+        ViewGroup.LayoutParams params = listView.getLayoutParams();   
+        // listView.getDividerHeight()获取子项间分隔符的高度   
+        // params.height设置ListView完全显示需要的高度    
+        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));   
+        listView.setLayoutParams(params);   
+
+    }   
 }
