@@ -87,7 +87,13 @@ public class NewsFragment extends Fragment {
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 				if(view.getLastVisiblePosition() == (view.getCount() - 1) && view.getCount()>0){
 					page++;
-					getMovieList(page);
+					if(channelId==1){
+						getMovieList(Constant.GET_MOVIE_LIST,page,1);
+					}else if(channelId==2){
+						getMovieList(Constant.GET_MOVIE_NEWS,page,0);
+					}else{
+						getMovieList(Constant.GET_MOVIE_LIST,page,0);
+					}
 				}
 			}
 			
@@ -106,7 +112,13 @@ public class NewsFragment extends Fragment {
 				.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 					@Override
 					public void onRefresh() {
-						getMovieList(1);
+						if(channelId==1){
+							getMovieList(Constant.GET_MOVIE_LIST,1,1);
+						}else if(channelId==2){
+							getMovieList(Constant.GET_MOVIE_NEWS,1,0);
+						}else{
+							getMovieList(Constant.GET_MOVIE_LIST,1,0);
+						}
 					}
 				});
 		swipeRefreshLayout.post(new Runnable() {
@@ -114,7 +126,13 @@ public class NewsFragment extends Fragment {
 			@Override
 			public void run() {
 				swipeRefreshLayout.setRefreshing(true);
-				getMovieList(1);
+				if(channelId==1){
+					getMovieList(Constant.GET_MOVIE_LIST,1,1);
+				}else if(channelId==2){
+					getMovieList(Constant.GET_MOVIE_NEWS,1,0);
+				}else{
+					getMovieList(Constant.GET_MOVIE_LIST,1,0);
+				}
 			}
 		});
 
@@ -170,12 +188,15 @@ public class NewsFragment extends Fragment {
 		super.setUserVisibleHint(isVisibleToUser);
 	}
 
-	private void getMovieList(final int page) {
+	private void getMovieList(String url,final int page,int isCommend) {
 		RequestParams params = new RequestParams();
 		params.put("app_id", pref.getString(Constant.APPID, "0"));
-		params.put("type", title);
+		if(isCommend == 0){
+			params.put("type", title);
+		}
 		params.put("page", page);
-		HttpUtil.get(Constant.GET_MOVIE_LIST, params,
+		params.put("is_commend", isCommend);
+		HttpUtil.get(url, params,
 				new JsonHttpResponseHandler() {
 
 					@Override

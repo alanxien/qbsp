@@ -157,20 +157,23 @@ public class MovieFragment extends Fragment implements OnClickListener{
 	}
 	/** 获取Column栏目 数据*/
 	private void initColumnData() {
-		ChannelItem channelItem1 = new ChannelItem(1, "动作", 1, 1);
-		ChannelItem channelItem2 = new ChannelItem(2, "喜剧", 2, 0);
-		ChannelItem channelItem3 = new ChannelItem(3, "爱情", 3, 0);
-		ChannelItem channelItem4 = new ChannelItem(4, "战争", 4, 0);
-		ChannelItem channelItem5 = new ChannelItem(5, "科幻", 5, 0);
-		ChannelItem channelItem6 = new ChannelItem(6, "恐怖", 6, 0);
-		ChannelItem channelItem7 = new ChannelItem(7, "历史", 7, 0);
-		ChannelItem channelItem8 = new ChannelItem(8, "武侠", 8, 0);
-		ChannelItem channelItem9 = new ChannelItem(9, "美国", 9, 0);
-		ChannelItem channelItem10 = new ChannelItem(10, "英国", 10, 0);
-		ChannelItem channelItem11 = new ChannelItem(11, "大陆", 11, 0);
-		ChannelItem channelItem12 = new ChannelItem(12, "香港", 12, 0);
-		ChannelItem channelItem13 = new ChannelItem(13, "韩国", 13, 0);
-		ChannelItem channelItem14 = new ChannelItem(14, "日本", 14, 0);
+		ChannelItem channelItem1 = new ChannelItem(1, "精选", 1, 1);
+		ChannelItem channelItem2 = new ChannelItem(2, "最新", 2, 0);
+		ChannelItem channelItem3 = new ChannelItem(3, "动作", 3, 0);
+		ChannelItem channelItem4 = new ChannelItem(4, "喜剧", 4, 0);
+		ChannelItem channelItem5 = new ChannelItem(5, "爱情", 5, 0);
+		ChannelItem channelItem6 = new ChannelItem(6, "战争", 6, 0);
+		ChannelItem channelItem7 = new ChannelItem(7, "科幻", 7, 0);
+		ChannelItem channelItem8 = new ChannelItem(8, "恐怖", 8, 0);
+		ChannelItem channelItem9 = new ChannelItem(9, "历史", 9, 0);
+		ChannelItem channelItem10 = new ChannelItem(10, "武侠", 10, 0);
+		ChannelItem channelItem11 = new ChannelItem(11, "美国", 11, 0);
+		ChannelItem channelItem12 = new ChannelItem(12, "英国", 12, 0);
+		ChannelItem channelItem13 = new ChannelItem(13, "大陆", 13, 0);
+		ChannelItem channelItem14 = new ChannelItem(14, "香港", 14, 0);
+		ChannelItem channelItem15 = new ChannelItem(15, "韩国", 15, 0);
+		ChannelItem channelItem16 = new ChannelItem(16, "日本", 16, 0);
+		ChannelItem channelItem17 = new ChannelItem(17, "电视剧", 17, 0);
 		
 		userChannelList.add(channelItem1);
 		userChannelList.add(channelItem2);
@@ -186,6 +189,9 @@ public class MovieFragment extends Fragment implements OnClickListener{
 		userChannelList.add(channelItem12);
 		userChannelList.add(channelItem13);
 		userChannelList.add(channelItem14);
+		userChannelList.add(channelItem15);
+		userChannelList.add(channelItem16);
+		userChannelList.add(channelItem17);
 	}
 	
 	/** 

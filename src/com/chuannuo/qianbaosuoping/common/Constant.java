@@ -133,6 +133,7 @@ public interface Constant {
 	 * 电影接口
 	 */
 	String GET_MOVIE_LIST = BASE_URL+"/getMovieList";
+	String GET_MOVIE_NEWS = BASE_URL+"/getMovieListNew";
 	String GET_MOVIE_COMMENT_LIST = BASE_URL+"/movieCommentList";
 	String POST_MOVIE_COMMENT = BASE_URL+"/movieComment";
 	String GET_MOVIE_INFO = BASE_URL+"/getMovieInfo";
